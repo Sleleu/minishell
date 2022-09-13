@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/13 17:37:29 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/13 19:52:05 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = minishell
 LIBFT = ./src/libft/libft.a
 
 SRC = src/main.c\
+	  src/builtin/echo.c\
+	  src/builtin/pwd.c\
 
 OBJ = $(SRC:.c=.o)
 

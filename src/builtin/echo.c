@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 19:52:57 by sleleu           ###   ########.fr       */
+/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:41:00 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../include/minishell.h"
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <curses.h>
-# include <term.h>
-# include <limits.h>
-# include <errno.h>
-# include "libft.h"
+int	ft_echo(int argc, char **argv)
+{
+	int i;
 
-/* BUILTINS */
-
-int	ft_echo(int argc, char **argv);
-int	ft_pwd(void);
-
-#endif
+	i = 1;
+	if (argc > 1)
+	{
+		while (argv[i])
+		{
+			printf("%s", argv[i]);
+			if (argv[i + 1])
+				printf(" ");
+			i++;	
+		}
+		printf("\n");
+		return (1);
+	}
+	else
+		return (0);
+}
