@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/04 21:04:48 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	int i;
+	size_t	i;
+	size_t	dst_len;
+	size_t	src_len;
 
-	i = 1;
-	if (argc > 1)
+	i = 0;
+	dst_len = ft_strlen(dst);
+	src_len = ft_strlen(src);
+	if (size <= dst_len)
+		return (size + src_len);
+	while (src[i] && dst_len < size - 1)
 	{
-		while (argv[i])
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
-		}
-		printf("\n");
-		return (1);
+		dst[dst_len] = src[i];
+		dst_len++;
+		i++;
 	}
-	else
-		return (0);
+	dst[dst_len] = '\0';
+	return (src_len + (dst_len - i));
 }

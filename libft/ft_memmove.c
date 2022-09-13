@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/03 12:07:47 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int i;
+	unsigned char			*d;
+	const unsigned char		*s;
+	int						i;
 
-	i = 1;
-	if (argc > 1)
+	d = dst;
+	s = src;
+	if (d > s)
 	{
-		while (argv[i])
+		i = (int)len - 1;
+		while (i >= 0)
 		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
+			d[i] = s[i];
+			i--;
 		}
-		printf("\n");
-		return (1);
 	}
 	else
-		return (0);
+	{
+		i = 0;
+		while (i < (int)len)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	}
+	return (dst);
 }

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/03 11:47:11 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+int	ft_atoi(const char *str)
 {
-	int i;
+	int		result;
+	int		sign;
 
-	i = 1;
-	if (argc > 1)
+	result = 0;
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		while (argv[i])
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
-		}
-		printf("\n");
-		return (1);
+		if (*str == '-')
+			sign *= -1;
+		str++;
 	}
-	else
-		return (0);
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * sign);
 }

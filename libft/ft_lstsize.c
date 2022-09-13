@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/17 17:12:10 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+int	ft_lstsize(t_list *lst)
 {
-	int i;
+	int	i;
 
-	i = 1;
-	if (argc > 1)
+	i = 0;
+	while (lst)
 	{
-		while (argv[i])
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
-		}
-		printf("\n");
-		return (1);
+		lst = lst->next;
+		i++;
 	}
-	else
-		return (0);
+	return (i);
 }

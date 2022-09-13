@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/17 19:30:33 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int i;
+	t_list	*last;
 
-	i = 1;
-	if (argc > 1)
+	if (*lst)
 	{
-		while (argv[i])
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
-		}
-		printf("\n");
-		return (1);
+		last = ft_lstlast(*lst);
+		last->next = new;
 	}
 	else
-		return (0);
+		*lst = new;
 }

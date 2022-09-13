@@ -3,59 +3,87 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
+#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/13 19:52:05 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/13 21:03:51 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+### COMPILATION ###
+CC				= 	gcc
+FLAGS			= 	-Wall -Wextra -Werror
 
-LIBFT = ./src/libft/libft.a
+### EXECUTABLE ###
+NAME			= 	minishell
+PROG			= 	minishell
 
-SRC = src/main.c\
-	  src/builtin/echo.c\
-	  src/builtin/pwd.c\
+### PATHS ###
+INCLUDE			= 	include
+LIBFT_PATH		= 	libft
+SRC_PATH		= 	src
+OBJ_PATH		= 	obj
 
-OBJ = $(SRC:.c=.o)
+### SOURCE FILES ###
+SOURCES 		= 	main.c \
+					builtin/echo.c \
+					builtin/pwd.c \
 
-CC = gcc
+### OBJECTS ###
+SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
+OBJ				= 	$(addprefix $(OBJ_PATH)/,$(SOURCES:.c=.o))
 
-CFLAGS = -Wall -Werror -Wextra
+### COLORS ###
+NOC				= 	\033[0m
+RED				= 	\033[1;31m
+GREEN			= 	\033[1;32m
+YELLOW			= 	\033[1;33m
+BLUE			= 	\033[1;34m
+WHITE			= 	\033[1;37m
 
-######### COLORS ##########
+### RULES ###
 
-END = \033[0m"
+# ------- ALL
 
-GREY = "\x1b[30m
-RED = "\033[0;31m
-GREEN = "\033[0;32m
-YELLOW = "\033[0;33m
-BLUE = "\x1b[34m
-PURPLE = "\x1b[35m
-CYAN = "\x1b[36m
-WHITE = "\x1b[37m
-
-all: $(NAME)
+all: 	$(NAME)
 
 $(NAME): $(OBJ)
-	make -C src/libft
-	$(CC) $(CFLAGS) $(OBJ) -L src/libft -lreadline -lft -g -o $(NAME)
-	@echo $(GREEN)			MAKE MINISHELL			$(END)
+	@echo "$(YELLOW)libft..$(NOC)"
+	@make -sC $(LIBFT_PATH)
+	@$(CC) $(FLAGS) -L $(LIBFT_PATH) -o $(PROG) $^ -lft
+	@echo "$(GREEN)$@ ✅$(NOC)"
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INCLUDE)/$(NAME).h
+	@mkdir -p obj && mkdir -p obj/builtin
+	@$(CC) $(FLAGS) -I$(INCLUDE) -c -o $@ $<
+	@echo "$(BLUE)gcc $(WHITE)$(notdir $@)$(NOC)"
+
+# ------- Clean
 
 clean:
-	rm -rf $(OBJ)
-	make clean -C src/libft
-	@echo $(YELLOW)			CLEAN MINISHELL			$(END)
+	@echo "$(RED)clean$(NOC)"
+	@make clean -sC $(LIBFT_PATH)
+	@rm -rf $(OBJ_PATH)
 
 fclean: clean
-	rm -rf $(NAME)
-	make fclean -C src/libft
+	@echo "$(RED)fclean$(NOC)"
+	@make fclean -sC $(LIBFT_PATH)
+	@rm -f $(NAME)
+	@rm -f $(NAME_BONUS)
 
 re: fclean all
-	@echo $(YELLOW)			RE MINISHELL			$(END)
 
-.PHONY: all clean fclean re
+# ------- Gadget
 
-.SILENT:
+norm:
+	-@norminette $(SRC_PATH)
+	-@norminette $(SRC_BONUS_PATH)
+	-@norminette $(INCLUDE)
+
+push: fclean
+	git add .
+	git status
+	git commit -m minishell
+	git push
+
+.PHONY:	 default mandatory clean fclean re norm push

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/17 22:45:34 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int i;
+	t_list	*new_list;
+	t_list	*new;
 
-	i = 1;
-	if (argc > 1)
+	if (!lst)
+		return (NULL);
+	new_list = ft_lstnew(f(lst->content));
+	lst = lst->next;
+	while (lst)
 	{
-		while (argv[i])
+		new = ft_lstnew(f(lst->content));
+		if (!new)
 		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
+			ft_lstclear(&new_list, del);
+			return (NULL);
 		}
-		printf("\n");
-		return (1);
+		ft_lstadd_back(&new_list, new);
+		lst = lst->next;
 	}
-	else
-		return (0);
+	return (new_list);
 }

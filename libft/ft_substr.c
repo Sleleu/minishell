@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 21:01:23 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/05/04 20:35:36 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "./libft.h"
 
-int	ft_echo(int argc, char **argv)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int i;
+	char	*tab;
+	size_t	i;
 
-	i = 1;
-	if (argc > 1)
+	i = 0;
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	if (start + len > ft_strlen(s))
+		len = len - start;
+	if (start > ft_strlen(s))
+		len = 0;
+	tab = ft_calloc(len + 1, sizeof(char));
+	if (tab == NULL)
+		return (NULL);
+	while (i < len && s[start])
 	{
-		while (argv[i])
-		{
-			printf("%s", argv[i]);
-			if (argv[i + 1])
-				printf(" ");
-			i++;	
-		}
-		printf("\n");
-		return (1);
+		tab[i] = s[start];
+		i++;
+		start++;
 	}
-	else
-		return (0);
+	return (tab);
 }
