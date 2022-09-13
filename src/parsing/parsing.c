@@ -6,7 +6,8 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 21:26:31 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/13 21:26:32 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:26:55 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/minishell.h"
