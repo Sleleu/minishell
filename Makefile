@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/13 21:03:51 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/13 21:06:46 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,6 @@ re: fclean all
 
 norm:
 	-@norminette $(SRC_PATH)
-	-@norminette $(SRC_BONUS_PATH)
 	-@norminette $(INCLUDE)
 
 push: fclean
