@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/14 16:56:27 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/14 17:34:38 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ all: 	$(NAME)
 $(NAME): $(OBJ)
 	@echo "$(YELLOW)libft..$(NOC)"
 	@make -sC $(LIBFT_PATH)
-	@$(CC) $(FLAGS) -L $(LIBFT_PATH) -o $(PROG) $^ -lft
+	@$(CC) $(FLAGS) -L $(LIBFT_PATH) -o $(PROG) $^ -lft -lreadline
 	@echo "$(GREEN)$@ ✅$(NOC)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INCLUDE)/$(NAME).h
