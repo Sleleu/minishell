@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 17:57:12 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/14 20:14:58 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int		process(char *line, char **env)
 {
-	if (!line || line[0] == EOF)
+	if (line == NULL || !strcmp("exit", line)) // ctrl+D | exit
 	{
-		ft_putstr_fd("\n", 2);
 		free(line);
 		return (0) ;
 	}
@@ -30,11 +29,6 @@ int		process(char *line, char **env)
 			ft_echo(line);
 		else if (!strncmp("unset", line, ft_strlen("unset")))
 			ft_unset(env, line);
-		else if (!strcmp("exit", line))
-		{
-			free(line);
-			return (0);
-		}
 		free(line);
 	}
 	return (1);
@@ -52,7 +46,7 @@ int		main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ");
-		if (ft_strlen(line) > 0)
+		if (line && ft_strlen(line) > 0)
 			add_history(line);
 		ft_parser(line);
 		if (!process(line, env))
