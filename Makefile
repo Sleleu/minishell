@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleleu <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/13 21:03:51 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/14 14:49:45 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ OBJ_PATH		= 	obj
 SOURCES 		= 	main.c \
 					builtin/echo.c \
 					builtin/pwd.c \
+					builtin/env.c\
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))

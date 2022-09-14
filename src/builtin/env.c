@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 14:49:05 by sleleu           ###   ########.fr       */
+/*   Created: 2022/09/14 14:32:51 by sleleu            #+#    #+#             */
+/*   Updated: 2022/09/14 14:49:08 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include <stdio.h>
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../libft/libft.h"
-# include <curses.h>
-# include <term.h>
-# include <limits.h>
+int ft_env(char **envp)
+{
+	int i;
 
-/* UTILS */
-
-int	ft_pwd(void);
-int ft_env(char **envp);
-
-#endif
+	i = 0;
+	while(envp[i])
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
+	return (1);
+}

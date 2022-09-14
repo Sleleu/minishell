@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 20:57:29 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/14 14:49:32 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		process(char *line)
+int		process(char *line, char **env)
 {
 	if (!line || line[0] == EOF)
 	{
@@ -24,6 +24,8 @@ int		process(char *line)
 	{
 		if (!strcmp("pwd\n", line))
 			ft_pwd();
+		if (!strcmp("env\n", line))
+			ft_env(env);
 		if (!strcmp("exit\n", line))
 		{
 			free(line);
@@ -38,14 +40,13 @@ int		main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	(void)env;
 	char	*line;
 
 	while (1)
 	{
 		ft_putstr_fd("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ", 2);
 		line = get_next_line(0);
-		if (!process(line))
+		if (!process(line, env))
 			break ;
 	}
 	return (0);
