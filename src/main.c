@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 16:01:00 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:10:00 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int		main(int ac, char **av, char **env)
 		if (!process(line, env))
 			break ;
 	}
+	free_struct();
 	return (0);
 }

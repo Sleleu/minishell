@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 16:01:00 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:00:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,52 @@
 
 /* GLOBAL */
 
+typedef struct s_pipe
+{
+	char			*line;
+	char			*cmd;
+	char			*option;
+	int				*fd;
+	int				oldfd;
+	struct s_pipe	*next;
+	struct s_pipe	*prev;
+}	t_pipe;
+
 typedef struct s_data
 {
-	char *line;
-	char **env;
-	char *prompt;
-	int nb;
-	
+	char	*line;
+	char	**env;
+	char	*prompt;
+	int		nb;
+	t_pipe	*pipes;
 }	t_data;
 
 /* UTILS */
 
-int	ft_pwd(void);
+int				ft_pwd(void);
 
-void ft_env(char **env);
+void 			ft_env(char **env);
 
-int	ft_echo(char *line);
+int				ft_echo(char *line);
 
-void ft_unset(char **env, char *line);
+void 			ft_unset(char **env, char *line);
 
-t_data *get_data(void);
+t_data 			*get_data(void);
 
-t_data *set_data(char **env);
+t_data 			*set_data(char **env);
 
-t_data *update_data(char *line);
+t_data 			*update_data(char *line);
 
-void ft_parser(char *line);
+void 			ft_parser(char *line);
+
+int				pipe_exist(char *line);
+
+t_pipe 			*pipe_addlast(t_pipe *pipe, char *line);
+
+t_pipe 			*create_pipes(char *line);
+
+void			free_double(char **test);
+
+void			free_struct(void);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/14 15:58:29 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/14 16:56:27 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SOURCES 		= 	main.c \
 					builtin/env.c \
 					builtin/unset.c \
 					parsing/parser.c \
+					parsing/pipe.c \
+					parsing/free.c \
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
