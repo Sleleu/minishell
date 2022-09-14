@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_medataet.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 20:46:59 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/09/14 14:51:49 by rvrignon          #+#    #+#             */
+/*   Updated: 2022/09/14 15:25:47 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft.h"
+#include "../../include/minishell.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void ft_unset(char **env, char *line)
 {
-	size_t			i;
-	unsigned char	*s;
+	char	**path;
+	int		i;
 
-	s = b;
 	i = 0;
-	while (len > 0)
+	path = ft_split(line, ' ');
+	while (env[i])
 	{
-		s[i] = c;
-		len--;
+		if (!strncmp(path[1], env[i], ft_strlen(path[1]) - 1))
+			break ;
 		i++;
 	}
-	return (b);
+	printf("%s", env[i]);
 }
+
+/*
+int	main(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	ft_unset(env, "unset PWD");
+	return (0);
+}*/

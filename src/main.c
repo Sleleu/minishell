@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 14:49:32 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/14 16:01:00 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ int		process(char *line, char **env)
 	{
 		if (!strcmp("pwd\n", line))
 			ft_pwd();
-		if (!strcmp("env\n", line))
+		else if (!strcmp("env\n", line))
 			ft_env(env);
-		if (!strcmp("exit\n", line))
+		else if (!strncmp("echo", line, ft_strlen("echo")))
+			ft_echo(line);
+		else if (!strncmp("unset", line, ft_strlen("unset")))
+			ft_unset(env, line);
+		else if (!strcmp("exit\n", line))
 		{
 			free(line);
 			return (0);
@@ -41,11 +45,15 @@ int		main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	char	*line;
-
+	t_data	*data;
+	
+	data = set_data(env);
+	printf("%d\n", data->nb);
 	while (1)
 	{
 		ft_putstr_fd("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ", 2);
 		line = get_next_line(0);
+		ft_parser(line);
 		if (!process(line, env))
 			break ;
 	}

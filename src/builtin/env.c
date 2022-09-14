@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 14:32:51 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 14:49:08 by sleleu           ###   ########.fr       */
+/*   Created: 2022/09/14 14:23:17 by rvrignon          #+#    #+#             */
+/*   Updated: 2022/09/14 15:21:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../../include/minishell.h"
 
-int ft_env(char **envp)
+void ft_env(char **env)
 {
 	int i;
 
 	i = 0;
-	while(envp[i])
+	while (env[i])
 	{
-		printf("%s\n", envp[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
-	return (1);
 }
