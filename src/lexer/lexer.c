@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/15 00:51:44 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/15 21:17:58 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ enum
 {
 	WORD = 1,
 	PIPE = 2,
-	REDIR = 3,
-	D_REDIR = 4
-	S_QUOTE = 5;
-	D_QUOTE = 6;	
+	SIMPLE_QUOTE = 3,
+	DOUBLE_QUOTE = 4,
+	INF_CHEVRON = 5,
+	SUP_CHEVRON = 6,
+	D_INF_CHEVRON = 7,
+	D_SUP_CHEVRON = 8,
 }	token_type;
 
 typedef struct s_token
@@ -30,80 +32,52 @@ typedef struct s_token
 	char *content;
 	int	type;
 	int	size;
+	struct s_token next;
 }	t_token;
 
-int	space_in_quote(char *line, int i)
+int	is_sep(char *line, int pos)
 {
-	int	j; // back
-	int k; // forward
-	int quote_j;
-	int quote_k;
-	
-	quote_j = 0;
-	quote_k = 0;
-	j = i;
-	k = i;
-	while (line[j] && (line[j] != '"' ||)) // useless
-}
-
-int	check_sep(char *line, int i)
-{
-	if ((*line + i) == ' ' || (*line + i) == '"'
-		|| (*line + i == 39)) // simple quote
+	if (line[pos] == '|' || line[pos] == '>'
+		|| line[pos] == '<' || line[pos] == '>>'
+		|| line[pos] == '<<' || line[pos] == '$')
 		return (1);
-	else
-		return (0);
+	return (0);
 }
 
-char **alloc_array(char **token, char *line)
+t_token	 *lexer(t_data *data, char *line)
 {
-	int	i;
-	int	nb_tokens;
-
-	i = 0;
-	nb_tokens = 0;
-	while (line[i])
-	{
-		while (line[i] && line[])
-			i++;
-		if (line[i] && check_sep(line, i) && !space_in_quote(line, i))
-			nb_tokens++;
-		while (line[i] && !chek_sep)
-			i++;
-	}
-	tokens = ft_calloc(sizeof(char *), nb_tokens + 1);
-	if (!tokens)
-		return (NULL)
-	return (tokens);
-}
-/*
-void	lexer(t_data *data, char *line)
-{
-	int	i;
-	char **tokens; // tableau tokens
+	int		pos;
+	int		i;
+	t_token	*lexer;
 	
-	i = 0;
-	if ((tokens = alloc_array(tokens, line)) == NULL)
-		return ; // ERROR ICI
-	while (*line)
-	{
-		if (is
-	}
-}*/
-
-void	lexer(t_data *data, char *line)
-{
-	int pos;
-	int i;
-	t_token *lexer;
-
 	pos = 0;
 	i = 0;
-	if ((tokens = alloc_array(tokens, line)) == NULL)
-		return ; // ERROR
+	lexer = NULL;
+	// INITIALISER LISTE
 	while (line[pos])
 	{
-		if (line[pos] == ' ')
+		if (line[pos] >= 9 && line[pos] <= 13 || line[pos] == ' ') // espace ignore
+			pos++;
+		else if (is_sep(line, pos)) // si pas un mot
+		{
+			add_sep(&lexer, line, pos);
+			pos++;
+		}
+		else
+		{
+			add_word(&lexer, line, pos);
+			pos++;
+		}
+	}
+	return (lexer);
+}
+
+int	main(void)
+{
+	
+	return (0);
+}
+		/*
 			pos++;
 		if (is_char(line, pos))
 		{

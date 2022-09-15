@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:31:46 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/14 17:15:05 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:06:43 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_pipe *pipe_addlast(t_pipe *pipe, char *line)
 {
 	t_pipe *new;
 	
-	new = (t_pipe *)malloc(sizeof(t_pipe));
+	new = memcenter(MALLOC, sizeof(t_pipe *), NULL);
 	if (!new)
 		return (NULL);
 	new->line = line;
@@ -49,7 +49,7 @@ t_pipe *create_pipes(char *line)
 	int		i;
 
 	pipes = ft_split(line, '|');
-	pipe = (t_pipe *)malloc(sizeof(t_pipe));
+	pipe = memcenter(MALLOC, sizeof(t_pipe *), NULL);
 	if (!pipe)
 		return (NULL);
 	pipe->line = pipes[0];

@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/14 17:34:38 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/15 21:05:03 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SOURCES 		= 	main.c \
 					builtin/unset.c \
 					parsing/parser.c \
 					parsing/pipe.c \
-					parsing/free.c \
+					parsing/memcenter.c \
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
