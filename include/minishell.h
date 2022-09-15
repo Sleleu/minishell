@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/15 21:10:17 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/15 22:00:13 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ t_pipe 			*pipe_addlast(t_pipe *pipe, char *line);
 
 t_pipe 			*create_pipes(char *line);
 
-void	*memcenter(t_mem mem, size_t size, void *adress);
+void			*memflush(t_memcenter *head);
+
+void			*memfree(t_memcenter *head, void *adress);
+
+void			*first_malloc(size_t size, void *adress);
+
+void			*after_malloc(size_t size, void *adress);
+
+void			*memcenter(t_mem mem, size_t size, void *adress);
 
 #endif
