@@ -6,123 +6,166 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/15 21:17:58 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/16 00:28:09 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-enum
+char	*ft_charjoin(char *s1, char c)
 {
-	WORD = 1,
-	PIPE = 2,
-	SIMPLE_QUOTE = 3,
-	DOUBLE_QUOTE = 4,
-	INF_CHEVRON = 5,
-	SUP_CHEVRON = 6,
-	D_INF_CHEVRON = 7,
-	D_SUP_CHEVRON = 8,
-}	token_type;
+	int		size;
+	int		i;
+	char	*str;
 
-typedef struct s_token
+	i = 0;
+	size = 0;
+	while (s1 && s1[size])
+		size++;
+	str = memcenter(MALLOC, sizeof(char) * size + 2, NULL, "charjoin");
+	if (str == NULL)
+		return (NULL);
+	while (s1 && s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i++] = c;
+	str[i] = '\0';
+	return (str);
+}
+
+t_lexer	*ft_lstnew_minishell(void *content)
 {
-	char *content;
-	int	type;
-	int	size;
-	struct s_token next;
-}	t_token;
+	t_lexer	*new;
+
+	new = memcenter(MALLOC, sizeof(t_lexer), NULL, "listnew");
+	if (!new)
+		return (NULL);
+	if (!content)
+		new->content = NULL;
+	else
+		new->content = content;
+	new->next = NULL;
+	return (new);
+}
+
+t_lexer	*ft_lstlast_minishell(t_lexer *lst)
+{
+	if (!lst)
+		return (NULL);
+	else
+	{
+		while (lst->next)
+			lst = lst->next;
+		return (lst);
+	}
+}
+
+void	ft_lstadd_back_minishell(t_lexer **lst, t_lexer *new)
+{
+	t_lexer	*last;
+
+	if (*lst)
+	{
+		last = ft_lstlast_minishell(*lst);
+		last->next = new;
+	}
+	else
+		*lst = new;
+}
+
 
 int	is_sep(char *line, int pos)
 {
 	if (line[pos] == '|' || line[pos] == '>'
-		|| line[pos] == '<' || line[pos] == '>>'
-		|| line[pos] == '<<' || line[pos] == '$')
+		|| line[pos] == '<' || line[pos] == '$')
 		return (1);
-	return (0);
+	else
+		return (0);
 }
 
-t_token	 *lexer(t_data *data, char *line)
+int	is_space(char *line, int pos)
+{
+	if ((line[pos] >= 9 && line[pos] <= 13)
+		|| line[pos] == ' ')
+		return (1);
+	else
+		return (0);
+}
+
+void	add_sep(t_lexer **lexer, char *line, int pos)
+{
+	t_lexer	*token;
+	
+	token = *lexer;
+	token = ft_lstnew_minishell(NULL);
+	if (line[pos] == '|')
+		token->type = PIPE;
+	else if (line[pos] == '<')
+		token->type = INF_CHEVRON; // SUITE ICI
+	ft_lstadd_back_minishell(lexer, token);
+}
+
+int	add_word(t_lexer **lexer, char *line, int pos)
+{
+	t_lexer *token;
+
+	token = *lexer;
+	token = ft_lstnew_minishell(NULL);
+	if (!token)
+		return (-1);
+	token->type = WORD;
+	while (line[pos] && !is_space(line, pos) && !is_sep(line, pos))
+	{
+		token->content = ft_charjoin(token->content, line[pos]);
+		pos++;
+	}
+	ft_lstadd_back_minishell(lexer, token);
+	return (pos);
+}
+
+t_lexer	 *ft_lexer(char *line)
 {
 	int		pos;
-	int		i;
-	t_token	*lexer;
+	t_lexer	*lexer;
 	
 	pos = 0;
-	i = 0;
 	lexer = NULL;
-	// INITIALISER LISTE
 	while (line[pos])
 	{
-		if (line[pos] >= 9 && line[pos] <= 13 || line[pos] == ' ') // espace ignore
+		if (is_space(line, pos))
 			pos++;
-		else if (is_sep(line, pos)) // si pas un mot
+		else if (is_sep(line, pos))
 		{
 			add_sep(&lexer, line, pos);
 			pos++;
 		}
 		else
 		{
-			add_word(&lexer, line, pos);
-			pos++;
+			pos = add_word(&lexer, line, pos);
+			if (pos == -1)
+				return (NULL); // ERROR A GERER
 		}
 	}
 	return (lexer);
 }
 
-int	main(void)
+/*
+int	main(int ac, char **av)
 {
-	
-	return (0);
-}
-		/*
-			pos++;
-		if (is_char(line, pos))
+	t_lexer *lexer;
+
+	if (ac == 2)
+	{
+		lexer = ft_lexer(av[1]);
+		while (lexer)
 		{
-			token[i].type = WORD;
-			while (is_char(line, pos))
-			{
-				token[i].size++ // set a 0 les datas de la struct
-				pos++;
-				//ft_strjoin(token[i].content, line[pos]) // set a NULL les char* de la struct + transformer strjoin en charjoin
-			}
-			i++;
-		}
-		else if (is_pipe(line, pos))
-		{
-			token[i].type = PIPE;
-			//ft_strjoin(token[i].content, line[pos]) // set a NULL les char* de la struct + transformer strjoin en charjoin
-			pos++;
-			i++;
-		}
-		else if (is_redirect(line, pos))
-		{
-			if (is_redirect(line, pos + 1))
-			{
-				token[i].size += 2;
-				token[i].type = D_REDIR;
-				//charjoin les deux
-				pos += 2;
-				i++;	
-			}
-			else
-			{
-				token[i].size = 1; // si token existe donc forcement 1 alors set size a 1 ?
-				token[i].type = REDIR;
-				//charjoin
-				pos++;
-				i++;
-			}
+			printf("content : %s | type : %d\n", lexer->content, lexer->type);
+			lexer = lexer->next;
 		}
 	}
+	memcenter(FLUSH, 0, NULL, NULL);
+	return (0);
 }
-
-/* 
-
-Tableau de structures
-t_token *lexer;
-checker algo de la descente recursive
-
 */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/15 22:44:22 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:10:24 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,13 @@ void	ft_parser(char *line)
 	t_data *data;
 
 	data = update_data(line);
-	(void)data;
-	// if (data->pipes != NULL)
-	// {
-	// 	while(data->pipes->next != NULL)
-	// 	{
-	// 		printf("%s\n", data->pipes->line);
-	// 		data->pipes = data->pipes->next;
-	// 	}
-	// 	printf("%s\n", data->pipes->line);
-	// }
+	if (data->pipes != NULL)
+	{
+		while(data->pipes->next)
+		{
+			printf("%s\n", data->pipes->line);
+			data->pipes = data->pipes->next;
+		}
+		printf("%s\n", data->pipes->line);
+	}
 }

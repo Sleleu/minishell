@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/15 22:40:53 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:21:56 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		process(char *line, char **env)
 {
 	if (line == NULL || !strcmp("exit", line))
 	{
-		ft_putstr_fd("\n", 2);
+	//	memcenter(FREE, 0, line);
 		return (0) ;
 	}
 	else if (ft_strlen(line) > 1)
@@ -29,6 +29,7 @@ int		process(char *line, char **env)
 			ft_echo(line);
 		else if (!strncmp("unset", line, ft_strlen("unset")))
 			ft_unset(env, line);
+	//	memcenter(FREE, 0, line);
 	}
 	return (1);
 }
@@ -52,6 +53,6 @@ int		main(int ac, char **av, char **env)
 		if (!process(line, env))
 			break ;
 	}
-	memcenter(FLUSH, 0, NULL, NULL);
+	memcenter(FLUSH, 0, NULL);
 	return (0);
 }

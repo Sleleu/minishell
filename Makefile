@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/15 21:05:03 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/16 00:23:13 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SOURCES 		= 	main.c \
 					parsing/parser.c \
 					parsing/pipe.c \
 					parsing/memcenter.c \
+					lexer/lexer.c \
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
@@ -59,7 +60,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)$@ ✅$(NOC)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INCLUDE)/$(NAME).h
-	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing
+	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer
 	@$(CC) $(FLAGS) -I$(INCLUDE) -c -o $@ $<
 	@echo "$(BLUE)gcc $(WHITE)$(notdir $@)$(NOC)"
 
