@@ -31,6 +31,7 @@ void	*memflush(t_memcenter *head)
 	
 	if (!head)
 		return (NULL);
+	dprintf(2, "--- PURGE ---\n");
 	while (head->next != NULL)
 	{
 		dprintf(2, "%s\n", head->hello);
@@ -40,6 +41,7 @@ void	*memflush(t_memcenter *head)
 		free(tmp);
 	}
 	dprintf(2, "%s\n", head->hello);
+	dprintf(2, "--------------\n\n");
 	free(head->adress);
 	free(head);
 	return (NULL);
