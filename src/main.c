@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/16 00:46:59 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/16 00:50:32 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		main(int ac, char **av, char **env)
 		line = readline("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ");
 		if (line && ft_strlen(line) > 0)
 			add_history(line);
-		//lexer(data, line); A ajouter ici !
+		//lexer(data, line); A ajouter ici !!
 		ft_parser(line);
 		if (!process(line, env))
 			break ;
