@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/15 21:59:08 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/15 22:40:53 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int		main(int ac, char **av, char **env)
 		if (!process(line, env))
 			break ;
 	}
-	memcenter(FLUSH, 0, NULL);
+	memcenter(FLUSH, 0, NULL, NULL);
 	return (0);
 }

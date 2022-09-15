@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/15 22:00:13 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:08:47 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,12 @@ void			*memflush(t_memcenter *head);
 
 void			*memfree(t_memcenter *head, void *adress);
 
-void			*first_malloc(size_t size, void *adress);
+int				freetab(char **test);
 
-void			*after_malloc(size_t size, void *adress);
+void			*first_malloc(size_t size, void *adress, char *label);
 
-void			*memcenter(t_mem mem, size_t size, void *adress);
+void			*after_malloc(size_t size, void *adress, char *label);
+
+void			*memcenter(t_mem mem, size_t size, void *adress, char *label);
 
 #endif

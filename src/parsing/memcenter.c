@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:53:31 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/15 21:58:55 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/15 23:21:58 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,24 @@ t_data *get_data(void)
 	return(&data);
 }
 
+void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
+{
+	t_data		*data;
+	t_memcenter	*head;
+
+	data = get_data();
+	head = data->memcenter;
+	if (mem == FLUSH)
+		return (memflush(head));
+	else if (mem == FREE)
+		return (memfree(head, adress));
+	else if (mem == MALLOC && head == NULL)
+		return	(first_malloc(size, adress, label));
+	else if (mem == MALLOC)
+		return (after_malloc(size, adress, label));
+	return (NULL);
+}
+
 void	*memflush(t_memcenter *head)
 {
 	t_memcenter *tmp;
@@ -27,11 +45,13 @@ void	*memflush(t_memcenter *head)
 		return (NULL);
 	while (head->next != NULL)
 	{
+		dprintf(2, "%s\n", head->hello);
 		tmp = head;
 		free(tmp->adress);
 		head = head->next;
 		free(tmp);
 	}
+	dprintf(2, "%s\n", head->hello);
 	free(head->adress);
 	free(head);
 	return (NULL);
@@ -52,7 +72,7 @@ void	*memfree(t_memcenter *head, void *adress)
 	return (NULL);
 }
 
-void	*first_malloc(size_t size, void *adress)
+void	*first_malloc(size_t size, void *adress, char *label)
 {
 	t_data		*data;
 	t_memcenter	*head;
@@ -65,16 +85,16 @@ void	*first_malloc(size_t size, void *adress)
 	if (adress)
 		head->adress = adress;
 	else
-		head->adress = (void *)malloc(sizeof(void) * size);
+		head->adress = (void *)malloc(size * 1);
 	if (!head->adress)
 		head->adress = NULL;
 	head->next = NULL;
-	head->hello = "Let's gooo";
+	head->hello = label;
 	data->memcenter = head;
 	return (head->adress);
 }
 
-void	*after_malloc(size_t size, void *adress)
+void	*after_malloc(size_t size, void *adress, char *label)
 {
 	t_data		*data;
 	t_memcenter	*head;
@@ -90,31 +110,13 @@ void	*after_malloc(size_t size, void *adress)
 	if (adress)
 		tmp->adress = adress;
 	else
-		head->adress = (void *)malloc(sizeof(void) * size);
+		tmp->adress = (void *)malloc(size * 1);
 	if (!tmp->adress)
 		tmp->adress = NULL;
-	tmp->hello = "To be continued...";
+	tmp->hello = label;
 	tmp->next = NULL;
 	head->next = tmp;
 	return (tmp->adress);
-}
-
-void	*memcenter(t_mem mem, size_t size, void *adress)
-{
-	t_data		*data;
-	t_memcenter	*head;
-
-	data = get_data();
-	head = data->memcenter;
-	if (mem == FLUSH)
-		return (memflush(head));
-	else if (mem == FREE)
-		return (memfree(head, adress));
-	else if (mem == MALLOC && head == NULL)
-		return	(first_malloc(size, adress));
-	else if (mem == MALLOC)
-		return (after_malloc(size, adress));
-	return (NULL);
 }
 
 /* USAGE MEMCENTER
