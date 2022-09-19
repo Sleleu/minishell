@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 01:38:34 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 01:41:31 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,35 +165,20 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 	return (pos);
 }
 
-// line[pos + 1] && !((line[pos + 1] == '|' || line[pos + 1] == ' ') && ((line[pos] == '"' && quote % 2 == 1) || (line[pos] != '"' && quote % 2 == 0)))
-
 int test_case(char *line, int pos, int quote, char c)
 {
 	if (line[pos + 1])
 	{
 		if (line[pos + 1] == '|' || line[pos + 1] == ' ')
 		{
-			// dprintf(2, "%c%c%c || quote = %d || modulo = %d\n", line[pos - 1], line[pos], line[pos + 1], quote, quote % 2);
 			if (line[pos] == c && quote % 2 == 1)
-			{
-				dprintf(2, "1\n");
 				return (0);
-			}
 			else if (line[pos] == c && quote % 2 == 0)
-			{
-				dprintf(2, "2\n");
 				return (1);
-			}
 			else if (line[pos] != c && quote % 2 == 0)
-			{
-				dprintf(2, "3\n");
 				return (0);
-			}
 			else if (line[pos] != c && quote % 2 == 1)
-			{
-				dprintf(2, "4\n");
 				return (1);
-			}
 		}
 		else
 			return (1);
@@ -223,11 +208,11 @@ int	quoted_word(t_lexer **lexer, char *line, int pos)
 	else if (line[pos] == 39)
 	{
 		while (test_case(line, pos, quote, 39))
-			{
-				if (line[pos] == 39)
-					quote++;
-				pos++;
-			}
+		{
+			if (line[pos] == 39)
+				quote++;
+			pos++;
+		}
 	}
 	pos++;
 	while (index < pos)
