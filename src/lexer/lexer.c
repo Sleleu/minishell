@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/19 21:59:01 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/19 23:27:04 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,20 +168,30 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 int	quoted_word(t_lexer **lexer, char *line, int pos)
 {
 	int index;
+	int	quote;
 	t_lexer *token;
 
 	token = *lexer;
 	index = pos;
 	token = ft_lstnew_minishell(NULL);
+	quote = 0;
 	if (line[pos] == '"')
 	{
-		while (line[pos] && !(line[pos] == '"' && line[pos + 1] == ' '))
+		while (line[pos + 1] && !(line[pos] == '"' && line[pos + 1] != '"' && quote % 2 == 1))
+		{
+			if (line[pos] == '"')
+				quote++;
 			pos++;
+		}
 	}
 	else if (line[pos] == 39)
 	{
-		while (line[pos] && !(line[pos] == 39 && line[pos + 1] == ' '))
-			pos++;
+		while (line[pos + 1] && !(line[pos] == 39 && line[pos + 1] != 39 && quote % 2 == 1))
+			{
+				if (line[pos] == 39)
+					quote++;
+				pos++;
+			}
 	}
 	pos++;
 	while (index < pos)
