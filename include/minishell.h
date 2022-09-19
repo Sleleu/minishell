@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/16 00:20:19 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:46:21 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,9 @@ void			*memfree(t_memcenter *head, void *adress);
 void			*first_malloc(size_t size, void *adress, char *label);
 
 void			*after_malloc(size_t size, void *adress, char *label);
+
+/* LEXER */
+
+t_lexer	*ft_lexer(char *line);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/16 00:19:54 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:41:54 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_memcenter
 	char	**env;
 	char	*prompt;
 	int		nb;
+	struct s_lexer *lexer;
 	t_pipe	*pipes;
 	t_memcenter	*memcenter;
 }	t_data;

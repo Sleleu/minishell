@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/16 00:51:28 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:50:25 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,12 @@ int		main(int ac, char **av, char **env)
 		line = readline("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ");
 		if (line && ft_strlen(line) > 0)
 			add_history(line);
-		//lexer(data, line); A ajouter ici !!!
+		data->lexer = ft_lexer(line);
+	while (data->lexer)
+	{
+		printf("CONTENU : %s | type : %d\n", data->lexer->content, data->lexer->type);
+		data->lexer = data->lexer->next;
+	}
 		ft_parser(line);
 		if (!process(line, env))
 			break ;
