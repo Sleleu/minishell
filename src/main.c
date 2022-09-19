@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/19 14:50:25 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:31:57 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int		main(int ac, char **av, char **env)
 		if (line && ft_strlen(line) > 0)
 			add_history(line);
 		data->lexer = ft_lexer(line);
+		while (data->lexer)
+		{
+			printf("CONTENU : %s | TYPE : %d\n", data->lexer->content, data->lexer->type);
+			data->lexer = data->lexer->next;
+		}
 		ft_parser(line);
 		if (!process(line, env))
 			break ;

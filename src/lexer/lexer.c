@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/19 14:50:41 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/19 21:59:01 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,35 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 	return (pos);
 }
 
+int	quoted_word(t_lexer **lexer, char *line, int pos)
+{
+	int index;
+	t_lexer *token;
+
+	token = *lexer;
+	index = pos;
+	token = ft_lstnew_minishell(NULL);
+	if (line[pos] == '"')
+	{
+		while (line[pos] && !(line[pos] == '"' && line[pos + 1] == ' '))
+			pos++;
+	}
+	else if (line[pos] == 39)
+	{
+		while (line[pos] && !(line[pos] == 39 && line[pos + 1] == ' '))
+			pos++;
+	}
+	pos++;
+	while (index < pos)
+	{
+		token->content = ft_charjoin(token->content, line[index]);
+		index++;
+	}
+	token->type = WORD;
+	ft_lstadd_back_minishell(lexer, token);
+	return (pos);
+}
+
 t_lexer	 *ft_lexer(char *line)
 {
 	int		pos;
@@ -178,6 +207,8 @@ t_lexer	 *ft_lexer(char *line)
 			pos++;
 		else if (is_sep(line, pos))
 			pos = add_sep(&lexer, line, pos);
+		else if (line[pos] == '"' || line[pos] == 39)
+			pos = quoted_word(&lexer, line, pos);
 		else
 		{
 			pos = add_word(&lexer, line, pos);
