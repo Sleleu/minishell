@@ -48,11 +48,6 @@ int		main(int ac, char **av, char **env)
 		if (line && ft_strlen(line) > 0)
 			add_history(line);
 		data->lexer = ft_lexer(line);
-	while (data->lexer)
-	{
-		printf("CONTENU : %s | type : %d\n", data->lexer->content, data->lexer->type);
-		data->lexer = data->lexer->next;
-	}
 		ft_parser(line);
 		if (!process(line, env))
 			break ;
