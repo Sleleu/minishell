@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 18:23:48 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:38:11 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int				ft_pwd(void);
 int 			ft_env(char **env);
 
 int				ft_echo(char *line);
+
+int				ft_cd(char *line);
 
 int 			ft_unset(char **env, char *line);
 

@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/20 18:11:12 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/20 18:41:30 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ OBJ_PATH		= 	obj
 ### SOURCE FILES ###
 SOURCES 		= 	main.c \
 					init/utils.c \
+					builtin/cd.c \
 					builtin/echo.c \
 					builtin/pwd.c \
 					builtin/env.c \

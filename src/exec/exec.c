@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 18:24:33 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:52:32 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		builtin(t_data **data)
 			return (ft_pwd());
 		else if (!strcmp("env", (*data)->line))
 			return (ft_env((*data)->env));
+		else if (!strncmp("cd", (*data)->line, ft_strlen("cd")))
+			return (ft_cd((*data)->line));
 		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
 			return (ft_echo((*data)->line));
 		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
@@ -35,7 +37,13 @@ int		builtin(t_data **data)
 
 int		process(t_data **data)
 {
-	if (builtin(data) != 6)
-		return (-1);
+	char	*cmd[3] = {"/usr/bin/ls", "-la", 0};
+	int		test;
+	
+	test = builtin(data);
+	if (test != 6)
+		return (test);
+	else
+		execve(cmd[0], cmd, (*data)->env);
 	return (1);
 }

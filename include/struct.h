@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 18:12:32 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:39:33 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef enum e_mem
 typedef	enum e_label
 {
 	NOTHING = 0,
-	LEXER = 1,
-	PARSING = 2,
+	BUILTIN = 1,
+	LEXER = 2,
+	PARSING = 3,
 }	t_label;
 
 typedef struct s_memcenter
