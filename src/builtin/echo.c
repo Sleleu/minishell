@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 14:49:04 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:23:06 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_echo(char *line)
 		i++;
 	}
 	free(result);
-	return (1);
+	return (0);
 }
 
 

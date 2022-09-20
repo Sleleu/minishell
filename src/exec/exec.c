@@ -6,29 +6,36 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 18:10:42 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:24:33 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		process(t_data **data)
+int		builtin(t_data **data)
 {
 	if ((*data)->line == NULL || !strcmp("exit", (*data)->line))
 	{
 		ft_putstr_fd("\n", 2);
-		return (0) ;
+		return (-1) ;
 	}
 	else if (ft_strlen((*data)->line) > 1)
 	{
 		if (!strcmp("pwd", (*data)->line))
-			ft_pwd();
+			return (ft_pwd());
 		else if (!strcmp("env", (*data)->line))
-			ft_env((*data)->env);
+			return (ft_env((*data)->env));
 		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
-			ft_echo((*data)->line);
+			return (ft_echo((*data)->line));
 		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
-			ft_unset((*data)->env, (*data)->line);
+			return (ft_unset((*data)->env, (*data)->line));
 	}
+	return (6);	
+}
+
+int		process(t_data **data)
+{
+	if (builtin(data) != 6)
+		return (-1);
 	return (1);
 }

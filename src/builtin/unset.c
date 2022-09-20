@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:51:49 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/14 17:28:06 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/20 18:23:26 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_unset(char **env, char *line)
+int ft_unset(char **env, char *line)
 {
 	char	**path;
 	int		i;
@@ -26,6 +26,7 @@ void ft_unset(char **env, char *line)
 		i++;
 	}
 	printf("%s", env[i]);
+	return (0);
 }
 
 /*

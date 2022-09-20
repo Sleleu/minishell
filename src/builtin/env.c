@@ -6,13 +6,13 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:23:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/14 15:21:04 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:22:41 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_env(char **env)
+int ft_env(char **env)
 {
 	int i;
 
@@ -22,4 +22,5 @@ void ft_env(char **env)
 		printf("%s\n", env[i]);
 		i++;
 	}
+	return (0);
 }

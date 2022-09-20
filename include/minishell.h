@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 18:10:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:23:48 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ t_data 			*set_data(char **env);
 
 int				ft_pwd(void);
 
-void 			ft_env(char **env);
+int 			ft_env(char **env);
 
 int				ft_echo(char *line);
 
-void 			ft_unset(char **env, char *line);
+int 			ft_unset(char **env, char *line);
 
 /* MEMCENTER */
 

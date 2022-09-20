@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 18:14:32 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:19:57 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		main(int ac, char **av, char **env)
 		data->line = line;
 		data->lexer = ft_lexer(line);
 		ft_parser(&data);
-		if (!process(&data))
+		if (process(&data) == -1)
 			break ;
 		memcenter(FREE_WHERE, 0, NULL, LEXER);
 	}
