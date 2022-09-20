@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/19 14:46:21 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/20 15:17:36 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "struct.h"
+
+/* BUILTIN */
 
 int				ft_pwd(void);
 
@@ -23,23 +25,11 @@ int				ft_echo(char *line);
 
 void 			ft_unset(char **env, char *line);
 
-t_data 			*get_data(void);
-
-t_data 			*set_data(char **env);
-
-t_data 			*update_data(char *line);
-
-void 			ft_parser(char *line);
-
-int				pipe_exist(char *line);
-
-t_pipe 			*pipe_addlast(t_pipe *pipe, char *line);
-
-t_pipe 			*create_pipes(char *line);
+/* MEMCENTER */
 
 void			*memcenter(t_mem mem, size_t size, void *adress, char *label);
 
-void			*memflush(t_memcenter *head);
+void			*mempurge(t_memcenter *head);
 
 void			*memfree(t_memcenter *head, void *adress);
 
@@ -49,6 +39,38 @@ void			*after_malloc(size_t size, void *adress, char *label);
 
 /* LEXER */
 
-t_lexer	*ft_lexer(char *line);
+t_lexer			*ft_lexer(char *line);
+
+char			*ft_charjoin(char *s1, char c);
+
+t_lexer			*ft_lstnew_minishell(void *content);
+
+t_lexer			*ft_lstlast_minishell(t_lexer *lst);
+
+void			ft_lstadd_back_minishell(t_lexer **lst, t_lexer *new);
+
+int				is_sep(char *line, int pos);
+
+int				is_space(char *line, int pos);
+
+int 			is_double_chevron(char *line, int pos);
+
+int				select_chevron(t_lexer **token, char *line, int pos);
+
+int				add_sep(t_lexer **lexer, char *line, int pos);
+
+int				add_word(t_lexer **lexer, char *line, int pos);
+
+int 			handle_quotes(char *line, int pos, int quote, char c);
+
+int				quoted_word(t_lexer **lexer, char *line, int pos);
+
+/* PARSING */
+
+t_data 			*get_data(void);
+
+t_data 			*set_data(char **env);
+
+void 			ft_parser(char *line);
 
 #endif

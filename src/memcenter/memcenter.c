@@ -1,11 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memcenter.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 15:11:54 by rvrignon          #+#    #+#             */
+/*   Updated: 2022/09/20 15:13:07 by rvrignon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-t_data *get_data(void)
-{
-	static t_data data;
+/* USAGE MEMCENTER
 
-	return(&data);
-}
+-> test = (t_list *)malloc(sizeof(t_list));
+memcenter(MALLOC, sizeof(t_list *), NULL);
+
+-> test = ft_split(line, ' ');
+memcenter(MALLOC, 0, ft_split(line, ' '));
+
+-> free(test);
+memcenter(FREE, 0, test);
+
+->free all
+memcenter(PURGE, 0, NULL);
+
+*/
 
 void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
 {
@@ -15,7 +36,7 @@ void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
 	data = get_data();
 	head = data->memcenter;
 	if (mem == PURGE)
-		return (memflush(head));
+		return (mempurge(head));
 	else if (mem == FREE)
 		return (memfree(head, adress));
 	else if (mem == MALLOC && head == NULL)
@@ -25,7 +46,7 @@ void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
 	return (NULL);
 }
 
-void	*memflush(t_memcenter *head)
+void	*mempurge(t_memcenter *head)
 {
 	t_memcenter *tmp;
 	
@@ -56,7 +77,7 @@ void	*memfree(t_memcenter *head, void *adress)
 	}
 	while (head->adress != adress)
 		head = head->next;
-	dprintf(2, "Free\nhead->adress %p\n", head->adress);
+	// dprintf(2, "Free\nhead->adress %p\n", head->adress);
 	free(adress);
 	head->adress = NULL;
 	return (NULL);
@@ -108,19 +129,3 @@ void	*after_malloc(size_t size, void *adress, char *label)
 	head->next = tmp;
 	return (tmp->adress);
 }
-
-/* USAGE MEMCENTER
-
--> test = malloc(sizeof(char *) * 6);
-memcenter(MALLOC, sizeof(char *) * 6, NULL);
-
--> test = ft_split(line, ' ');
-memcenter(MALLOC, 0, ft_split(line, ' '));
-
--> free(test);
-memcenter(FREE, 0, test);
-
-->free all
-memcenter(FLUSH, 0, NULL);
-
-*/

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 14:11:47 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:14:57 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		main(int ac, char **av, char **env)
 	t_data	*data;
 	
 	data = set_data(env);
-	(void)data;
 	while (1)
 	{
 		line = readline("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ");
@@ -53,7 +52,6 @@ int		main(int ac, char **av, char **env)
 			printf("TYPE : %d | CONTENU : %s\n", data->lexer->type, data->lexer->content);
 			data->lexer = data->lexer->next;
 		}
-		ft_parser(line);
 		if (!process(line, env))
 			break ;
 	}

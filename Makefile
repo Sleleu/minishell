@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
+#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/16 00:23:13 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/20 15:19:11 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,7 @@ SOURCES 		= 	main.c \
 					builtin/env.c \
 					builtin/unset.c \
 					parsing/parser.c \
-					parsing/pipe.c \
-					parsing/memcenter.c \
+					memcenter/memcenter.c \
 					lexer/lexer.c \
 
 ### OBJECTS ###
@@ -57,10 +56,10 @@ $(NAME): $(OBJ)
 	@echo "$(YELLOW)libft..$(NOC)"
 	@make -sC $(LIBFT_PATH)
 	@$(CC) $(FLAGS) -L $(LIBFT_PATH) -o $(PROG) $^ -lft -lreadline
-	@echo "$(GREEN)$@ ✅$(NOC)"
+	@echo "$(GREEN)Welcome to $@ ✅$(NOC)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INCLUDE)/$(NAME).h
-	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer
+	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer && mkdir -p obj/memcenter
 	@$(CC) $(FLAGS) -I$(INCLUDE) -c -o $@ $<
 	@echo "$(BLUE)gcc $(WHITE)$(notdir $@)$(NOC)"
 
@@ -83,7 +82,6 @@ re: fclean all
 
 norm:
 	-@norminette $(SRC_PATH)
-	-@norminette $(SRC_BONUS_PATH)
 	-@norminette $(INCLUDE)
 
 push: fclean
