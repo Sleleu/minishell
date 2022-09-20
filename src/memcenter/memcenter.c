@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:11:54 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 15:27:28 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:05:25 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ memcenter(PURGE, 0, NULL);
 
 */
 
-void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
+void	*memcenter(t_mem mem, size_t size, void *adress, t_label label)
 {
 	t_data		*data;
 	t_memcenter	*head;
@@ -39,6 +39,8 @@ void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
 		return (mempurge(head));
 	else if (mem == FREE)
 		return (memfree(head, adress));
+	else if (mem == FREE_WHERE)
+		return (memfreewhere(head, label));
 	else if (mem == MALLOC && head == NULL)
 		return	(first_malloc(size, adress, label));
 	else if (mem == MALLOC)
@@ -55,13 +57,13 @@ void	*mempurge(t_memcenter *head)
 	// dprintf(2, "--- PURGE ---\n");
 	while (head->next != NULL)
 	{
-		// dprintf(2, "%s\n", head->label);
+		// dprintf(2, "%d\n", head->label);
 		tmp = head;
 		free(tmp->adress);
 		head = head->next;
 		free(tmp);
 	}
-	// dprintf(2, "%s\n", head->label);
+	// dprintf(2, "%d\n", head->label);
 	// dprintf(2, "--------------\n\n");
 	free(head->adress);
 	free(head);
@@ -83,7 +85,26 @@ void	*memfree(t_memcenter *head, void *adress)
 	return (NULL);
 }
 
-void	*first_malloc(size_t size, void *adress, char *label)
+void	*memfreewhere(t_memcenter *head, t_label label)
+{
+	if (head->label == label)
+	{	
+		free(head->adress);
+		head->adress = NULL;
+	}
+	while (head->adress)
+	{
+		if (head->label == label)
+		{
+			free(head->adress);
+			head->adress = NULL;
+		}
+		head = head->next;
+	}
+	return (NULL);
+}
+
+void	*first_malloc(size_t size, void *adress, t_label label)
 {
 	t_data		*data;
 	t_memcenter	*head;
@@ -105,7 +126,7 @@ void	*first_malloc(size_t size, void *adress, char *label)
 	return (head->adress);
 }
 
-void	*after_malloc(size_t size, void *adress, char *label)
+void	*after_malloc(size_t size, void *adress, t_label label)
 {
 	t_data		*data;
 	t_memcenter	*head;

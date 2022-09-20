@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 15:30:16 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:45:23 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,17 @@ void 			ft_unset(char **env, char *line);
 
 /* MEMCENTER */
 
-void			*memcenter(t_mem mem, size_t size, void *adress, char *label);
+void			*memcenter(t_mem mem, size_t size, void *adress, t_label label);
 
 void			*mempurge(t_memcenter *head);
 
 void			*memfree(t_memcenter *head, void *adress);
 
-void			*first_malloc(size_t size, void *adress, char *label);
+void			*memfreewhere(t_memcenter *head, t_label label);
 
-void			*after_malloc(size_t size, void *adress, char *label);
+void			*first_malloc(size_t size, void *adress, t_label label);
+
+void			*after_malloc(size_t size, void *adress, t_label label);
 
 /* LEXER */
 

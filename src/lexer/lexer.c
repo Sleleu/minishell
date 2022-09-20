@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 14:25:54 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:52:08 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_charjoin(char *s1, char c)
 	size = 0;
 	while (s1 && s1[size])
 		size++;
-	str = memcenter(MALLOC, sizeof(char) * size + 2, NULL, NULL);
+	str = memcenter(MALLOC, sizeof(char) * size + 2, NULL, LEXER);
 	if (str == NULL)
 		return (NULL);
 	while (s1 && s1[i])
@@ -39,7 +39,7 @@ t_lexer	*ft_lstnew_minishell(void *content)
 {
 	t_lexer	*new;
 
-	new = memcenter(MALLOC, sizeof(t_lexer), NULL, NULL);
+	new = memcenter(MALLOC, sizeof(t_lexer), NULL, LEXER);
 	if (!new)
 		return (NULL);
 	if (!content)

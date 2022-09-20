@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 15:27:12 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:05:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,21 @@ typedef enum e_mem
 {
 	PURGE = 1,
 	FREE = 2,
-	MALLOC = 3,
+	FREE_WHERE = 3,
+	MALLOC = 4,
 }	t_mem;
+
+typedef	enum e_label
+{
+	NOTHING = 0,
+	LEXER = 1,
+	PARSING = 2,
+}	t_label;
 
 typedef struct s_memcenter
 {
 	void				*adress;
-	char				*label;
+	t_label				label;
 	struct s_memcenter	*next;
 }	t_memcenter;
 
@@ -78,7 +86,6 @@ typedef struct s_lexer
  {
 	char		*line;
 	char		**env;
-	char		*prompt;
 	t_lexer		*lexer;
 	t_pipex		*pipex;
 	t_memcenter	*memcenter;
