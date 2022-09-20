@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/19 20:31:57 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:11:47 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int		main(int ac, char **av, char **env)
 		data->lexer = ft_lexer(line);
 		while (data->lexer)
 		{
-			printf("CONTENU : %s | TYPE : %d\n", data->lexer->content, data->lexer->type);
+			printf("TYPE : %d | CONTENU : %s\n", data->lexer->type, data->lexer->content);
 			data->lexer = data->lexer->next;
 		}
 		ft_parser(line);
 		if (!process(line, env))
 			break ;
 	}
-	memcenter(FLUSH, 0, NULL, NULL);
+	memcenter(PURGE, 0, NULL, NULL);
 	return (0);
 }

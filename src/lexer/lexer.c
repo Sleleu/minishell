@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 01:41:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:25:54 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_lstadd_back_minishell(t_lexer **lst, t_lexer *new)
 int	is_sep(char *line, int pos)
 {
 	if (line[pos] == '|' || line[pos] == '>'
-		|| line[pos] == '<' || line[pos] == '$')
+		|| line[pos] == '<' || (line[pos] == '$' && (ft_isalpha(line[pos + 1]) || line[pos + 1] == '_')))
 		return (1);
 	else
 		return (0);
@@ -156,7 +156,7 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 	if (!token)
 		return (-1);
 	token->type = WORD;
-	while (line[pos] && !is_space(line, pos) && !is_sep(line, pos))
+	while (line[pos] && !is_space(line, pos) && !is_sep(line, pos) && line[pos] != '"')
 	{
 		token->content = ft_charjoin(token->content, line[pos]);
 		pos++;
@@ -165,7 +165,7 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 	return (pos);
 }
 
-int test_case(char *line, int pos, int quote, char c)
+int handle_quotes(char *line, int pos, int quote, char c)
 {
 	if (line[pos + 1])
 	{
@@ -193,21 +193,21 @@ int	quoted_word(t_lexer **lexer, char *line, int pos)
 	t_lexer *token;
 
 	token = *lexer;
-	index = pos;
+	index = pos - 1;
 	token = ft_lstnew_minishell(NULL);
 	quote = 0;
 	if (line[pos] == '"')
 	{
-		while (test_case(line, pos, quote, '"'))
+		while (handle_quotes(line, pos, quote, '"'))
 		{
 			if (line[pos] == '"')
-				quote += 1;
+				quote++;
 			pos++;
 		}
 	}
 	else if (line[pos] == 39)
 	{
-		while (test_case(line, pos, quote, 39))
+		while (handle_quotes(line, pos, quote, 39))
 		{
 			if (line[pos] == 39)
 				quote++;
@@ -215,11 +215,8 @@ int	quoted_word(t_lexer **lexer, char *line, int pos)
 		}
 	}
 	pos++;
-	while (index < pos)
-	{
+	while (++index < pos)
 		token->content = ft_charjoin(token->content, line[index]);
-		index++;
-	}
 	token->type = WORD;
 	ft_lstadd_back_minishell(lexer, token);
 	return (pos);

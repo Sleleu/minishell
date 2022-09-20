@@ -14,7 +14,7 @@ void	*memcenter(t_mem mem, size_t size, void *adress, char *label)
 
 	data = get_data();
 	head = data->memcenter;
-	if (mem == FLUSH)
+	if (mem == PURGE)
 		return (memflush(head));
 	else if (mem == FREE)
 		return (memfree(head, adress));
@@ -31,17 +31,17 @@ void	*memflush(t_memcenter *head)
 	
 	if (!head)
 		return (NULL);
-	dprintf(2, "--- PURGE ---\n");
+	// dprintf(2, "--- PURGE ---\n");
 	while (head->next != NULL)
 	{
-		dprintf(2, "%s\n", head->hello);
+		// dprintf(2, "%s\n", head->hello);
 		tmp = head;
 		free(tmp->adress);
 		head = head->next;
 		free(tmp);
 	}
-	dprintf(2, "%s\n", head->hello);
-	dprintf(2, "--------------\n\n");
+	// dprintf(2, "%s\n", head->hello);
+	// dprintf(2, "--------------\n\n");
 	free(head->adress);
 	free(head);
 	return (NULL);

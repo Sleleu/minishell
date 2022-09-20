@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/19 14:41:54 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:04:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_pipe
 
 typedef enum e_mem 
 {
-	FLUSH = 1,
+	PURGE = 1,
 	FREE = 2,
 	MALLOC = 3,
 }	t_mem;
