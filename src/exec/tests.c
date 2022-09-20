@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 19:33:21 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:50:37 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 parse[0].str = NULL
-parse[0].type = Inf Chevron
+parse[0].type = INF_CHEVRON
 
 parse[1].str = Makefile
 parse[1].type = Word
@@ -33,6 +33,9 @@ parse[5].type = SUP_CHEVRON
 
 parse[6].str = outfile
 parse[6].type = WORD
+
+parse[7].str = NULL
+parse[7].type = FINISH
 */
 
 // t_parse	*simulate_parse(t_parse *parsing)

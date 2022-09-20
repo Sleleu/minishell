@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 19:28:34 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:49:50 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef enum e_token_type
 	D_INF_CHEVRON = 5,
 	D_SUP_CHEVRON = 6,
 	DOLLAR = 7,
+	FINISH = 8,
 }	t_token_type;
 
 typedef struct s_lexer

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 18:09:23 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:41:41 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,43 +18,61 @@ int	ft_error(int error, char *str)
 	return (error);
 }
 
-int	ft_parser(t_data **data)
-{	
-	t_lexer *lexer;
+int	ft_lexerlen(t_lexer *lexer)
+{
+	int	i;
 
-	lexer = (*data)->lexer;
-	if (lexer->type == PIPE)
-	 	return (ft_error(1, "minishell: syntax error near unexpected token `|'"));
+	i = 0;
 	while (lexer)
 	{
-		//if (lexer->type == WORD)
-		
+		i++;
 		lexer = lexer->next;
 	}
-
-/* [PRINT TEST] */
-
-	t_lexer *ptr;
-
-	ptr = (*data)->lexer;
-	while (ptr)
-	{
-		printf("TYPE : %d | CONTENU : %s\n", ptr->type, ptr->content);
-	 	ptr = ptr->next;
-	}
-	return (0);
+	return (i);
 }
 
-// lexer->type == WORD;
+void	ft_strcpy(char *dest, char *src)
+{
+	int	i;
 
-/*	(void)data;
-	lexer = get_data()->lexer;
-	if (lexer->type == PIPE)
-	 	return (ft_error(1, "minishell: syntax error near unexpected token `|'"));
-	while (lexer)
+	i = 0;
+	while (src[i])
 	{
-		if (lexer->type == WORD)
-			execve(cmd[0], cmd, NULL);
-		lexer = lexer->next;
+		dest[i] = src[i];
+		i++;
 	}
-	return (0); */
+	dest[i] = '\0';
+}
+
+void	init_parsing(t_data **data)
+{
+	t_lexer	*ptr;
+	int 	i;
+	
+	ptr = (*data)->lexer;
+	i = 0;
+	(*data)->parse = memcenter(MALLOC, sizeof(t_parse)
+		* (ft_lexerlen((*data)->lexer) + 1), NULL, PARSING);
+	while (ptr)
+	{
+		(*data)->parse[i].type = ptr->type;
+		if ((*data)->parse[i].type == WORD)
+		{
+			(*data)->parse[i].str = memcenter(MALLOC, sizeof(char)
+				* ft_strlen(ptr->content) + 1, NULL, PARSING);
+			ft_strcpy((*data)->parse[i].str, ptr->content);
+		}
+		else
+			(*data)->parse[i].str = NULL;
+		i++;	
+		ptr = ptr->next;
+	}
+	(*data)->parse[i].type = FINISH;
+	(*data)->parse[i].str = NULL;
+}
+
+void	ft_parser(t_data **data)
+{	
+	init_parsing(data);
+	//FREE LEXER ICI;
+}

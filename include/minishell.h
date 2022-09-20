@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 19:32:29 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:09:12 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int				quoted_word(t_lexer **lexer, char *line, int pos);
 
 /* PARSING */
 
-int				ft_parser(t_data **data);
+void			ft_parser(t_data **data);
 
 /* EXECUTION */
 
