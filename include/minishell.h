@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 15:45:23 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:10:03 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ int				quoted_word(t_lexer **lexer, char *line, int pos);
 
 /* PARSING */
 
-void 			ft_parser(char *line);
+int				ft_parser(t_data **data);
+
+/* EXECUTION */
+
+int				process(t_data **data);
 
 #endif

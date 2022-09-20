@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 16:05:04 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:12:32 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,19 @@ typedef enum e_token_type
 
 typedef struct s_lexer
 {
-	char *content;
+	char 			*content;
 	t_token_type	type;
-	struct s_lexer *next;
+	struct s_lexer 	*next;
 }	t_lexer;
+
+/* PARSING */
+
+typedef struct s_parsing
+{
+	char				**str;
+	t_token_type		type;
+	struct s_parsing 	*next;
+}	t_parsing;
 
 // GLOBAL STRUCT
 
@@ -88,6 +97,7 @@ typedef struct s_lexer
 	char		**env;
 	t_lexer		*lexer;
 	t_pipex		*pipex;
+	t_parsing	*parsing;
 	t_memcenter	*memcenter;
 }	t_data;
 
