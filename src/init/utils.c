@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:29:44 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 18:14:07 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:30:40 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_data *set_data(char **env)
 	data->line = NULL;
 	data->pipex = NULL;
 	data->lexer = NULL;
-	data->parsing = NULL;
+	data->parse = NULL;
 	data->memcenter = NULL;
 	return (data);
 }

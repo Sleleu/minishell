@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 18:52:32 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:31:31 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ int		builtin(t_data **data)
 
 int		process(t_data **data)
 {
-	char	*cmd[3] = {"/usr/bin/ls", "-la", 0};
-	int		test;
+	int			return_value;
+	t_parse		*parsing;
 	
-	test = builtin(data);
-	if (test != 6)
-		return (test);
-	else
-		execve(cmd[0], cmd, (*data)->env);
+	parsing = NULL;
+	return_value = builtin(data);
+	if (return_value != 6)
+		return (return_value);
+	parsing = simulate_parse(parsing);
+	(void)parsing;
 	return (1);
 }

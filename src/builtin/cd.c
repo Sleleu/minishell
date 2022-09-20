@@ -6,13 +6,13 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 19:07:07 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:08:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	replace_pwd(char *path)
+static void	replace_pwd(char *path)
 {
 	int i;
 	char **env;

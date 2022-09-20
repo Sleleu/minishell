@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 18:39:33 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:28:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_pipex{
 
 /* MEMCENTER STRUCT */
 
-typedef enum e_mem 
+typedef enum e_mem
 {
 	PURGE = 1,
 	FREE = 2,
@@ -83,12 +83,11 @@ typedef struct s_lexer
 
 /* PARSING */
 
-typedef struct s_parsing
+typedef struct s_parse
 {
-	char				**str;
+	char				*str;
 	t_token_type		type;
-	struct s_parsing 	*next;
-}	t_parsing;
+}	t_parse;
 
 // GLOBAL STRUCT
 
@@ -98,7 +97,7 @@ typedef struct s_parsing
 	char		**env;
 	t_lexer		*lexer;
 	t_pipex		*pipex;
-	t_parsing	*parsing;
+	t_parse		*parse;
 	t_memcenter	*memcenter;
 }	t_data;
 

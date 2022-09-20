@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/20 18:41:30 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/20 19:11:09 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SOURCES 		= 	main.c \
 					memcenter/memcenter.c \
 					lexer/lexer.c \
 					exec/exec.c \
+					exec/tests.c \
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
