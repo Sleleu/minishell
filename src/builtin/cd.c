@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 19:02:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:07:07 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ int	ft_cd(char *line)
 	cd = memcenter(MALLOC, 0, ft_split(line, ' '), BUILTIN);
 	if (!cd)
 		return (0);
-	i = 0;
-	while (cd[i])
-	{
+	i = -1;
+	while (cd[++i])
 		memcenter(MALLOC, 0, cd[i], BUILTIN);
-		i++;
-	}
 	memcenter(MALLOC, 0, cd[i], BUILTIN);
 	chdir(cd[1]);
 	replace_pwd(cd[1]);
