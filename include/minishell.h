@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 15:17:36 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:30:16 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define MINISHELL_H
 
 # include "struct.h"
+
+/* INIT */
+
+t_data 			*get_data(void);
+
+t_data 			*set_data(char **env);
 
 /* BUILTIN */
 
@@ -66,10 +72,6 @@ int 			handle_quotes(char *line, int pos, int quote, char c);
 int				quoted_word(t_lexer **lexer, char *line, int pos);
 
 /* PARSING */
-
-t_data 			*get_data(void);
-
-t_data 			*set_data(char **env);
 
 void 			ft_parser(char *line);
 

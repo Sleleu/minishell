@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 14:04:04 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:27:12 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@
 # include <term.h>
 # include <limits.h>
 
-/* PIPE */
+/* PIPEX */
 
-typedef struct s_pipe
-{
-	char			*line;
-	char			*cmd;
-	char			*option;
-	int				*fd;
-	int				oldfd;
-	struct s_pipe	*next;
-	struct s_pipe	*prev;
-}	t_pipe;
+typedef struct s_pipex{
+	int		ac;
+	char	**av;
+	char	**envp;
+	int		i;
+	pid_t	pid;
+	int		fd[2];
+	int		oldfd;
+	int		heredoc;
+}	t_pipex;
 
 /* MEMCENTER STRUCT */
 
@@ -48,20 +48,9 @@ typedef enum e_mem
 typedef struct s_memcenter
 {
 	void				*adress;
-	char				*hello;
+	char				*label;
 	struct s_memcenter	*next;
 }	t_memcenter;
-
- typedef struct s_data
- {
-	char	*line;
-	char	**env;
-	char	*prompt;
-	int		nb;
-	struct s_lexer *lexer;
-	t_pipe	*pipes;
-	t_memcenter	*memcenter;
-}	t_data;
 
 /* LEXER */
 
@@ -82,5 +71,17 @@ typedef struct s_lexer
 	t_token_type	type;
 	struct s_lexer *next;
 }	t_lexer;
+
+// GLOBAL STRUCT
+
+ typedef struct s_data
+ {
+	char		*line;
+	char		**env;
+	char		*prompt;
+	t_lexer		*lexer;
+	t_pipex		*pipex;
+	t_memcenter	*memcenter;
+}	t_data;
 
 #endif

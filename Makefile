@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/20 15:19:11 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/20 15:30:44 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ OBJ_PATH		= 	obj
 
 ### SOURCE FILES ###
 SOURCES 		= 	main.c \
+					init/utils.c \
 					builtin/echo.c \
 					builtin/pwd.c \
 					builtin/env.c \
@@ -59,7 +60,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Welcome to $@ ✅$(NOC)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INCLUDE)/$(NAME).h
-	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer && mkdir -p obj/memcenter
+	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer && mkdir -p obj/memcenter && mkdir -p obj/init
 	@$(CC) $(FLAGS) -I$(INCLUDE) -c -o $@ $<
 	@echo "$(BLUE)gcc $(WHITE)$(notdir $@)$(NOC)"
 

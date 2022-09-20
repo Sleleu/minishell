@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:11:54 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 15:13:07 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:27:28 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	*mempurge(t_memcenter *head)
 	// dprintf(2, "--- PURGE ---\n");
 	while (head->next != NULL)
 	{
-		// dprintf(2, "%s\n", head->hello);
+		// dprintf(2, "%s\n", head->label);
 		tmp = head;
 		free(tmp->adress);
 		head = head->next;
 		free(tmp);
 	}
-	// dprintf(2, "%s\n", head->hello);
+	// dprintf(2, "%s\n", head->label);
 	// dprintf(2, "--------------\n\n");
 	free(head->adress);
 	free(head);
@@ -100,7 +100,7 @@ void	*first_malloc(size_t size, void *adress, char *label)
 	if (!head->adress)
 		head->adress = NULL;
 	head->next = NULL;
-	head->hello = label;
+	head->label = label;
 	data->memcenter = head;
 	return (head->adress);
 }
@@ -124,7 +124,7 @@ void	*after_malloc(size_t size, void *adress, char *label)
 		tmp->adress = (void *)malloc(size * 1);
 	if (!tmp->adress)
 		tmp->adress = NULL;
-	tmp->hello = label;
+	tmp->label = label;
 	tmp->next = NULL;
 	head->next = tmp;
 	return (tmp->adress);

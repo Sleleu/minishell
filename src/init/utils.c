@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 15:29:28 by rvrignon         ###   ########.fr       */
+/*   Created: 2022/09/20 15:29:44 by rvrignon          #+#    #+#             */
+/*   Updated: 2022/09/20 15:29:45 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_parser(char *line)
+t_data *get_data(void)
+{
+	static t_data data;
+
+	return(&data);
+}
+
+t_data *set_data(char **env)
 {
 	t_data *data;
-	
-	(void)line;
-	(void)data;
+
+	data = get_data();
+	if (!data)
+		return (NULL);
+	data->env = env;
+	data->line = NULL;
+	data->pipex = NULL;
+	data->lexer = NULL;
+	return (data);
 }
