@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 19:30:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:32:29 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,6 @@ int				ft_parser(t_data **data);
 
 int				process(t_data **data);
 
-t_parse		*simulate_parse(t_parse *parsing);
+t_parse			*simulate_parse(t_parse *parsing);
 
 #endif

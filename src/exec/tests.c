@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 19:31:50 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:33:21 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ parse[6].str = outfile
 parse[6].type = WORD
 */
 
-t_parse	*simulate_parse(t_parse *parsing)
-{
-	parsing = get_data()->parse;
-	parsing->str = "";
-	parsing->type = WORD;
-	return (parsing);
-}
+// t_parse	*simulate_parse(t_parse *parsing)
+// {
+// 	parsing = get_data()->parse;
+// 	parsing->str = "";
+// 	parsing->type = WORD;
+// 	return (parsing);
+// }

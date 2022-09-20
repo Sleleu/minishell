@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 19:31:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:33:24 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		process(t_data **data)
 	return_value = builtin(data);
 	if (return_value != 6)
 		return (return_value);
-	parsing = simulate_parse(parsing);
+	// parsing = simulate_parse(parsing);
 	(void)parsing;
 	return (1);
 }
