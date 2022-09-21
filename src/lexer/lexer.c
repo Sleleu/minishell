@@ -3,106 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 15:52:08 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:57:32 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-char	*ft_charjoin(char *s1, char c)
-{
-	int		size;
-	int		i;
-	char	*str;
-
-	i = 0;
-	size = 0;
-	while (s1 && s1[size])
-		size++;
-	str = memcenter(MALLOC, sizeof(char) * size + 2, NULL, LEXER);
-	if (str == NULL)
-		return (NULL);
-	while (s1 && s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i++] = c;
-	str[i] = '\0';
-	return (str);
-}
-
-t_lexer	*ft_lstnew_minishell(void *content)
-{
-	t_lexer	*new;
-
-	new = memcenter(MALLOC, sizeof(t_lexer), NULL, LEXER);
-	if (!new)
-		return (NULL);
-	if (!content)
-		new->content = NULL;
-	else
-		new->content = content;
-	new->next = NULL;
-	return (new);
-}
-
-t_lexer	*ft_lstlast_minishell(t_lexer *lst)
-{
-	if (!lst)
-		return (NULL);
-	else
-	{
-		while (lst->next)
-			lst = lst->next;
-		return (lst);
-	}
-}
-
-void	ft_lstadd_back_minishell(t_lexer **lst, t_lexer *new)
-{
-	t_lexer	*last;
-
-	if (*lst)
-	{
-		last = ft_lstlast_minishell(*lst);
-		last->next = new;
-	}
-	else
-		*lst = new;
-}
-
-
-int	is_sep(char *line, int pos)
-{
-	if (line[pos] == '|' || line[pos] == '>'
-		|| line[pos] == '<' || (line[pos] == '$' && (ft_isalpha(line[pos + 1]) || line[pos + 1] == '_')))
-		return (1);
-	else
-		return (0);
-}
-
-int	is_space(char *line, int pos)
-{
-	if ((line[pos] >= 9 && line[pos] <= 13)
-		|| line[pos] == ' ')
-		return (1);
-	else
-		return (0);
-}
-
-int is_double_chevron(char *line, int pos)
-{
-	if (line[pos] == '>' && line[pos + 1] == '>')
-		return (1);
-	else if (line[pos] == '<' && line[pos + 1] == '<')
-		return (2);
-	else
-		return (0);
-}
 
 int	select_chevron(t_lexer **token, char *line, int pos)
 {
@@ -122,13 +30,13 @@ int	select_chevron(t_lexer **token, char *line, int pos)
 			(*token)->type = SUP_CHEVRON;
 		pos++;
 	}
-	return(pos);
+	return (pos);
 }
 
 int	add_sep(t_lexer **lexer, char *line, int pos)
 {
 	t_lexer	*token;
-	
+
 	token = *lexer;
 	token = ft_lstnew_minishell(NULL);
 	if (line[pos] == '|')
@@ -149,14 +57,15 @@ int	add_sep(t_lexer **lexer, char *line, int pos)
 
 int	add_word(t_lexer **lexer, char *line, int pos)
 {
-	t_lexer *token;
+	t_lexer	*token;
 
 	token = *lexer;
 	token = ft_lstnew_minishell(NULL);
 	if (!token)
 		return (-1);
 	token->type = WORD;
-	while (line[pos] && !is_space(line, pos) && !is_sep(line, pos) && line[pos] != '"')
+	while (line[pos] && !is_space(line, pos)
+		&& !is_sep(line, pos) && line[pos] != '"')
 	{
 		token->content = ft_charjoin(token->content, line[pos]);
 		pos++;
@@ -165,68 +74,11 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 	return (pos);
 }
 
-int handle_quotes(char *line, int pos, int quote, char c)
-{
-	if (line[pos + 1])
-	{
-		if (line[pos + 1] == '|' || line[pos + 1] == ' ')
-		{
-			if (line[pos] == c && quote % 2 == 1)
-				return (0);
-			else if (line[pos] == c && quote % 2 == 0)
-				return (1);
-			else if (line[pos] != c && quote % 2 == 0)
-				return (0);
-			else if (line[pos] != c && quote % 2 == 1)
-				return (1);
-		}
-		else
-			return (1);
-	}
-	return (0);
-}
-
-int	quoted_word(t_lexer **lexer, char *line, int pos)
-{
-	int index;
-	int	quote;
-	t_lexer *token;
-
-	token = *lexer;
-	index = pos - 1;
-	token = ft_lstnew_minishell(NULL);
-	quote = 0;
-	if (line[pos] == '"')
-	{
-		while (handle_quotes(line, pos, quote, '"'))
-		{
-			if (line[pos] == '"')
-				quote++;
-			pos++;
-		}
-	}
-	else if (line[pos] == 39)
-	{
-		while (handle_quotes(line, pos, quote, 39))
-		{
-			if (line[pos] == 39)
-				quote++;
-			pos++;
-		}
-	}
-	pos++;
-	while (++index < pos)
-		token->content = ft_charjoin(token->content, line[index]);
-	token->type = WORD;
-	ft_lstadd_back_minishell(lexer, token);
-	return (pos);
-}
-
-t_lexer	 *ft_lexer(char *line)
+t_lexer	*ft_lexer(char *line)
 {
 	int		pos;
 	t_lexer	*lexer;
-	
+
 	pos = 0;
 	lexer = NULL;
 	while (line[pos])
@@ -243,6 +95,11 @@ t_lexer	 *ft_lexer(char *line)
 			if (pos == -1)
 				return (NULL); // ERROR A GERER
 		}
+	}
+	while (lexer)
+	{
+		printf("content : %s | type : %d\n", lexer->content, lexer->type);
+		lexer = lexer->next;
 	}
 	return (lexer);
 }
