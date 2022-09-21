@@ -6,42 +6,21 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 21:41:41 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/21 14:42:19 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_error(int error, char *str)
+int	error_type_token(t_data **data)
 {
-	dprintf(2, "%s\n", str);
-	return (error);
-}
-
-int	ft_lexerlen(t_lexer *lexer)
-{
-	int	i;
+	int i;
 
 	i = 0;
-	while (lexer)
-	{
-		i++;
-		lexer = lexer->next;
-	}
-	return (i);
-}
-
-void	ft_strcpy(char *dest, char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
+	(void)i;
+	if ((*data)->parse[0].type == PIPE)
+		return (ft_error(2, "minishell: syntax error near unexpected token `|'"));
+	return (0);
 }
 
 void	init_parsing(t_data **data)
@@ -71,8 +50,14 @@ void	init_parsing(t_data **data)
 	(*data)->parse[i].str = NULL;
 }
 
-void	ft_parser(t_data **data)
-{	
+int	ft_parser(t_data **data)
+{
+	int error;
+	
+	error = 0;
 	init_parsing(data);
+	if ((error = error_type_token(data)) != 0)
+		return (error);
 	//FREE LEXER ICI;
+	return (0);
 }

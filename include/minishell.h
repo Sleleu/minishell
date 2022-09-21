@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/21 13:11:49 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/21 14:27:49 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,17 @@ void			ft_lstadd_back_minishell(t_lexer **lst, t_lexer *new);
 /*                           PARSING                          */
 /* ********************************************************** */
 
-void			ft_parser(t_data **data);
+/* PARSER */
+
+int			ft_parser(t_data **data);
+
+/* PARSER_UTILS */
+
+int				ft_error(int error, char *str);
+
+int				ft_lexerlen(t_lexer *lexer);
+
+void			ft_strcpy(char *dest, char *src);
 
 /* ********************************************************** */
 /*                           EXECUTION                        */

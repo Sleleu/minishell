@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 21:40:25 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/21 14:42:42 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int		main(int ac, char **av, char **env)
 {
-	(void)ac;
 	(void)av;
 	char	*line;
 	t_data	*data;
 	
+	if (ac != 1)
+		return (0);
 	data = set_data(env);
 	while (1)
 	{

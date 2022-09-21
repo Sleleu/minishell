@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/21 12:53:26 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/21 14:23:01 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SOURCES 		= 	main.c \
 					builtin/env.c \
 					builtin/unset.c \
 					parsing/parser.c \
+					parsing/parser_utils.c \
 					memcenter/memcenter.c \
 					lexer/lexer.c \
 					lexer/is_token.c \
