@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/21 14:32:59 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:36:37 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	select_chevron(t_lexer **token, char *line, int pos)
 	return (pos);
 }
 
-int	add_sep(t_lexer **lexer, char *line, int pos)
+int	add_sep(t_lexer **lexer, char *line, int pos, int *cmd)
 {
 	t_lexer	*token;
 
@@ -43,6 +43,7 @@ int	add_sep(t_lexer **lexer, char *line, int pos)
 	{
 		token->type = PIPE;
 		pos++;
+		*cmd += 1;
 	}
 	else if (line[pos] == '<' || line[pos] == '>')
 		pos = select_chevron(&token, line, pos);
@@ -51,11 +52,12 @@ int	add_sep(t_lexer **lexer, char *line, int pos)
 		token->type = DOLLAR;
 		pos++;
 	}
+	token->cmd = *cmd;
 	ft_lstadd_back_minishell(lexer, token);
 	return (pos);
 }
 
-int	add_word(t_lexer **lexer, char *line, int pos)
+int	add_word(t_lexer **lexer, char *line, int pos, int cmd)
 {
 	t_lexer	*token;
 
@@ -70,6 +72,7 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 		token->content = ft_charjoin(token->content, line[pos]);
 		pos++;
 	}
+	token->cmd = cmd;
 	ft_lstadd_back_minishell(lexer, token);
 	return (pos);
 }
@@ -77,21 +80,23 @@ int	add_word(t_lexer **lexer, char *line, int pos)
 t_lexer	*ft_lexer(char *line)
 {
 	int		pos;
+	int		cmd;
 	t_lexer	*lexer;
 
 	pos = 0;
+	cmd = 1;
 	lexer = NULL;
 	while (line[pos])
 	{
 		if (is_space(line, pos))
 			pos++;
 		else if (is_sep(line, pos))
-			pos = add_sep(&lexer, line, pos);
+			pos = add_sep(&lexer, line, pos, &cmd);
 		else if (line[pos] == '"' || line[pos] == 39)
-			pos = quoted_word(&lexer, line, pos);
+			pos = quoted_word(&lexer, line, pos, cmd);
 		else
 		{
-			pos = add_word(&lexer, line, pos);
+			pos = add_word(&lexer, line, pos, cmd);
 			if (pos == -1)
 				return (NULL); // ERROR A GERER
 		}

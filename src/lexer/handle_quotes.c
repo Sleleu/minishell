@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:52:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/21 13:07:32 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:30:20 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	select_quote(char *line, int pos, int quote)
 	return (pos);
 }
 
-int	quoted_word(t_lexer **lexer, char *line, int pos)
+int	quoted_word(t_lexer **lexer, char *line, int pos, int cmd)
 {
 	int		index;
 	int		quote;
@@ -71,6 +71,7 @@ int	quoted_word(t_lexer **lexer, char *line, int pos)
 	while (++index < pos)
 		token->content = ft_charjoin(token->content, line[index]);
 	token->type = WORD;
+	token->cmd = cmd;
 	ft_lstadd_back_minishell(lexer, token);
 	return (pos);
 }

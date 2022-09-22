@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/21 17:31:15 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:29:01 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef enum e_token_type
 typedef struct s_lexer
 {
 	char 			*content;
+	int				cmd;
 	t_token_type	type;
 	struct s_lexer 	*next;
 }	t_lexer;
@@ -91,6 +92,7 @@ typedef struct s_lexer
 typedef struct s_parse
 {
 	char				*str;
+	int					cmd;
 	t_token_type		type;
 }	t_parse;
 
