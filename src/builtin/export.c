@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 19:19:15 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 19:50:00 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ char	**ft_envjoin(t_data **data, int i)
 		index++;
 	}
 	//new_env[index] = memcenter(MALLOC, sizeof(char) * ft_strlen((*data)->parse[i].str) + 1, NULL, BUILTIN);
-	new_env[index++] = malloc(sizeof(char) * ft_strlen((*data)->parse[i].str) + 1);
+	new_env[index] = malloc(sizeof(char) * ft_strlen((*data)->parse[i].str) + 1);
+	new_env[index][ft_strlen((*data)->parse[i].str) - 1] = '\0';
 	new_env[index] = '\0';
 	ft_strcpy(new_env[size - 1], (*data)->parse[i].str);
 	//ft_free_env(data);
@@ -75,13 +76,52 @@ int	export_error(t_parse *parse, int i)
 	return (0);
 }
 
+int	is_env_variable(t_data **data, int i)
+{
+	int	j;
+	int	is_equal;
+	
+	j = 0;
+	is_equal = 0;
+	while ((*data)->parse[i].str[j])
+	{
+		if ((*data)->parse[i].str[j] == '=')
+			is_equal = 1;
+		j++;
+	}
+	if (is_equal == 1)
+		return (j);
+	else
+		return (0);
+}
+
+int	isalnum_var(t_data **data, int i, int index_equal)
+{
+	int j;
+	
+	j = 0;
+	while (j < index_equal)
+	{
+		if (!ft_isalnum((*data)->parse[i].str[j]))
+		{
+			printf("minishell: export: `%s", (*data)->parse[i].str);
+			printf("':not a valid identifier\n");
+			return (0);
+		}
+		j++;
+	}
+	return (1);
+}
+
 int	ft_export(t_data **data)
 {
 	int	i;
 	int code;
+	//int	index_equal;
 	
 	i = 0;
 	code = 0;
+	//index_equal = 0;
 	while (ft_strncmp((*data)->parse[i].str, "export", ft_strlen("export")))
 		i++;
 	if (i != 0) // export doit etre au debut
@@ -92,11 +132,15 @@ int	ft_export(t_data **data)
 			return (0);
 		i++;
 	}
-	i = 0;
+	i = 1;
 	while ((*data)->parse[i].type == WORD)
 	{
 		if (!export_error((*data)->parse, i))
-			(*data)->env = ft_envjoin(data, i);
+		{ 	
+			//index_equal = is_env_variable(data, i);
+			//if (index_equal != 0 && isalnum_var(data, i, index_equal))
+				(*data)->env = ft_envjoin(data, i);
+		}
 		else
 			code = 1;
 		i++;

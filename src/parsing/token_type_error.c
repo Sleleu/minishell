@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 13:17:03 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 19:10:46 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:05:04 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_token_type	token_type_chevron(t_data **data, int i)
 {
-	if ((*data)->parse[i].type == INFILE)
-		return (INFILE);
-	else if ((*data)->parse[i].type == OUTFILE_T)
-		return (OUTFILE_T);
-	else if ((*data)->parse[i].type == OUTFILE_A)
-		return (OUTFILE_A);
+	if ((*data)->parse[i].type == INF_CHEVRON)
+		return (INF_CHEVRON);
+	else if ((*data)->parse[i].type == SUP_CHEVRON)
+		return (SUP_CHEVRON);
+	else if ((*data)->parse[i].type == D_SUP_CHEVRON)
+		return (D_SUP_CHEVRON);
 	else
-		return (LIMITER);
+		return (D_INF_CHEVRON);
 }
 
 t_token_type	token_type(t_data **data, int i)
