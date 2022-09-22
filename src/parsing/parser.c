@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/22 14:41:07 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:43:56 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	ft_parser(t_data **data)
 		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str, (*data)->parse[i].type, (*data)->parse[i].cmd);
 		i++;
 	}
-		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str, (*data)->parse[i].type, (*data)->parse[i].cmd);
-	return (0);*/
+		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str, (*data)->parse[i].type, (*data)->parse[i].cmd);*/
+	return (0);
 }
 
 // FREE LE LEXER
