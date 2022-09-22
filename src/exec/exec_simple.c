@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:13:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/22 19:57:37 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:17:13 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int		handle_fdt(t_data *data)
 
 static void	child_process(t_data *data)
 {
-	// exit(EXIT_FAILURE);
 	if (handle_fdt(data))
 		execute(data, data->exec[0].cmd);
 }

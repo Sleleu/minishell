@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/22 18:41:17 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:17:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	exec_pipes_process(t_data *data)
 	t_parse *parse;
 
 	parse = data->parse;
-	print_both(data);
 	(void)parse;
 	
 	// if (data->actual < data->args)
@@ -100,7 +99,8 @@ int	exec_pipes(t_data *data)
 
 	// pipex = data->pipex;
 	// pipex = init_pipex();
-	exec_pipes_process(data);
+	print_both(data);
+	// exec_pipes_process(data);
 	(void)exec;
 	// close(pipex->fd[0]);
 	// close(pipex->fd[1]);
