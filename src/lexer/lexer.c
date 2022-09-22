@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 14:43:15 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 15:14:56 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,13 @@ t_lexer	*ft_lexer(char *line)
 		{
 			pos = add_word(&lexer, line, pos, cmd);
 			if (pos == -1)
-				return (NULL); // ERROR A GERER
+				return (NULL);
 		}
 	}
 	return (lexer);
 }
 
+// ERROR A GERER SUR LE RETURN NUL
 /*
 int	main(int ac, char **av)
 {

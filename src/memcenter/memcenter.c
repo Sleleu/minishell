@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memcenter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:11:54 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 16:05:25 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:53:10 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	*memfreewhere(t_memcenter *head, t_label label)
 		free(head->adress);
 		head->adress = NULL;
 	}
-	while (head->adress)
+	while (head)
 	{
 		if (head->label == label)
 		{

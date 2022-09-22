@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 14:32:29 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:57:10 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			ft_lstadd_back_minishell(t_lexer **lst, t_lexer *new);
 
 /* PARSER */
 
-int			ft_parser(t_data **data);
+int				ft_parser(t_data **data);
 
 /* PARSER_UTILS */
 
@@ -87,10 +87,18 @@ void			ft_strcpy(char *dest, char *src);
 
 /* TOKEN_TYPE_ERROR */
 
+t_token_type	token_type_chevron(t_data **data, int i);
 t_token_type	token_type(t_data **data, int i);
 t_token_type	is_chevron_type(t_data **data, int i);
 int				select_chevron_error(t_data **data, int i);
 int				error_type_token(t_data **data);
+
+/* INIT_PARSING */
+
+void			select_file(t_data **data, int i);
+void			assign_file(t_data **data);
+void			init_finish_token(t_data **data, int i);
+void			init_parsing(t_data **data);
 
 /* ********************************************************** */
 /*                           EXECUTION                        */
