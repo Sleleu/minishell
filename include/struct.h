@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 14:29:01 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:09:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,16 @@
 # include <curses.h>
 # include <term.h>
 # include <limits.h>
+# include <sys/wait.h>
 
 /* PIPEX */
 
-typedef struct s_pipex{
-	int		ac;
-	char	**av;
-	char	**envp;
-	int		i;
+typedef struct s_exec{
+	char	*infile;
+	char	*outfile;
+	int		cmd;
 	pid_t	pid;
-	int		fd[2];
-	int		oldfd;
-	int		heredoc;
-}	t_pipex;
+}	t_exec;
 
 /* MEMCENTER STRUCT */
 
@@ -51,7 +48,8 @@ typedef	enum e_label
 	NOTHING = 0,
 	BUILTIN = 1,
 	LEXER = 2,
-	PARSING = 3,
+	EXEC = 3,
+	PARSING = 4,
 }	t_label;
 
 typedef struct s_memcenter
@@ -100,12 +98,14 @@ typedef struct s_parse
 
  typedef struct s_data
  {
+	int			args;
 	char		*line;
 	char		**env;
 	t_lexer		*lexer;
-	t_pipex		*pipex;
+	t_exec		*exec;
 	t_parse		*parse;
 	t_memcenter	*memcenter;
+	int			fd[2];
+	int			oldfd;
 }	t_data;
-
 #endif

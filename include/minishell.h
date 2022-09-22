@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 18:34:39 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:08:08 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,25 @@ void			init_parsing(t_data **data);
 /* ********************************************************** */
 
 int				process(t_data **data);
-t_parse			*simulate_parse(t_parse *parsing);
+int				exec_simple(t_data *data);
+int				exec_pipes(t_data *data);
+int				exec(t_data *data);
+void			exec_simple_process(t_data *data);
+void			exec_pipes_process(t_data *data);
+void			close_pipes(t_data *data);
+void			error(void);
+void			print(char *s);
+char			**find_path(char **e);
+char			*find_cmdpath(char *cmd, char **envp);
+char			*setpath(char *av, char **envp);
+int				is_path(char *av);
+char 			**test(char **lol);
+void			execute(t_data *data, int cmd);
+void			free_double(char **lol);
+void			err_return(char **cmd);
+void			print_both(t_data *data);
+int				exec(t_data *data);
+int				builtin(t_data **data);
+int				getcmdnb(t_parse *parse);
 
 #endif

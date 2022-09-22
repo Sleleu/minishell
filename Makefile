@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
+#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/22 18:26:51 by sleleu           ###   ########.fr        #
+#    Updated: 2022/09/22 20:08:45 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,12 @@ SOURCES 		= 	main.c \
 					lexer/lexer_utils.c \
 					lexer/handle_quotes.c \
 					exec/exec.c \
-					exec/tests.c \
+					exec/exec_pipes.c \
+					exec/exec_simple.c \
+					exec/utils.c \
+					exec/utils_one.c \
+					exec/utils_two.c \
+					exec/fd_manager.c \
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
