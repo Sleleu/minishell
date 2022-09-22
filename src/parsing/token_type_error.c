@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 13:17:03 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 15:13:43 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/22 19:10:46 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	select_chevron_error(t_data **data, int i)
 	if (token_type(data, i - 1) == INF_CHEVRON
 		&& token_type(data, i) == SUP_CHEVRON)
 		printf("minishell: syntax error near unexpected token `newline'\n");
-	if (token_type(data, i) == INF_CHEVRON)
+	else if (token_type(data, i) == INF_CHEVRON)
 		printf("minishell: syntax error near unexpected token `<'\n");
 	else if (token_type(data, i) == SUP_CHEVRON)
 		printf("minishell: syntax error near unexpected token `>'\n");
@@ -99,3 +99,8 @@ int	error_type_token(t_data **data)
 				"minishell: syntax error near unexpected token `newline'"));
 	return (0);
 }
+
+// si dans un mot on trouve test=yo on stocke test et yo dans un tableau de structure
+// si on trouve le texte apres le $ on substitue, si on trouve pas, le text renvoie rien et on le saute pour le texte suivant
+
+// _= fait un truc bizarre, env | env aussi, quote avecc heredoc expand pas un truc

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 19:33:24 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:19:00 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int		builtin(t_data **data)
 {
 	if ((*data)->line == NULL || !strcmp("exit", (*data)->line))
-	{
-		ft_putstr_fd("\n", 2);
-		return (-1) ;
-	}
+		return (-1);
 	else if (ft_strlen((*data)->line) > 1)
 	{
 		if (!strcmp("pwd", (*data)->line))
@@ -31,6 +28,8 @@ int		builtin(t_data **data)
 			return (ft_echo((*data)->line));
 		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
 			return (ft_unset((*data)->env, (*data)->line));
+		else if (!strncmp("export", (*data)->line, ft_strlen("export"))) // EXPORT TEST
+			return (ft_export(data));
 	}
 	return (6);	
 }
