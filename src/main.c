@@ -23,7 +23,7 @@ int		main(int ac, char **av, char **env)
 	data = set_data(env);
 	while (1)
 	{
-		line = readline("🌀\033[34m\e[1m minishell \033[0;31m>\033[33m>\033[0;32m>\033[0m ");
+		line = readline("minishell >>> ");
 		if (line && ft_strlen(line) > 0)
 			add_history(line);
 		data->line = line;
