@@ -6,13 +6,13 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/23 14:42:46 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/23 18:21:44 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	**ft_envjoin(t_data **data, int i)
+char	**ft_envjoin(t_data **data, char *str)
 {
 	char **new_env;
 	int	size;
@@ -25,7 +25,6 @@ char	**ft_envjoin(t_data **data, int i)
 	while ((*data)->env[size])
 		size++;
 	new_env = memcenter(MALLOC, sizeof(char *) * size + 2, NULL, BUILTIN);
-	printf("%d\n", size);
 	while ((*data)->env[index])
 	{
 		len = ft_strlen((*data)->env[index]);
@@ -34,10 +33,9 @@ char	**ft_envjoin(t_data **data, int i)
 		ft_strcpy(new_env[index], (*data)->env[index]);
 		index++;
 	}
-	new_env[index] = memcenter(MALLOC, sizeof(char) * ft_strlen((*data)->parse[i].str) + 1, NULL, BUILTIN);
-	new_env[index][ft_strlen((*data)->parse[i].str) - 1] = '\0';
-	new_env[index] = '\0';
-	ft_strcpy(new_env[size - 1], (*data)->parse[i].str);
+	new_env[index] = memcenter(MALLOC, sizeof(char) * ft_strlen(str) + 1, NULL, BUILTIN);
+	new_env[index + 1] = '\0';
+	ft_strcpy(new_env[index], str);
 	return (new_env);
 }
 
@@ -83,9 +81,16 @@ int	isalnum_var(t_data **data, int i, int index_equal)
 	{
 		if (!ft_isalnum((*data)->parse[i].str[j]))
 		{
-			printf("minishell: export: `%s", (*data)->parse[i].str);
-			printf("':not a valid identifier\n");
-			return (0);
+			if ((*data)->parse[i].str[j] == '+' && (*data)->parse[i].str[j + 1] == '=')
+			{
+				return (2);
+			}
+			else
+			{
+				printf("minishell: export: `%s", (*data)->parse[i].str);
+				printf("':not a valid identifier\n");
+				return (0);
+			}
 		}
 		j++;
 	}
@@ -115,6 +120,39 @@ int	ft_export_check_arg(t_data **data)
 	return (1);
 }
 
+int	is_new_var(t_data **data, char *str, int index_equal)
+{
+	int j;
+
+	j = 0;
+	while ((*data)->env[j])
+	{
+		if (!ft_strncmp(str, (*data)->env[j], index_equal))
+			return (j);
+		j++;
+	}
+	return (0);
+}
+
+void	ft_refresh_var(t_data **data, char *str, int index_equal)
+{
+	int index_var;
+
+	index_var = is_new_var(data, str, index_equal);
+	free((*data)->env[index_var]);
+	ft_strjoin((*data)->env[index_var], str);
+}
+
+/*
+void	ft_append_var(t_data **data, char *str, int index_equal)
+{
+	int	i;
+	char *append_str;
+
+		ft_envjoin(data, str);
+	// go substr avec le = et strjoin la suite de la variable
+}*/
+
 int	ft_export(t_data **data)
 {
 	int	i;
@@ -131,8 +169,15 @@ int	ft_export(t_data **data)
 		if (!export_error((*data)->parse, i))
 		{ 	
 			index_equal = is_env_variable(data, i);
-			if (index_equal != 0 && isalnum_var(data, i, index_equal))
-				(*data)->env = ft_envjoin(data, i);
+			if (index_equal != 0 && isalnum_var(data, i, index_equal) == 1)
+			{
+				if (is_new_var(data, (*data)->parse[i].str, index_equal) == 0)
+					(*data)->env = ft_envjoin(data, (*data)->parse[i].str);
+				else
+					ft_refresh_var(data, (*data)->parse[i].str, index_equal);
+			}
+			//else if (index_equal != 0 && isalnum_var(data, i, index_equal) == 2) // il y a un +=
+			//	ft_append_var(data, (*data)->parse[i].str, index_equal);
 		}
 		else
 			code = 1;
@@ -141,5 +186,6 @@ int	ft_export(t_data **data)
 	return (code);
 }
 
+//segfault si change une variable existant deja au tout debut
 // += append pour l'env
 // export sans arg = afficher l'env

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/23 14:46:31 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/23 18:22:14 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 int		builtin(t_data **data)
 {
 	if ((*data)->line == NULL || !strcmp("exit", (*data)->line))
-	{
-		ft_putstr_fd("\n", 2);
 		return (-1) ;
-	}
 	else if (ft_strlen((*data)->line) > 1)
 	{
 		if (!strcmp("pwd", (*data)->line))
