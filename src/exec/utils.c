@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/21 13:23:41 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:46:31 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		builtin(t_data **data)
 			return (ft_echo((*data)->line));
 		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
 			return (ft_unset((*data)->env, (*data)->line));
+		else if (!strncmp("export", (*data)->line, ft_strlen("export")))
+			return (ft_export(data));
 	}
 	return (6);	
 }
