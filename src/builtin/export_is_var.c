@@ -6,16 +6,16 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:49:41 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 19:50:19 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:53:55 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_env_variable(char *str)
+int	is_env_variable(char *str, int *code)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
@@ -25,6 +25,7 @@ int	is_env_variable(char *str)
 			{
 				printf("minishell: export: `%s", str);
 				printf("':not a valid identifier\n");
+				*code = 1;
 				return (0);
 			}
 			else
@@ -37,14 +38,14 @@ int	is_env_variable(char *str)
 
 int	isalnum_var(char *str, int index_equal)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < index_equal)
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
 		{
-			if (str[i] == '+' && str[i + 1] == '=')
+			if (i > 0 && str[i] == '+' && str[i + 1] == '=')
 				return (2);
 			else
 			{
@@ -60,7 +61,7 @@ int	isalnum_var(char *str, int index_equal)
 
 int	is_new_var(char **env, char *str, int index_equal)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])

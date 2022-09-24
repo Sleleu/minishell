@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 20:18:48 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:44:59 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				ft_export(t_data **data, t_parse *parse);
 
 /* EXPORT_IS_VAR */
 
-int				is_env_variable(char *str);
+int				is_env_variable(char *str, int *code);
 int				isalnum_var(char *str, int index_equal);
 int				is_new_var(char **env, char *str, int index_equal);
 

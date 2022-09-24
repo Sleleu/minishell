@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 20:18:34 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:49:15 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	ft_export_check_arg(t_data **data, t_parse *parse)
 void	ft_refresh_var(t_data **data, char *str, int index_equal)
 {
 	int		index_var;
-	char 	*new_var;
-	char 	*new_value;
+	char	*new_var;
+	char	*new_value;
 
 	index_var = is_new_var((*data)->env, str, index_equal);
 	new_var = ft_substr((*data)->env[index_var], 0, index_equal + 1);
@@ -69,21 +69,21 @@ void	ft_refresh_var(t_data **data, char *str, int index_equal)
 
 void	ft_export_action(t_data **data, char *str, int index_equal)
 {
-	if (index_equal != 0 && isalnum_var(str, index_equal) == 1)
+	if (isalnum_var(str, index_equal) == 1)
 	{
 		if (is_new_var((*data)->env, str, index_equal) == 0)
 			(*data)->env = ft_envjoin((*data)->env, str);
 		else
 			ft_refresh_var(data, str, index_equal);
 	}
-	else if (index_equal != 0 && isalnum_var(str, index_equal) == 2)
+	else if (isalnum_var(str, index_equal) == 2)
 		(*data)->env = ft_append_var((*data)->env, str, index_equal);
 }
 
 int	ft_export(t_data **data, t_parse *parse)
 {
 	int	i;
-	int code;
+	int	code;
 	int	index_equal;
 
 	i = 1;
@@ -93,10 +93,13 @@ int	ft_export(t_data **data, t_parse *parse)
 		return (0);
 	while (parse[i].type == WORD)
 	{
-		index_equal = is_env_variable(parse[i].str);
+		index_equal = is_env_variable(parse[i].str, &code);
 		if (isalnum_var(parse[i].str, index_equal)
-			&& !export_error_num(parse, i) && is_env_variable(parse[i].str))	
-			ft_export_action(data, parse[i].str, index_equal);
+			&& !export_error_num(parse, i))
+		{
+			if (index_equal != 0 && is_env_variable(parse[i].str, &code))
+				ft_export_action(data, parse[i].str, index_equal);
+		}
 		else
 			code = 1;
 		i++;
