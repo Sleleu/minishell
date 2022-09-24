@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 13:17:03 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 20:05:04 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/25 01:41:20 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int	error_type_token(t_data **data)
 	return (0);
 }
 
-// si dans un mot on trouve test=yo on stocke test et yo dans un tableau de structure
+// si dans un mot on trouve test=yo on stocke
+// test et yo dans un tableau de structure
 // si on trouve le texte apres le $ on substitue, si on trouve pas, le text renvoie rien et on le saute pour le texte suivant
 
 // _= fait un truc bizarre, env | env aussi, quote avecc heredoc expand pas un truc

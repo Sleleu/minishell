@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 21:44:59 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/25 01:26:32 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_data 			*set_data(char **env);
 
 int				ft_pwd(void);
 int 			ft_env(char **env);
-int				ft_echo(char *line);
+int				ft_echo(t_parse *parse);
 int				ft_cd(char *line);
 int 			ft_unset(char **env, char *line);
 
@@ -119,6 +119,11 @@ void			select_file(t_data **data, int i);
 void			assign_file(t_data **data);
 void			init_finish_token(t_data **data, int i);
 void			init_parsing(t_data **data);
+
+/* CONVERT_ENV */
+
+int				check_env(char **env, char *str);
+void			convert_env(t_data **data);
 
 /* ********************************************************** */
 /*                           EXECUTION                        */

@@ -6,26 +6,23 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 19:32:52 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/25 01:51:28 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_echo(char *line)
+int	ft_echo(t_parse *parse)
 {
-	char	**result;
 	int		i;
 	
 	i = 1;
-	result = ft_split(line, ' ');
-	while (result[i])
+	while (parse[i].type == WORD)
 	{
-		printf("%s ", result[i]);
+		printf("%s ", parse[i].str);
 		i++;
 	}
 	printf("\n");
-	free(result);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/24 16:02:38 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/25 01:23:18 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		builtin(t_data **data)
 		else if (!strncmp("cd", (*data)->line, ft_strlen("cd")))
 			return (ft_cd((*data)->line));
 		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
-			return (ft_echo((*data)->line));
+			return (ft_echo((*data)->parse));
 		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
 			return (ft_unset((*data)->env, (*data)->line));
 		else if (!strncmp("export", (*data)->line, ft_strlen("export")))
