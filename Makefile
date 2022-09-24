@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/22 20:19:22 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/24 19:50:53 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SOURCES 		= 	main.c \
 					builtin/env.c \
 					builtin/unset.c \
 					builtin/export.c \
+					builtin/export_is_var.c \
+					builtin/export_utils.c \
 					parsing/parser.c \
 					parsing/init_parsing.c \
 					parsing/parser_utils.c \

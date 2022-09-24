@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/23 18:06:16 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/24 20:18:48 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,23 @@ int 			ft_unset(char **env, char *line);
 
 /* EXPORT */
 
-void			ft_free_env(t_data **data);
-char			**ft_envjoin(t_data **data, char *str);
-int				export_error(t_parse *parse, int i);
-int				ft_export(t_data **data);
+int				export_error_num(t_parse *parse, int i);
+int				ft_export_check_arg(t_data **data, t_parse *parse);
+void			ft_refresh_var(t_data **data, char *str, int index_equal);
+void			ft_export_action(t_data **data, char *str, int index_equal);
+int				ft_export(t_data **data, t_parse *parse);
+
+/* EXPORT_IS_VAR */
+
+int				is_env_variable(char *str);
+int				isalnum_var(char *str, int index_equal);
+int				is_new_var(char **env, char *str, int index_equal);
+
+/* EXPORT UTILS */
+
+char			**ft_envjoin(char **env, char *str);
+char 			*ft_strdel(char *str, char c, int n);
+char			**ft_append_var(char **env, char *str, int index_equal);
 
 /* ********************************************************** */
 /*                          MEMCENTER                         */

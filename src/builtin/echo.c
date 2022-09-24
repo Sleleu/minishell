@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/20 18:23:06 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:32:52 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_echo(char *line)
 		printf("%s ", result[i]);
 		i++;
 	}
+	printf("\n");
 	free(result);
 	return (0);
 }

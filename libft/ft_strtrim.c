@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 00:32:59 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:57:02 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_end_index(char const *s1, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*tab;
+	char	*str;
 	size_t	size_start;
 	size_t	size_end;
 
@@ -68,6 +68,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		size_start = ft_start_index(s1, set);
 	if (ft_end_index(s1, set))
 		size_end = ft_end_index(s1, set);
-	tab = ft_substr(s1, size_start, ft_strlen(s1) - (size_start + size_end));
-	return (tab);
+	str = ft_substr(s1, size_start, ft_strlen(s1) - (size_start + size_end));
+	return (str);
 }

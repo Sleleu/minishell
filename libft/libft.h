@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 17:53:16 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/14 16:02:42 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:54:19 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include "../include/minishell.h"
 
 typedef struct s_list
 {
@@ -62,7 +63,7 @@ char		**ft_split(char const *s, char c);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s1);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char *s1, char *s2);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlen(const char *str);

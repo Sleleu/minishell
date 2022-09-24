@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 14:13:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:57:46 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@ char	*ft_gnl_strjoin(char *s1, char *s2)
 {
 	int		size;
 	int		i;
-	char	*tab;
+	char	*str;
 
 	i = 0;
 	size = (ft_gnl_strlen(s1) + ft_gnl_strlen(s2));
-	tab = malloc(sizeof(char) * size + 1);
-	if (tab == NULL)
+	str = malloc(sizeof(char) * size + 1);
+	if (str == NULL)
 		return (NULL);
 	while (s1 && s1[i])
 	{
-		tab[i] = s1[i];
+		str[i] = s1[i];
 		i++;
 	}
 	while (*s2)
 	{
-		tab[i] = *s2;
+		str[i] = *s2;
 		i++;
 		s2++;
 	}
-	tab[size] = '\0';
+	str[size] = '\0';
 	free(s1);
-	return (tab);
+	return (str);
 }
 
 int	ft_gnl_strlen(char *str)

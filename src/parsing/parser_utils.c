@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:22:33 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 13:19:27 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/24 20:12:18 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_strcpy(char *dest, char *src)
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src && src[i])
 	{
 		dest[i] = src[i];
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 20:48:25 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/13 20:53:34 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/24 19:55:55 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ char	**ft_split(char const *s, char c)
 {
 	int		i;
 	int		count;
-	char	**tab;
+	char	**split;
 
 	i = 0;
 	count = ft_count(s, c);
-	tab = ft_calloc(sizeof(char *), count + 1);
-	if (tab == NULL)
+	split = ft_calloc(sizeof(char *), count + 1);
+	if (split == NULL)
 		return (NULL);
 	while (*s)
 	{
@@ -69,11 +69,11 @@ char	**ft_split(char const *s, char c)
 			s++;
 		if (*s && *s != c)
 		{
-			tab[i] = ft_word(s, c);
+			split[i] = ft_word(s, c);
 			i++;
 		}
 		while (*s && *s != c)
 			s++;
 	}
-	return (tab);
+	return (split);
 }
