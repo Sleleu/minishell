@@ -7,3 +7,5 @@
 - https://mywiki.wooledge.org/BashParser
 - https://www.gnu.org/software/bash/manual/bash.pdf
 - http://manpagesfr.free.fr/man/man1/bash.1.html
+
+Pour les redirections : https://putaindecode.io/articles/maitriser-les-redirections-shell/
