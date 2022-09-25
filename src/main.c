@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 15:00:02 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/25 21:30:29 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int		main(int ac, char **av, char **env)
 			add_history(line);
 		data->line = line;
 		data->lexer = ft_lexer(line);
-		ft_parser(&data);
+		if (ft_parser(&data) == -1)
+			break ;
 		if (process(&data) == -1)
 			break ;
 		memcenter(FREE_WHERE, 0, NULL, LEXER);
