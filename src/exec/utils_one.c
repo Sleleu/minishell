@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/22 18:34:34 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:46:33 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*find_cmdpath(char *cmd, char **envp)
 		part_path = ft_strjoin(paths[i], "/");
 		path = ft_strjoin(part_path, cmd);
 		free(part_path);
-		if (access(path, F_OK) == 0)
+		if (access(path, X_OK) == 0)
 			return (path);
 		free(path);
 		i++;
@@ -149,15 +149,10 @@ void	execute(t_data *data, int cmdnb)
 
 	cmd = getcmd(data, cmdnb);
 	if (!cmd)
-		return ;
-	if (ft_strlen(cmd[0]) > 0)
-	{
-		if (!is_path(cmd[0]))
-			cmd[0] = setpath(cmd[0], data->env);
-		if (access(cmd[0], F_OK) != 0)
-			cmd[0] = NULL;
-	}
-	if (!cmd[0])
+		exit(0) ;
+	if (ft_strlen(cmd[0]) > 0 && !is_path(cmd[0]))
+		cmd[0] = setpath(cmd[0], data->env);
+	if (!cmd[0] || access(cmd[0], X_OK != 0))
 		return (err_return(cmd));
 	if (execve(cmd[0], cmd, data->env) == -1)
 	{

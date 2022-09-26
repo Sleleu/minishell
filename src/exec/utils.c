@@ -3,14 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/25 19:11:10 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/26 13:16:37 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+void	err_return(char **cmd)
+{
+	char	*err;
+	int		i;
+
+	if (!cmd)
+		ft_putstr_fd("command '' not found\n", 2);
+	else
+	{
+		err = ft_strjoin(cmd[0], ": command not found\n");
+		ft_putstr_fd(err, 2);
+		free(err);
+		i = -1;
+		while (cmd[++i])
+			free(cmd[i]);
+		free(cmd);
+	}
+	close_pipes(get_data());
+	exit(EXIT_FAILURE);
+}
+
+void	free_double(char **lol)
+{
+	int	i;
+
+	i = 0;
+	while (lol[i])
+	{
+		free(lol[i]);
+		i++;
+	}
+	free(lol);
+}
 
 int		builtin(t_data **data)
 {

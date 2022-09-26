@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 20:09:17 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:54:08 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_parse
 
  typedef struct s_data
  {
+	int			actual;
 	int			args;
 	char		*line;
 	char		**env;
@@ -105,6 +106,7 @@ typedef struct s_parse
 	t_exec		*exec;
 	t_parse		*parse;
 	t_memcenter	*memcenter;
+	pid_t		pid;
 	int			fd[2];
 	int			oldfd;
 }	t_data;

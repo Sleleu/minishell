@@ -6,11 +6,40 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/21 14:07:14 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:05:36 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int		handle_fd(t_data *data, int cmd)
+{
+	if (data->exec[cmd - 1].infile)
+	{
+		data->fd[0] = open(data->exec[cmd - 1].infile, O_RDONLY, 0644);
+		if (data->fd[0] < 0)
+		{
+			perror(data->exec[cmd - 1].infile);
+			return (0);
+		}
+		dup2(data->fd[0], STDIN_FILENO); 
+	}
+	else
+		data->fd[0] = 0;
+	if (data->exec[cmd - 1].outfile)
+	{
+		data->fd[1] = open(data->exec[cmd - 1].outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (data->fd[1] < 0)
+		{
+			perror(data->exec[cmd - 1].outfile);
+			return (0);
+		}
+		dup2(data->fd[1], STDOUT_FILENO);  
+	}
+	else
+		data->fd[1] = 1;
+	return (1);
+}
 
 // int	check_path(char **envp)
 // {

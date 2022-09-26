@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/22 19:58:30 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:00:44 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		getargsnb(t_parse *parse)
 	int i;
 
 	i = 0;
+	if (!parse)
+		return (0);
 	while (parse[i].type != FINISH)
 		i++;
 	return (parse[i - 1].cmd);
@@ -90,12 +92,10 @@ int		process(t_data **data)
 	return_value = builtin(data);
 	if (return_value != 6)
 		return (return_value);
-	(*data)->exec = setexec(*data);
+	if ((*data)->parse != NULL)
+		(*data)->exec = setexec(*data);
 	if (!(*data)->exec)
 		return (0);
-	if ((*data)->args > 1)
-		exec_pipes(*data);
-	else
-		exec_simple(*data);
+	execution(*data);
 	return (1);
 }

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/25 21:30:29 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/26 13:18:39 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+static void free_while(void)
+{
+	memcenter(FREE_WHERE, 0, NULL, LEXER);
+	memcenter(FREE_WHERE, 0, NULL, PARSING);
+	memcenter(FREE_WHERE, 0, NULL, EXEC);
+	memcenter(FREE_WHERE, 0, NULL, BUILTIN);
+}
 
 int		main(int ac, char **av, char **env)
 {
@@ -32,7 +40,8 @@ int		main(int ac, char **av, char **env)
 			break ;
 		if (process(&data) == -1)
 			break ;
-		memcenter(FREE_WHERE, 0, NULL, LEXER);
+		free_while();
+		restore_data();
 	}
 	memcenter(PURGE, 0, NULL, NOTHING);
 	return (0);
