@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 17:17:21 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:29:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,8 @@ int		getargsnb(t_parse *parse)
 		return (0);
 	while (parse[i].type != FINISH)
 		i++;
-	return (parse[i - 1].cmd);
+	if (!i)
+		return (1);
+	else
+		return (parse[i - 1].cmd);
 }

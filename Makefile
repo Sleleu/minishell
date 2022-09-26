@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/26 15:43:32 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/26 19:50:16 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,6 @@ fclean: clean
 	@echo "$(RED)fclean$(NOC)"
 	@make fclean -sC $(LIBFT_PATH)
 	@rm -f $(NAME)
-	@rm -f $(NAME_BONUS)
 
 re: fclean
 	make all
@@ -107,7 +106,7 @@ norm:
 push: fclean
 	git add .
 	git status
-	git commit -m minishell
+	git commit -m $(NAME)
 	git push
 
 .PHONY:	 default mandatory clean fclean re norm push

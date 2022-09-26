@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 17:16:48 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 21:27:19 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static t_exec	*setexec(t_data *data)
 		return (NULL);
 	i = 0;
 	cmd = 1;
-	// dprintf(2, "\nData args : %d\n", data->args);
 	while (cmd <= data->args)
 	{
 		// dprintf(2, "\nCmd = %d || Parse cmd : %d\n", cmd, parse[i].cmd);
