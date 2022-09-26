@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 13:00:44 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:16:48 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,26 @@ void	print_both(t_data *data)
 		dprintf(2, "%d Cmd : %d | Infile : %s | Outfile : %s\n", i, exec[i].cmd, exec[i].infile, exec[i].outfile);
 }
 
-int		getargsnb(t_parse *parse)
+int		builtin(t_data **data)
 {
-	int i;
-
-	i = 0;
-	if (!parse)
-		return (0);
-	while (parse[i].type != FINISH)
-		i++;
-	return (parse[i - 1].cmd);
+	if ((*data)->line == NULL || !strncmp("exit", (*data)->line, ft_strlen("exit")))
+		return (-1) ;
+	else if (ft_strlen((*data)->line) > 1)
+	{
+		if (!strcmp("pwd", (*data)->line))
+			return (ft_pwd());
+		else if (!strcmp("env", (*data)->line))
+			return (ft_env((*data)->env));
+		else if (!strncmp("cd", (*data)->line, ft_strlen("cd")))
+			return (ft_cd((*data)->line));
+		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
+			return (ft_echo((*data)->parse));
+		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
+			return (ft_unset((*data)->env, (*data)->line));
+		else if (!strncmp("export", (*data)->line, ft_strlen("export")))
+			return (ft_export(data, (*data)->parse));
+	}
+	return (6);	
 }
 
 static t_exec	*setexec(t_data *data)

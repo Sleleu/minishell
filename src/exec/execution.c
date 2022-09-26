@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 15:05:12 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:44:28 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	child_process(t_data *data, int cmd)
 {
 	if (handle_fd(data, cmd))
-		execute(data, data->exec[cmd - 1].cmd);
+	{
+		dprintf(2, "CMD %d || FD[0] = %d && FD[1] = %d && oldfd = %d\n", cmd, data->fd[0], data->fd[1], data->oldfd);
+		execute(data, cmd);
+	}
 }
 
 void	exec_process(t_data *data)
@@ -26,20 +29,20 @@ void	exec_process(t_data *data)
 			return ;
 		data->pid = fork();
 		if (data->pid < 0)
-			error();
+			return ;
 		if (data->pid == 0)
 			child_process(data, data->actual);
 		if (data->pid > 0 && data->actual < data->args)
 		{
-			if (data->fd[1] > 0)
+			// Handle Heredoc; 
+			if (data->fd[1] > 2)
 				close(data->fd[1]);
-			if (data->oldfd > 0)
+			if (data->oldfd > 2)
 				close(data->oldfd);
 			data->oldfd = data->fd[0];
 			data->actual++;
 			exec_process(data);
 		}
-		// waitpid(data->pid, 0, WCONTINUED);
 		wait(0);
 	}
 }
@@ -47,5 +50,6 @@ void	exec_process(t_data *data)
 int	execution(t_data *data)
 {
 	exec_process(data);
-	return (0);
+	close_pipes(data);
+	return (1);
 }

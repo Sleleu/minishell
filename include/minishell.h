@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/26 13:15:21 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:17:14 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,27 +135,35 @@ int				check_even_quotes(t_parse *parse);
 /*                           EXECUTION                        */
 /* ********************************************************** */
 
+/* PROCESS */
+
 int				process(t_data **data);
-int				exec_simple(t_data *data);
-int				execution(t_data *data);
-int				exec(t_data *data);
-void			exec_simple_process(t_data *data);
+void			execute(t_data *data, int cmdnb);
 void			exec_process(t_data *data);
-void			close_pipes(t_data *data);
-void			error(void);
-void			print(char *s);
-char			**find_path(char **e);
-char			*find_cmdpath(char *cmd, char **envp);
-char			*setpath(char *av, char **envp);
-int				is_path(char *av);
-char 			**test(char **lol);
-void			execute(t_data *data, int cmd);
-void			free_double(char **lol);
-void			err_return(char **cmd);
-void			print_both(t_data *data);
-int				exec(t_data *data);
-int				builtin(t_data **data);
 void			child_process(t_data *data, int cmd);
 int				handle_fd(t_data *data, int cmd);
+int				handle_infile(t_data *data, int cmd);
+int				handle_outfile(t_data *data, int cmd);
+t_token_type 	get_outfile_type(t_data *data, int cmd);
+int				execution(t_data *data);
+
+/* PROCESS UTILS */
+
+char			**find_path(char **e);
+char			*find_cmdpath(char *cmd, char **envp);
+char			*setpath(char *cmd, char **envp);
+int				is_path(char *av);
+char 			**test(char **lol);
+char			**getcmd(t_data *data, int cmdnb);
+
+/* UTILS */
+
+void			print_both(t_data *data);
+void			free_double(char **lol);
+void 			print_double(char **db);
+void			close_pipes(t_data *data);
+void			err_return(char **cmd);
+int				builtin(t_data **data);
+int				getargsnb(t_parse *parse);
 
 #endif

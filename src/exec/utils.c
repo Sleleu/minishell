@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 13:16:37 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:17:21 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,25 @@ void	err_return(char **cmd)
 	exit(EXIT_FAILURE);
 }
 
+void	close_pipes(t_data *data)
+{
+	if (data->fd[0] > 0)
+		close(data->fd[0]);
+	if (data->fd[1] > 0)
+		close(data->fd[1]);
+	if (data->oldfd > 0)
+		close(data->oldfd);
+}
+
+void print_double(char **db)
+{
+	int i;
+
+	i = -1;
+	while (db[++i])
+		dprintf(2, "db[%d] = %s\n", i, db[i]);
+}
+
 void	free_double(char **lol)
 {
 	int	i;
@@ -46,24 +65,14 @@ void	free_double(char **lol)
 	free(lol);
 }
 
-int		builtin(t_data **data)
+int		getargsnb(t_parse *parse)
 {
-	if ((*data)->line == NULL || !strncmp("exit", (*data)->line, ft_strlen("exit")))
-		return (-1) ;
-	else if (ft_strlen((*data)->line) > 1)
-	{
-		if (!strcmp("pwd", (*data)->line))
-			return (ft_pwd());
-		else if (!strcmp("env", (*data)->line))
-			return (ft_env((*data)->env));
-		else if (!strncmp("cd", (*data)->line, ft_strlen("cd")))
-			return (ft_cd((*data)->line));
-		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
-			return (ft_echo((*data)->parse));
-		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
-			return (ft_unset((*data)->env, (*data)->line));
-		else if (!strncmp("export", (*data)->line, ft_strlen("export")))
-			return (ft_export(data, (*data)->parse));
-	}
-	return (6);	
+	int i;
+
+	i = 0;
+	if (!parse)
+		return (0);
+	while (parse[i].type != FINISH)
+		i++;
+	return (parse[i - 1].cmd);
 }

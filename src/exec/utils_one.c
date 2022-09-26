@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 12:46:33 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:56:22 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char **test(char **lol)
 	test[0] = (char *)malloc(sizeof(char) * ft_strlen("bash") + 1);
 	if (!test[0])
 		return (NULL);
-	test[0] = "bash\0";
+	test[0] = "/usr/bin/bash\0";
 	i = 0;
 	while (lol[i] != NULL)
 	{
@@ -146,10 +146,11 @@ char	**getcmd(t_data *data, int cmdnb)
 void	execute(t_data *data, int cmdnb)
 {
 	char	**cmd;
+	char	**bash;
 
 	cmd = getcmd(data, cmdnb);
 	if (!cmd)
-		exit(0) ;
+		exit(EXIT_FAILURE) ;
 	if (ft_strlen(cmd[0]) > 0 && !is_path(cmd[0]))
 		cmd[0] = setpath(cmd[0], data->env);
 	if (!cmd[0] || access(cmd[0], X_OK != 0))
@@ -160,7 +161,8 @@ void	execute(t_data *data, int cmdnb)
 			perror(cmd[0]);
 		else
 		{
-			if (execve("/usr/bin/bash", test(cmd), data->env) == -1)
+			bash = test(cmd);
+			if (execve(bash[0], bash, data->env) == -1)
 				exit(EXIT_FAILURE);
 		}
 	}
