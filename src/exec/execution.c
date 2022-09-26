@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 13:16:32 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/26 15:05:12 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	child_process(t_data *data, int cmd)
 {
 	if (handle_fd(data, cmd))
 		execute(data, data->exec[cmd - 1].cmd);
-	exit(0);
 }
 
 void	exec_process(t_data *data)
@@ -30,7 +29,7 @@ void	exec_process(t_data *data)
 			error();
 		if (data->pid == 0)
 			child_process(data, data->actual);
-		if (data->pid > 0)
+		if (data->pid > 0 && data->actual < data->args)
 		{
 			if (data->fd[1] > 0)
 				close(data->fd[1]);
@@ -38,9 +37,9 @@ void	exec_process(t_data *data)
 				close(data->oldfd);
 			data->oldfd = data->fd[0];
 			data->actual++;
-			if (data->actual < data->args)
-				exec_process(data);
+			exec_process(data);
 		}
+		// waitpid(data->pid, 0, WCONTINUED);
 		wait(0);
 	}
 }
