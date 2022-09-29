@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:31 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/21 12:47:23 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/29 15:14:27 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	is_sep(char *line, int pos)
 		return (0);
 }
 
-int	is_space(char *line, int pos)
+int	is_space(int c)
 {
-	if ((line[pos] >= 9 && line[pos] <= 13)
-		|| line[pos] == ' ')
+	if ((c >= 9 && c <= 13)
+		|| c == ' ')
 		return (1);
 	else
 		return (0);

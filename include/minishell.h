@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/26 17:17:14 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/29 15:13:59 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				add_word(t_lexer **lexer, char *line, int pos, int cmd);
 /* IS_TOKEN */
 
 int				is_sep(char *line, int pos);
-int				is_space(char *line, int pos);
+int				is_space(int c);
 int 			is_double_chevron(char *line, int pos);
 
 /* HANDLE_QUOTES */

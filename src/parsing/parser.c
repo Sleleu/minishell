@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/25 21:33:16 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/29 17:14:48 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_parser(t_data **data)
 	assign_file(data);
 	convert_env(data);
 	//gerer quotes ici
-	//if (!parse_quotes(data))
-	//	return (-1);
+	if (!parse_quotes(data))
+		return (-1);
 	return (0);
 }
 
