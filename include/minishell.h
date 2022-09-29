@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/29 15:13:59 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/30 00:08:24 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ void			convert_env(t_data **data);
 /* PARSE_QUOTES */
 
 int				parse_quotes(t_data **data);
-int				check_even_quotes(t_parse *parse);
+char			*ft_parsing(char *str);
+char			*parse_squote(int c, char *new_str, int *d_quote, int *s_quote);
+char			*parse_dquote(int c, char *new_str, int *d_quote, int *s_quote);
+int				is_quotes(char *str);
 
 /* ********************************************************** */
 /*                           EXECUTION                        */
