@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 00:08:24 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/30 00:33:42 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_lexer			*ft_lexer(char *line);
 int				select_chevron(t_lexer **token, char *line, int pos);
 int				add_sep(t_lexer **lexer, char *line, int pos, int *cmd);
 int				add_word(t_lexer **lexer, char *line, int pos, int cmd);
+int				is_in_quotes(char *line, int pos);
 
 /* IS_TOKEN */
 
