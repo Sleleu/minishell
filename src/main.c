@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/26 21:25:45 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/29 15:01:04 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int	is_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!is_space(line[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static void free_while(void)
 {
@@ -32,15 +46,16 @@ int		main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell >>> ");
-		if (line && ft_strlen(line) > 0)
+		if (is_line(line) && ft_strlen(line) > 0)
 			add_history(line);
 		data->line = line;
 		data->lexer = ft_lexer(line);
-		if (ft_parser(&data) == -1)
+		if (is_line(data->line) && ft_parser(&data) == -1)
 			break ;
-		if (process(&data) == -1)
+		if (is_line(data->line) && process(&data) == -1)
 			break ;
-		free_while();
+		if (is_line(data->line))
+			free_while();
 		restore_data();
 	}
 	memcenter(PURGE, 0, NULL, NOTHING);
