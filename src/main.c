@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/29 15:18:40 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/29 23:57:09 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ int	is_line(char *line)
 	return (0);
 }
 
+
 static void free_while(void)
 {
 	memcenter(FREE_WHERE, 0, NULL, LEXER);
 	memcenter(FREE_WHERE, 0, NULL, PARSING);
 	memcenter(FREE_WHERE, 0, NULL, EXEC);
-	memcenter(FREE_WHERE, 0, NULL, BUILTIN);
+	//memcenter(FREE_WHERE, 0, NULL, BUILTIN);
 }
 
 int		main(int ac, char **av, char **env)
@@ -50,10 +51,11 @@ int		main(int ac, char **av, char **env)
 			add_history(line);
 		data->line = line;
 		data->lexer = ft_lexer(line);
-		if (is_line(data->line) && ft_parser(&data) == -1)
-			break ;
-		if (is_line(data->line) && process(&data) == -1)
-			break ;
+		if (is_line(data->line) && ft_parser(&data) != -1)
+		{
+			if (is_line(data->line) && process(&data) == -1)
+				break ;
+		}
 		if (is_line(data->line))
 			free_while();
 		restore_data();

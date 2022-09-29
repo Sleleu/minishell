@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/29 15:15:00 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/29 17:20:33 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	add_word(t_lexer **lexer, char *line, int pos, int cmd)
 		return (-1);
 	token->type = WORD;
 	while (line[pos] && !is_space(line[pos])
-		&& !is_sep(line, pos) && line[pos] != '"')
+		&& !is_sep(line, pos))
 	{
 		token->content = ft_charjoin(token->content, line[pos]);
 		pos++;
