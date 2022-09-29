@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 00:33:42 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/30 01:34:49 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ int				is_new_var(char **env, char *str, int index_equal);
 char			**ft_envjoin(char **env, char *str);
 char 			*ft_strdel(char *str, char c, int n);
 char			**ft_append_var(char **env, char *str, int index_equal);
+
+/* EXIT */
+
+long long int	ft_long_atoi(char *str);
+int				exit_numeric_error(char *str);
+int				exit_error(t_parse *parse);
+int				ft_exit(t_parse *parse);
 
 /* ********************************************************** */
 /*                          MEMCENTER                         */

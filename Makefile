@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/26 19:50:16 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/09/30 00:53:30 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SOURCES 		= 	main.c \
 					init/utils.c \
 					builtin/cd.c \
 					builtin/echo.c \
+					builtin/exit.c \
 					builtin/pwd.c \
 					builtin/env.c \
 					builtin/unset.c \

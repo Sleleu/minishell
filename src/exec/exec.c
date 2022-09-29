@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 21:27:19 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 01:27:05 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_both(t_data *data)
 int		builtin(t_data **data)
 {
 	if ((*data)->line == NULL || !strncmp("exit", (*data)->line, ft_strlen("exit")))
-		return (-1) ;
+		return (ft_exit((*data)->parse));
 	else if (ft_strlen((*data)->line) > 1)
 	{
 		if (!strcmp("pwd", (*data)->line))
