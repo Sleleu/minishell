@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/26 14:55:30 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:53:27 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 typedef struct s_exec{
 	char	*infile;
 	char	*outfile;
+	int		heredoc;
 	int		cmd;
 	pid_t	pid;
 }	t_exec;
@@ -107,6 +108,7 @@ typedef struct s_parse
 	t_parse		*parse;
 	t_memcenter	*memcenter;
 	pid_t		pid;
+	int			heredoc;
 	int			fd[2];
 	int			oldfd;
 }	t_data;

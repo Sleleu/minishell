@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 15:33:50 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 18:50:13 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void free_while(void)
 int		main(int ac, char **av, char **env)
 {
 	(void)av;
-	char	*line;
 	t_data	*data;
 	
 	if (ac != 1)
@@ -46,16 +45,15 @@ int		main(int ac, char **av, char **env)
 	data = set_data(env);
 	while (1)
 	{
-		line = readline("minishell >>> ");
-		if (!line)
+		data->line = readline("minishell >>> ");
+		if (!data->line)
 		{
 			printf("\n");
 			break ;
 		} 
-		if (line && ft_strlen(line) > 0)
-			add_history(line);
-		data->line = line;
-		data->lexer = ft_lexer(line);
+		if (data->line && ft_strlen(data->line) > 0)
+			add_history(data->line);
+		data->lexer = ft_lexer(data->line);
 		if (is_line(data->line) && ft_parser(&data) != -1)
 		{
 			if (is_line(data->line) && process(&data) == -1)

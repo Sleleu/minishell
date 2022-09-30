@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/30 15:32:01 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:55:15 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_both(t_data *data)
 	i = -1;
 	dprintf(2, "\nEXECUTING\n");
 	while (++i < data->args)
-		dprintf(2, "%d Cmd : %d | Infile : %s | Outfile : %s\n", i, exec[i].cmd, exec[i].infile, exec[i].outfile);
+		dprintf(2, "%d Cmd : %d | Heredoc : %d | Infile : %s | Outfile : %s\n", i, exec[i].cmd, exec[i].heredoc, exec[i].infile, exec[i].outfile);
 }
 
 int		builtin(t_data **data)
@@ -67,25 +67,20 @@ static t_exec	*setexec(t_data *data)
 		return (NULL);
 	i = 0;
 	cmd = 1;
+	exec[cmd].heredoc = 0;
 	while (cmd <= data->args)
 	{
-		// dprintf(2, "\nCmd = %d || Parse cmd : %d\n", cmd, parse[i].cmd);
 		exec[cmd - 1].infile = NULL;
 		exec[cmd - 1].outfile = NULL;
 		exec[cmd - 1].cmd = cmd;
 		while (parse[i].type != FINISH && parse[i].cmd == cmd)
 		{
-			// dprintf(2, "%d\n", i);
-			if (parse[i].type == INFILE || parse[i].type == LIMITER)
-			{
-				// dprintf(2, "True\n");
+			if (parse[i].type == INFILE)
 				exec[cmd - 1].infile = parse[i].str;
-			}
+			if (parse[i].type == LIMITER)
+				exec[cmd - 1].heredoc++;
 			if (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T)
-			{
-				// dprintf(2, "True\n");
 				exec[cmd - 1].outfile = parse[i].str;
-			}
 			i++;
 		}
 		cmd += 1;
