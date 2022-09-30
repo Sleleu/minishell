@@ -6,11 +6,49 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:52:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/22 14:30:20 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 00:20:36 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_in_dquotes(char *line, int pos)
+{
+	int	i;
+	int	d_quote;
+
+	d_quote = 0;
+	i = 0;
+	while (line[i] && i < pos)
+	{
+		if (line[i] == '"')
+			d_quote++;
+		i++;
+	}
+	if (d_quote % 2 == 1)
+		return (1);
+	else
+		return (0);
+}
+
+int	is_in_squotes(char *line, int pos)
+{
+	int	i;
+	int	s_quote;
+
+	s_quote = 0;
+	i = 0;
+	while (line[i] && i < pos)
+	{
+		if (line[i] == '"')
+			s_quote++;
+		i++;
+	}
+	if (s_quote % 2 == 1)
+		return (1);
+	else
+		return (0);
+}
 
 int	handle_quotes(char *line, int pos, int quote, char c)
 {

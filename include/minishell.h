@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 00:01:43 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 01:38:07 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ t_lexer			*ft_lexer(char *line);
 int				select_chevron(t_lexer **token, char *line, int pos);
 int				add_sep(t_lexer **lexer, char *line, int pos, int *cmd);
 int				add_word(t_lexer **lexer, char *line, int pos, int cmd);
-int				is_in_quotes(char *line, int pos);
 
 /* IS_TOKEN */
 
+int				is_escape(char *line, int pos);
 int				is_sep(char *line, int pos);
 int				is_space(int c);
 int 			is_double_chevron(char *line, int pos);
@@ -92,6 +92,8 @@ int 			is_double_chevron(char *line, int pos);
 int 			handle_quotes(char *line, int pos, int quote, char c);
 int				select_quote(char *line, int pos, int quote);
 int				quoted_word(t_lexer **lexer, char *line, int pos, int cmd);
+int				is_in_dquotes(char *line, int pos);
+int				is_in_squotes(char *line, int pos);
 
 /* LEXER_UTILS */
 

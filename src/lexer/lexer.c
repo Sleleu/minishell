@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 00:29:11 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 01:38:17 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,6 @@ int	add_sep(t_lexer **lexer, char *line, int pos, int *cmd)
 	return (pos);
 }
 
-int	is_in_quotes(char *line, int pos)
-{
-	int	i;
-	int	d_quote;
-	int	s_quote;
-
-	d_quote = 0;
-	s_quote = 0;
-	i = 0;
-	while (line[i] && i < pos)
-	{
-		if (line[i] == 39)
-			s_quote++;
-		else if (line[i] == '"')
-			d_quote++;
-		i++;
-	}
-	if (d_quote % 2 == 1 || s_quote % 2 == 1)
-		return (1);
-	else
-		return (0);
-}
-
 int	add_word(t_lexer **lexer, char *line, int pos, int cmd)
 {
 	t_lexer	*token;
@@ -91,8 +68,11 @@ int	add_word(t_lexer **lexer, char *line, int pos, int cmd)
 	token->type = WORD;
 	while (line[pos] && !is_sep(line, pos))
 	{
-		if (is_space(line[pos]) && !is_in_quotes(line, pos))
+		if (is_space(line[pos]) && !is_in_squotes(line, pos)
+			&& !is_in_dquotes(line, pos))
 			break;
+		if (is_escape(line, pos))
+			pos++;
 		token->content = ft_charjoin(token->content, line[pos]);
 		pos++;
 	}
