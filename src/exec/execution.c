@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/30 14:23:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:31:57 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	child_process(t_data *data, int cmd)
 {
 	if (handle_fd(data, cmd))
 	{
-		// dprintf(2, "CMD %d || FD[0] = %d && FD[1] = %d && oldfd = %d\n", cmd, data->fd[0], data->fd[1], data->oldfd);
+		// dprintf(2, "CMD %d || FD[0] = %d && FD[1] = %d && oldfd = %d\n",cmd, data->fd[0], data->fd[1], data->oldfd);
 		execute(data, cmd);
 	}
 }
@@ -40,7 +40,7 @@ void	exec_process(t_data *data)
 			if (data->oldfd > 2)
 				close(data->oldfd);
 			data->oldfd = data->fd[0];
-			data->actual++;
+			data->actual += 1;
 			exec_process(data);
 		}
 		wait(0);

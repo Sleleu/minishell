@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 14:25:35 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:33:50 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,18 @@ int		main(int ac, char **av, char **env)
 	memcenter(PURGE, 0, NULL, NOTHING);
 	return (0);
 }
+
+/*
+Execution Pipes => 
+
+Partout :
+	pwd
+	env
+	export
+	echo
+
+En dernier : 
+	export yo=yo
+	unset yo=yo
+	cd
+*/

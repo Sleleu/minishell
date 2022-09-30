@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 15:56:22 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:30:33 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	execute(t_data *data, int cmdnb)
 		cmd[0] = setpath(cmd[0], data->env);
 	if (!cmd[0] || access(cmd[0], X_OK != 0))
 		return (err_return(cmd));
+	// dprintf(2, "CMD %d = %s\n",cmdnb, cmd[0]);
 	if (execve(cmd[0], cmd, data->env) == -1)
 	{
 		if (access(cmd[0], X_OK != 0))

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 20:09:07 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:32:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int		handle_fd(t_data *data, int cmd)
 		if (cmd == 1)	
 			close(data->fd[0]);
 		else
+		{
+			close(data->fd[0]);
 			dup2(data->oldfd, STDIN_FILENO);
+		}
 	}
 	
 	// HANDLE OUTFILE
