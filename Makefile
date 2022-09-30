@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/09/30 00:53:30 by sleleu           ###   ########.fr        #
+#    Updated: 2022/10/01 00:01:05 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SOURCES 		= 	main.c \
 					exec/utils_one.c \
 					exec/utils_two.c \
 					exec/fd_manager.c \
+					signal/signal.c \
 
 ### OBJECTS ###
 SRC				= 	$(addprefix $(SRC_PATH)/,$(SOURCES))
@@ -79,7 +80,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)Welcome to $@ ✅$(NOC)"
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(INCLUDE)/$(NAME).h
-	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer && mkdir -p obj/memcenter && mkdir -p obj/init && mkdir -p obj/exec
+	@mkdir -p obj && mkdir -p obj/builtin && mkdir -p obj/parsing && mkdir -p obj/lexer && mkdir -p obj/memcenter && mkdir -p obj/init && mkdir -p obj/exec -p obj/signal
 	@$(CC) $(FLAGS) -I$(INCLUDE) -c -o $@ $<
 	@echo "$(BLUE)gcc $(WHITE)$(notdir $@)$(NOC)"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 18:50:13 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 23:59:52 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ static void free_while(void)
 	//memcenter(FREE_WHERE, 0, NULL, BUILTIN);
 }
 
+/*
+char	*ft_getenv(char **env)
+{
+	int	i;
+	char *str;
+	char *pwd;
+	
+	i = 0;
+	while (ft_strncmp(env[i], "PWD=", ft_strlen("PWD=")))
+		i++;
+	pwd = memcenter(MALLOC, sizeof(char) * ft_strlen(env[i]) + 1, 0, BUILTIN);
+	ft_strcpy(pwd, env[i]);
+	i = ft_strlen(getenv("HOME"));
+	str = memcenter(MALLOC, sizeof(char) * ft_strlen(pwd) - (i + 1), 0, BUILTIN);
+	str = ft_substr(pwd, i + 4, ft_strlen(pwd));
+	str[ft_strlen(str)] = '\0';
+	return (str);
+}*/
+
+
 int		main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -45,6 +65,8 @@ int		main(int ac, char **av, char **env)
 	data = set_data(env);
 	while (1)
 	{
+		//ft_putstr_fd(ft_getenv(data->env), 1);
+		//sig_init();
 		data->line = readline("minishell >>> ");
 		if (!data->line)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 19:17:06 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/01 00:01:43 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,11 @@ void			close_pipes(t_data *data);
 void			err_return(char **cmd);
 int				builtin(t_data **data);
 int				getargsnb(t_parse *parse);
+
+/* ********************************************************** */
+/*                           SIGNAL                           */
+/* ********************************************************** */
+
+void	sig_init(void);
 
 #endif
