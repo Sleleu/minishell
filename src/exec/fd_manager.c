@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/30 18:52:06 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:17:03 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,29 +62,7 @@ int		handle_outfile(t_data *data, int cmd)
 	return (1); 
 }
 
-int		islast(t_data *data, char *infile, int cmd)
-{
-	t_parse *parse;
-	int		return_value;
-	int		i;
-	
-	parse = data->parse;
-	i = 0;
-	return_value = 0;
-	while (parse[i].cmd != cmd)
-		i++;
-	while (parse[i].type != FINISH && parse[i].cmd == cmd)
-	{
-		if (return_value && (parse[i].type == INFILE || parse[i].type == LIMITER))
-			return (0);
-		if (parse[i].type == INFILE && parse[i].str == infile)
-			return_value++;
-		i++;
-	}
-	return (return_value);
-}
-
-void	heredoc_process(t_data *data, int cmd)
+void			handle_heredoc(t_data *data, int cmd, int status)
 {
 	t_parse *parse;
 	int		i;
@@ -102,7 +80,7 @@ void	heredoc_process(t_data *data, int cmd)
 			line = get_next_line(0);
 			while (line && (ft_strncmp(line, parse[i].str, ft_strlen(line) - 1) != 0 || line[0] == '\n'))
 			{
-				if (data->exec[cmd - 1].heredoc == 1)
+				if (data->exec[cmd - 1].heredoc == 1 && status == 1)
 					write(data->fd[1], line, ft_strlen(line));
 				free(line);
 				ft_putstr_fd("> ", 2);
@@ -120,20 +98,20 @@ int		handle_fd(t_data *data, int cmd)
 
 	heredoc = 0;
 	
-	// HANDLE HEREDOC
-	if (data->exec[cmd - 1].heredoc > 0)
+	// HANDLE INFILE && HEREDOC
+	if (data->exec[cmd - 1].infile && islastinfile(data, data->exec[cmd - 1].infile, cmd))
 	{
-		heredoc = 1;
-		heredoc_process(data, cmd);
-		close(data->fd[1]);
-		dup2(data->fd[0], STDIN_FILENO);
-	}
-	
-	// HANDLE INFILE
-	if (data->exec[cmd - 1].infile && islast(data, data->exec[cmd - 1].infile, cmd))
-	{
+		if (data->exec[cmd - 1].heredoc > 0)
+			handle_heredoc(data, cmd, 0);
 		if (!handle_infile(data, cmd))
 			return (0);
+	}
+	else if (data->exec[cmd - 1].heredoc > 0)
+	{
+		heredoc = 1;
+		handle_heredoc(data, cmd, 1);
+		close(data->fd[1]);
+		dup2(data->fd[0], STDIN_FILENO);
 	}
 	else if (!heredoc)
 	{
@@ -141,6 +119,7 @@ int		handle_fd(t_data *data, int cmd)
 		if (cmd > 1)
 			dup2(data->oldfd, STDIN_FILENO);
 	}
+
 	
 	// HANDLE OUTFILE
 	if (data->exec[cmd - 1].outfile)

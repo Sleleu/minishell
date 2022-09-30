@@ -6,8 +6,31 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:07:13 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 16:17:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:06:02 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+int		islastinfile(t_data *data, char *infile, int cmd)
+{
+	t_parse *parse;
+	int		return_value;
+	int		i;
+	
+	parse = data->parse;
+	i = 0;
+	return_value = 0;
+	while (parse[i].cmd != cmd)
+		i++;
+	while (parse[i].type != FINISH && parse[i].cmd == cmd)
+	{
+		if (return_value != 0 && (parse[i].type == INFILE || parse[i].type == LIMITER))
+			return (0);
+		if (parse[i].type == INFILE && parse[i].str == infile)
+			return_value++;
+		i++;
+	}
+	// dprintf(2, "value %d", return_value);
+	return (return_value);
+}

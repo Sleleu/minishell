@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 01:34:49 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/09/30 19:17:06 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void			child_process(t_data *data, int cmd);
 int				handle_fd(t_data *data, int cmd);
 int				handle_infile(t_data *data, int cmd);
 int				handle_outfile(t_data *data, int cmd);
+void			handle_heredoc(t_data *data, int cmd, int status);
 t_token_type 	get_outfile_type(t_data *data, int cmd);
 int				execution(t_data *data);
 
@@ -166,6 +167,7 @@ char			*setpath(char *cmd, char **envp);
 int				is_path(char *av);
 char 			**test(char **lol);
 char			**getcmd(t_data *data, int cmdnb);
+int				islastinfile(t_data *data, char *infile, int cmd);
 
 /* UTILS */
 
