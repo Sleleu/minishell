@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 14:21:00 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/09/30 14:25:35 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int		main(int ac, char **av, char **env)
 	{
 		line = readline("minishell >>> ");
 		if (!line)
-			break ; 
+		{
+			printf("\n");
+			break ;
+		} 
 		if (line && ft_strlen(line) > 0)
 			add_history(line);
 		data->line = line;
