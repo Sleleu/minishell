@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:31 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 02:17:13 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 02:21:44 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	is_escape(char *line, int pos)
 int	is_sep(char *line, int pos)
 {
 	if (line[pos] == '|' || line[pos] == '>'
-		|| line[pos] == '<' || (line[pos] == '$'
-			&& (ft_isalpha(line[pos + 1]) || line[pos + 1] == '_')))
+		|| line[pos] == '<'/* || (line[pos] == '$'
+			&& (ft_isalpha(line[pos + 1]) || line[pos + 1] == '_')*/)
 			return (1);
 		return (0);
 }

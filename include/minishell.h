@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 01:38:07 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 04:43:57 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void			init_parsing(t_data **data);
 
 /* CONVERT_ENV */
 
-int				check_env(char **env, char *str);
+char			*parse_dollar(char **env, char *str);
 void			convert_env(t_data **data);
 
 /* PARSE_QUOTES */
