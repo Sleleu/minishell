@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 01:38:17 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 02:14:35 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	add_word(t_lexer **lexer, char *line, int pos, int cmd)
 		if (is_space(line[pos]) && !is_in_squotes(line, pos)
 			&& !is_in_dquotes(line, pos))
 			break;
-		if (is_escape(line, pos))
-			pos++;
+	//	if (is_escape(line, pos))
+	//		pos++;
 		token->content = ft_charjoin(token->content, line[pos]);
 		pos++;
 	}
