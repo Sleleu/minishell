@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 06:18:20 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 15:47:13 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,49 @@ char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 	return (new_str);
 }
 
-char	*parse_dollar(char **env, char *str)
+int	find_dollar_index(char *str, int end)
+{
+	int	i;
+	int dollar_index;
+
+	dollar_index = 0;
+	i = 0;
+	while (str[i] && i < end)
+	{
+		if (str[i] == '$')
+			dollar_index++;
+		i++;
+	}
+	return (dollar_index);
+}
+
+int		dollar_in_squote(t_data **data, char *str, int i, int index_parse)
+{
+	int dollar_str;
+	int dollar_lexer;
+	int j;
+	t_lexer *ptr;
+	
+	dollar_str = 0;
+	dollar_lexer = 0;
+	j = 0;
+	ptr = (*data)->lexer;
+	while (j++ < index_parse)
+		ptr = ptr->next;
+	dollar_str = find_dollar_index(str, i + 1);
+	j = 0;
+	while (ptr->content[j] && dollar_lexer < dollar_str)
+	{
+		if (ptr->content[j] == '$')
+			dollar_lexer++;
+		j++;
+	}
+	if (is_in_squotes(ptr->content, j))
+		return (1);
+	return (0);
+}
+
+char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 {
 	int	i;
 	char *new_str;
@@ -175,7 +217,8 @@ char	*parse_dollar(char **env, char *str)
 	new_str = NULL;
 	while (str && str[i])
 	{
-		if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1]))
+		if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
+			&& !dollar_in_squote(data, str, i, index_parse))
 		{
 			i++;
 			new_str = ft_varjoin(new_str, str, env, &i);
@@ -214,7 +257,7 @@ void	convert_env(t_data **data)
 	while (token_type(data, i) != FINISH)
 	{
 		if ((*data)->parse[i].str != NULL && check_dollar((*data)->parse[i].str))
-			(*data)->parse[i].str = parse_dollar((*data)->env, (*data)->parse[i].str);
+			(*data)->parse[i].str = parse_dollar(data, (*data)->env, (*data)->parse[i].str, i);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 04:43:57 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 15:12:14 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void			init_parsing(t_data **data);
 
 /* CONVERT_ENV */
 
-char			*parse_dollar(char **env, char *str);
+char			*parse_dollar(t_data **data, char **env, char *str, int index_parse);
 void			convert_env(t_data **data);
 
 /* PARSE_QUOTES */

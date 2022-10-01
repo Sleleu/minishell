@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:52:52 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 00:20:36 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/01 15:28:06 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_in_squotes(char *line, int pos)
 	i = 0;
 	while (line[i] && i < pos)
 	{
-		if (line[i] == '"')
+		if (line[i] == 39)
 			s_quote++;
 		i++;
 	}
