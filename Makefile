@@ -6,7 +6,7 @@
 #    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/01 00:01:05 by sleleu           ###   ########.fr        #
+#    Updated: 2022/10/02 19:20:58 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SOURCES 		= 	main.c \
 					parsing/parser_utils.c \
 					parsing/token_type_error.c \
 					parsing/convert_env.c \
+					parsing/convert_env_utils.c \
 					parsing/parse_quotes.c \
 					memcenter/memcenter.c \
 					lexer/lexer.c \

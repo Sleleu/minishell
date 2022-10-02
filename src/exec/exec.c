@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/30 17:55:15 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/02 19:40:08 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		builtin(t_data **data)
 		else if (!strcmp("env", (*data)->line))
 			return (ft_env((*data)->env));
 		else if (!strncmp("cd", (*data)->line, ft_strlen("cd")))
-			return (ft_cd((*data)->line));
+			return (ft_cd(data, (*data)->env));
 		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
 			return (ft_echo((*data)->parse));
 		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 15:12:14 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/02 19:40:17 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			restore_data(void);
 int				ft_pwd(void);
 int 			ft_env(char **env);
 int				ft_echo(t_parse *parse);
-int				ft_cd(char *line);
+int				ft_cd(t_data **data, char **env);
 int 			ft_unset(char **env, char *line);
 
 /* EXPORT */
@@ -133,8 +133,19 @@ void			init_parsing(t_data **data);
 
 /* CONVERT_ENV */
 
+int				find_dollar_index(char *str, int end);
+int				active_var(char *str, int j);
+int				dollar_in_squote(t_data **data, char *str, int i, int index_parse);
 char			*parse_dollar(t_data **data, char **env, char *str, int index_parse);
 void			convert_env(t_data **data);
+
+/* CONVERT_ENV_UTILS */
+
+void			bool_quote(int *quote1, int *quote2);
+int				check_env(char **env, char *str);
+void			ft_varcpy(char *var, char *str, int *i, int j);
+int				check_dollar(char *str);
+char			*ft_varjoin(char *new_str, char *str, char **env, int *i);
 
 /* PARSE_QUOTES */
 
