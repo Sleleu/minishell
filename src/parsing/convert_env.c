@@ -3,108 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/01 15:47:13 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/02 19:17:26 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 /*
-int	check_env(char **env, char *str)
-{
-	int	i;
-	int	index_equal;
-
-	i = 0;
-	while (env[i])
-	{
-		index_equal = 0;
-		while (env[i][index_equal] && env[i][index_equal] != '=')
-			index_equal++;
-		if (!ft_strncmp(str, env[i], index_equal) && !str[index_equal])
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	ft_structcpy(t_parse *dest, t_parse *src)
-{
-	dest->str = src->str;
-	dest->type = src->type;
-	dest->cmd = src->cmd;
-}
-
-t_parse	*assign_new_value(t_data **data, t_parse *new_parse, char *value)
-{
-	int	change;
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	change = 0;
-	while ((*data)->parse[i].type != FINISH)
-	{
-		if ((*data)->parse[i].type == DOLLAR && change == 0)
-		{
-			new_parse[j].str = value;
-			new_parse[j].type = 1;
-			new_parse[j].cmd = (*data)->parse[i].cmd;
-			change = 1;
-			i++;
-		}
-		else
-			ft_structcpy(&new_parse[j], &(*data)->parse[i]);
-		i++;
-		j++;
-	}
-	ft_structcpy(&new_parse[j], &(*data)->parse[i]);
-	return (new_parse);
-}
-
-t_parse	*change_parser(t_data **data, char *env_value)
-{
-	t_parse	*new_parse;
-	int		i;
-	int		size;
-	char	*value;
-
-	i = 0;
-	size = 0;
-	while (env_value[i] && env_value[i] != '=')
-		i++;
-	value = ft_substr(env_value, i + 1, ft_strlen(env_value));
-	while ((*data)->parse[size].type != FINISH)
-		size++;
-	new_parse = memcenter(MALLOC, sizeof(t_parse) * size + 1, NULL, PARSING);
-	new_parse = assign_new_value(data, new_parse, value);
-	return (new_parse);
-}
-
-void	convert_env(t_data **data)
-{
-	int	i;
-	int	index_var;
-
-	i = 0;
-	index_var = 0;
-	while (token_type(data, i) != FINISH)
-	{
-		if (token_type(data, i) == DOLLAR)
-		{
-			index_var = check_env((*data)->env, (*data)->parse[i + 1].str);
-			if (index_var == -1)
-				return ;
-			else
-				(*data)->parse = change_parser(data, (*data)->env[index_var]);
-		}
-		i++;
-	}
-}
+		CHECK_ENV
+	retourne l'index de la variable d'environnement avec str si elle existe
+	Sinon, retourne -1
 */
 
 int	check_env(char **env, char *str)
@@ -125,6 +36,11 @@ int	check_env(char **env, char *str)
 	return (-1);
 }
 
+/*
+		FT_VARCPY
+	Copie str dans var de l'index i jusque j
+*/
+
 void	ft_varcpy(char *var, char *str, int *i, int j)
 {
 	int	k;
@@ -138,6 +54,16 @@ void	ft_varcpy(char *var, char *str, int *i, int j)
 	}
 	var[k] = '\0';
 }
+
+/*
+		FT_VARJOIN
+	Substitue la variable d'env de str par sa valeur, et retourne une new_str contenant cette valeur
+	- i contient la place de la variable d'environnement
+	- Des que j termine de parcourir la variable, *var recupere la variable
+	- On verifie si la variable se trouve dans l'env, si oui, index_var recupere sa place
+	- env_ptr se place sur la variable d'environnement, et s'incremente jusqu'a sa valeur
+	- On strjoin la valeur de la variable d'environnement a la new_str;
+*/
 
 char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 {
@@ -182,6 +108,58 @@ int	find_dollar_index(char *str, int end)
 	return (dollar_index);
 }
 
+/* 	
+		BOOL_QUOTE
+	Si l'autre quote est deja active, on ne touche a rien. Si elle ne
+	l'est pas, on active ou desactive le booleen
+*/
+
+void	bool_quote(int *quote1, int *quote2)
+{
+	if (*quote1 == 1)
+		return ;
+	else if (*quote2 == 0)
+		*quote2 = 1;
+	else if (*quote2 == 1)
+		*quote2 = 0;
+}
+
+/*
+		ACTIVE_VAR
+	On verifie avec le token du lexer si la variable d'environnement situe a
+	l'index j est a l'interieur d'une simple quote ou non
+*/
+
+int		active_var(char *str, int j)
+{
+	int	i = 0;
+	int	d_quote = 0;
+	int	s_quote = 0;
+	while (i < j)
+	{
+		if (str[i] == '"')
+			bool_quote(&s_quote, &d_quote);
+		else if (str[i] == 39)
+			bool_quote(&d_quote, &s_quote);
+		i++;
+	}
+	if (s_quote == 1)
+		return (0);
+	return (1);
+}
+
+/*
+		DOLLAR_IN_SQUOTE
+	La variable str etant deja parsee pour ne pas retirer les quotes dans les variables d'environnement,
+	il faut recuperer le token d'origine pour compter les quotes.
+	
+	- index_parse est la place du token dans le lexer, on fait une boucle pour envoyer le ptr sur ce token
+	- Plusieurs variables d'env peuvent se trouver dans la meme str, on doit donc trouver l'index du bon dollar
+	avec find_dollar_index, et i qui contient la place du $ dans la str
+	- Une fois le bon index de & sur la str, on le synchronise avec le dollar au meme endroit dans le lexer
+	- On check sur ce $ si c'est une variable active = pas dans une simple quote
+*/
+
 int		dollar_in_squote(t_data **data, char *str, int i, int index_parse)
 {
 	int dollar_str;
@@ -203,10 +181,18 @@ int		dollar_in_squote(t_data **data, char *str, int i, int index_parse)
 			dollar_lexer++;
 		j++;
 	}
-	if (is_in_squotes(ptr->content, j))
+	if (!active_var(ptr->content, j))
 		return (1);
 	return (0);
 }
+
+/*
+		PARSE_DOLLAR
+	Une nouvelle str va remplacer le texte dans le parser avec les variables d'environnement
+	- Si c'est un $, non suivi d'un espace et n'etant pas dans des simples quotes : on
+	substitue $ par la variable d'environnement
+	- Si c'est du texte normal, on le charjoin	
+*/
 
 char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 {
@@ -231,6 +217,11 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 	}
 	return (new_str);
 }
+
+/*
+		CHECK_DOLLAR
+	Verifie si il y a une variable d'environnement dans la str
+*/
 
 int	check_dollar(char *str)
 {
