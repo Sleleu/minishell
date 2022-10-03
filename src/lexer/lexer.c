@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/02 19:53:40 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/04 00:27:59 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,12 @@ t_lexer	*ft_lexer(char *line)
 				return (NULL);
 		}
 	}
+	// t_lexer *ptr = lexer;
+	// 	while (ptr)
+	// 	{
+	// 		printf("content : %s | type : %d\n", ptr->content, ptr->type);
+	// 		ptr = ptr->next;
+	// 	}
 	return (lexer);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:11:00 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 16:54:10 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/04 01:45:30 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*parse_quote(int c, char *new_str, int *quote1, int *quote2)
 	return (new_str);
 }
 
-char	*ft_parsing(char *str)
+char	*ft_parsing(char *str, int only_q)
 {
 	int		i;
 	char	*new_str;
@@ -48,6 +48,9 @@ char	*ft_parsing(char *str)
 	d_quote = 0;
 	s_quote = 0;
 	new_str = NULL;
+	(void)only_q;
+	//if (only_q)
+	//	new_str = parse_only_quote(str[i], new_str, &s_quote, &d_quote);
 	while (str[i])
 	{
 		if (str[i] == '"')
@@ -58,7 +61,7 @@ char	*ft_parsing(char *str)
 			new_str = ft_charjoin(new_str, str[i]);
 		i++;
 	}
-	if (d_quote == 1 || s_quote == 1)
+	if (((d_quote == 1 || s_quote == 1)))
 		return (NULL);
 	return (new_str);
 }
@@ -66,38 +69,41 @@ char	*ft_parsing(char *str)
 int	only_quote(char *str)
 {
 	int	i;
-	int	d_quote;
-	int	s_quote;
+	//int	d_quote;
+	//int	s_quote;
 
 	i = 0;
-	s_quote = 0;
-	d_quote = 0;
+	//s_quote = 0;
+	//d_quote = 0;
 	while (str[i])
-	{
+	{/*
 		if (str[i] == '"')
 			bool_quote(&s_quote, &d_quote);
 		else if (str[i] == 39)
 			bool_quote(&d_quote, &s_quote);
 		else
 			return (0);
+		i++;*/
+		if (str[i] != 39 && str[i] != '"')
+			return (0);
 		i++;
 	}
-	if (s_quote == 1 || d_quote == 1)
-		return (0);
 	return (1);
 }
 
 int	parse_quotes(t_data **data)
 {
 	int	i;
-
+	int	only_q;
+	
 	i = 0;
+	only_q = 0;
 	while ((*data)->parse[i].type != FINISH)
 	{
 		if ((*data)->parse[i].str != NULL && is_quotes((*data)->parse[i].str))
 		{
-			if (!only_quote((*data)->parse[i].str))
-				(*data)->parse[i].str = ft_parsing((*data)->parse[i].str);
+			only_q = only_quote((*data)->parse[i].str);
+			(*data)->parse[i].str = ft_parsing((*data)->parse[i].str, only_q);
 			if (!(*data)->parse[i].str)
 			{
 				printf("unclosed_quotes\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 21:22:26 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 01:38:27 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ char			*ft_varjoin(char *new_str, char *str, char **env, int *i);
 /* PARSE_QUOTES */
 
 int				parse_quotes(t_data **data);
-char			*ft_parsing(char *str);
+char			*ft_parsing(char *str, int only_q);
 char			*parse_quote(int c, char *new_str, int *quote1, int *quote2);
 int				only_quote(char *str);
 int				is_quotes(char *str);

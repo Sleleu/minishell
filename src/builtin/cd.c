@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 19:22:04 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/03 23:14:50 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ int	ft_cd(char *path, char **env)
 	}
 	else
 	{
-		chdir(path);
-		replace_pwd(path, env);
+		if (chdir(path) == -1)
+			perror(path);
+		else
+			replace_pwd(path, env);
 	}
 	return (1);
 }

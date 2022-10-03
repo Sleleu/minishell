@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_manager.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/30 19:17:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 00:31:20 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,50 @@ t_token_type get_outfile_type(t_data *data, int cmd)
 	return (FINISH);
 }
 
+int ft_ambigous(t_data *data, int cmd, char c)
+{
+	t_lexer *ptr;
+	
+	ptr = data->lexer;
+	if (c == 'i')
+	{
+		while (ptr)
+		{
+			if (ptr->type == INF_CHEVRON && ptr->next->content[0] == '$')
+				break ;
+			ptr = ptr->next;
+		}
+		if (data->exec[cmd - 1].infile[0] == '\0')
+		{
+			printf("minishell: %s: ambiguous redirect\n", ptr->next->content);
+			return (1);
+		}
+	}
+	else if (c == 'o')
+	{
+		while (ptr)
+		{
+			if ((ptr->type == SUP_CHEVRON || ptr->type == D_SUP_CHEVRON) && ptr->next->content[0] == '$')
+				break ;
+			// printf("%d\n", ptr->type);
+			ptr = ptr->next;
+		}
+		//printf("%d\n", ptr->type);
+		if (data->exec[cmd - 1].outfile[0] == '\0')
+		{
+			printf("minishell: %s: ambiguous redirect\n", ptr->next->content);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int		handle_infile(t_data *data, int cmd)
 {
 	int filein; 
 	
+	if (ft_ambigous(data, cmd, 'i'))
+		exit(0);
 	filein = open(data->exec[cmd - 1].infile, O_RDONLY, 0644);
 	if (filein < 0)
 	{
@@ -47,6 +87,8 @@ int		handle_outfile(t_data *data, int cmd)
 {
 	int fileout;
 	
+	if (ft_ambigous(data, cmd, 'o'))
+		exit(0);
 	if (get_outfile_type(data, cmd) == OUTFILE_T)
 		fileout = open(data->exec[cmd - 1].outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (get_outfile_type(data, cmd) == OUTFILE_A)

@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 19:38:39 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/03 23:10:34 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_parameter(char *arg)
+{
+	int	i;
+
+	i = 1;
+	if (ft_strlen(arg) < 2)
+		return (0);
+	if (!ft_strncmp(arg, "-n", 2))
+	{
+		while (arg[i])
+		{
+			if (arg[i] != 'n')
+				break;
+			i++;
+		}
+	}
+	if (!arg[i])
+		return (1);
+	return (0);
+}
 
 int	ft_echo(char **arg)
 {
@@ -18,16 +39,19 @@ int	ft_echo(char **arg)
 	int	nl;
 
 	nl = 1;
-	if (!ft_strncmp(arg[1], "-n", ft_strlen(arg[1])))
+	if (is_parameter(arg[1]))
 	{
 		i = 2;
 		nl = 0;
 	}
 	else
 		i = 1;
+	while (is_parameter(arg[i]))
+		i++;
 	while(arg[i])
 	{
-		printf("%s", arg[i]);
+		//if (!only_quote(arg[i]))
+			printf("%s", arg[i]);
 		if (arg[i + 1])
 			printf(" ");
 		i++;
