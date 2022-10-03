@@ -6,26 +6,28 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:51:49 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/20 18:23:26 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:49:42 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int ft_unset(char **env, char *line)
+int ft_unset(char **env, char **cmd)
 {
-	char	**path;
-	int		i;
+	// char	**path;
+	// int		i;
 
-	i = 0;
-	path = ft_split(line, ' ');
-	while (env[i])
-	{
-		if (!strncmp(path[1], env[i], ft_strlen(path[1]) - 1))
-			break ;
-		i++;
-	}
-	printf("%s", env[i]);
+	// i = 0;
+	// path = ft_split(line, ' ');
+	// while (env[i])
+	// {
+	// 	if (!strncmp(path[1], env[i], ft_strlen(path[1]) - 1))
+	// 		break ;
+	// 	i++;
+	// }
+	// printf("%s", env[i]);
+	(void)env;
+	(void)cmd;
 	return (0);
 }
 

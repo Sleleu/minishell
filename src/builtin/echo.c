@@ -3,27 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/25 01:51:28 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 19:38:39 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_echo(t_parse *parse)
+int	ft_echo(char **arg)
 {
-	int		i;
-	
-	i = 1;
-	while (parse[i].type == WORD)
+	int	i;
+	int	nl;
+
+	nl = 1;
+	if (!ft_strncmp(arg[1], "-n", ft_strlen(arg[1])))
 	{
-		printf("%s ", parse[i].str);
+		i = 2;
+		nl = 0;
+	}
+	else
+		i = 1;
+	while(arg[i])
+	{
+		printf("%s", arg[i]);
+		if (arg[i + 1])
+			printf(" ");
 		i++;
 	}
-	printf("\n");
-	return (0);
+	if (nl)
+		printf("\n");	
+	return (1);
 }
 
 

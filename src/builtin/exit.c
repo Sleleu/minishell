@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 00:52:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 01:52:25 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 20:56:59 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,52 +55,44 @@ int	exit_numeric_error(char *str)
 	return (0);
 }
 
-int	exit_error(t_parse *parse)
+int	exit_error(char **cmd)
 {
 	int	i;
 
 	i = 0;
-	while (ft_strncmp(parse[i].str, "exit", ft_strlen("exit")))
+	while (ft_strncmp(cmd[i], "exit", ft_strlen("exit")))
 		i++;
 	if (i != 0)
 		return (0);
-	while (parse[i].type != FINISH)
-	{
-		if (parse[i].type != WORD)
-			break ;
+	while (cmd[i])
 		i++;
-	}
-	if (parse[1].str && exit_numeric_error(parse[1].str))
+	if (cmd[1] && exit_numeric_error(cmd[1]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n", parse[1].str);
-		return (2);
+		printf("minishell: exit: %s: numeric argument required\n", cmd[1]);
+		return (2); // exit et change le code
 	}
 	if (i > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
-		return (1);
+		return (1); // exit pas, mais change le code
 	}
 	return (-1);
 }
 
-int	ft_exit(t_parse *parse)
+int	ft_exit(char **cmd)
 {
 	int	code;
-
 	code = -1;
-	code = exit_error(parse);
+	code = exit_error(cmd);
 	if (code != -1)
 		return (code);
-	if (parse[1].str)
+	if (cmd[1])
 	{
-		code = (ft_atoi(parse[1].str) % 256);
+		code = (ft_atoi(cmd[1]) % 256);
 		if (code < 0)
-		{
 			code = 256 + code;
-			code = code * -1;
-		}
 	}
-	return (-1);
+	return (code);
 }
 
 // ajout d'un exit meme si numeric error a faire

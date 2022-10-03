@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 17:54:02 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 20:30:31 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,6 @@ void	print_both(t_data *data)
 	dprintf(2, "\nEXECUTING\n");
 	while (++i < data->args)
 		dprintf(2, "%d Cmd : %d | Heredoc : %d | Infile : %s | Outfile : %s\n", i, exec[i].cmd, exec[i].heredoc, exec[i].infile, exec[i].outfile);
-}
-
-int		builtin(t_data **data)
-{
-	if ((*data)->line == NULL || !strncmp("exit", (*data)->line, ft_strlen("exit")))
-		return (ft_exit((*data)->parse));
-	else if (ft_strlen((*data)->line) > 1)
-	{
-		if (!strcmp("pwd", (*data)->line))
-			return (ft_pwd());
-		else if (!strcmp("env", (*data)->line))
-			return (ft_env((*data)->env));
-		else if (!strncmp("cd", (*data)->line, ft_strlen("cd")))
-			return (ft_cd(data, (*data)->env));
-		else if (!strncmp("echo", (*data)->line, ft_strlen("echo")))
-			return (ft_echo((*data)->parse));
-		else if (!strncmp("unset", (*data)->line, ft_strlen("unset")))
-			return (ft_unset((*data)->env, (*data)->line));
-		else if (!strncmp("export", (*data)->line, ft_strlen("export")))
-			return (ft_export(data, (*data)->parse));
-	}
-	return (6);	
 }
 
 static t_exec	*setexec(t_data *data)
@@ -89,17 +67,11 @@ static t_exec	*setexec(t_data *data)
 }
 
 int		process(t_data **data)
-{
-	int			return_value;
-	
+{	
 	(*data)->args = getargsnb((*data)->parse);
-	return_value = builtin(data);
-	if (return_value != 6)
-		return (return_value);
 	if ((*data)->parse != NULL)
 		(*data)->exec = setexec(*data);
 	if (!(*data)->exec)
 		return (0);
-	execution(*data);
-	return (1);
+	return (execution(*data));
 }

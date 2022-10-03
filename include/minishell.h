@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 15:47:36 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 20:49:57 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void			restore_data(void);
 
 int				ft_pwd(void);
 int 			ft_env(char **env);
-int				ft_echo(t_parse *parse);
-int				ft_cd(t_data **data, char **env);
-int 			ft_unset(char **env, char *line);
+int				ft_echo(char **arg);
+int				ft_cd(char *path, char **env);
+int				ft_unset(char **env, char **cmd);
 
 /* EXPORT */
 
-int				export_error_num(t_parse *parse, int i);
+int				export_error_num(char **cmd);
 int				ft_export_check_arg(t_data **data, t_parse *parse);
 void			ft_refresh_var(t_data **data, char *str, int index_equal);
 void			ft_export_action(t_data **data, char *str, int index_equal);
-int				ft_export(t_data **data, t_parse *parse);
+int				ft_export(t_data **data, char **cmd);
 
 /* EXPORT_IS_VAR */
 
@@ -57,8 +57,8 @@ char			**ft_append_var(char **env, char *str, int index_equal);
 
 long long int	ft_long_atoi(char *str);
 int				exit_numeric_error(char *str);
-int				exit_error(t_parse *parse);
-int				ft_exit(t_parse *parse);
+int				exit_error(char **cmd);
+int				ft_exit(char **cmd);
 
 /* ********************************************************** */
 /*                          MEMCENTER                         */
@@ -163,7 +163,7 @@ int				is_quotes(char *str);
 
 int				process(t_data **data);
 void			execute(t_data *data, int cmdnb);
-void			exec_process(t_data *data);
+int				exec_process(t_data *data);
 void			child_process(t_data *data, int cmd);
 int				handle_fd(t_data *data, int cmd);
 int				handle_infile(t_data *data, int cmd);

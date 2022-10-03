@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/30 15:30:33 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:57:09 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,43 @@ char	**getcmd(t_data *data, int cmdnb)
 	return (cmd);
 }
 
+int	trybuiltin(t_data *data, char **cmd)
+{
+	int return_value;
+
+	return_value = 0;
+
+	// CD
+	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
+		return_value = ft_cd(cmd[1], data->env);
+
+	// Echo
+	else if (!ft_strncmp(cmd[0], "echo", ft_strlen(cmd[0])))
+		return_value = ft_echo(cmd);
+
+	// Env
+	else if (!ft_strncmp(cmd[0], "env", ft_strlen(cmd[0])))
+		return_value = ft_env(data->env);
+
+	// Export
+	else if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
+		return_value = ft_export(&data, cmd);
+
+	// Exit
+	else if (!ft_strncmp(cmd[0], "exit", ft_strlen(cmd[0])))
+		return_value = ft_exit(cmd);
+	
+	// PWD
+	else if (!ft_strncmp(cmd[0], "pwd", ft_strlen(cmd[0])))
+		return_value = ft_pwd();
+
+	// UNSET
+	else if (!ft_strncmp(cmd[0], "unset", ft_strlen(cmd[0])))
+		return_value = ft_unset(data->env, cmd);
+	
+	return(return_value);
+}
+
 void	execute(t_data *data, int cmdnb)
 {
 	char	**cmd;
@@ -150,12 +187,13 @@ void	execute(t_data *data, int cmdnb)
 
 	cmd = getcmd(data, cmdnb);
 	if (!cmd)
-		exit(EXIT_FAILURE) ;
+		exit(EXIT_FAILURE);
+	if (trybuiltin(data, cmd) != 0)
+		exit(EXIT_FAILURE);
 	if (ft_strlen(cmd[0]) > 0 && !is_path(cmd[0]))
 		cmd[0] = setpath(cmd[0], data->env);
 	if (!cmd[0] || access(cmd[0], X_OK != 0))
 		return (err_return(cmd));
-	// dprintf(2, "CMD %d = %s\n",cmdnb, cmd[0]);
 	if (execve(cmd[0], cmd, data->env) == -1)
 	{
 		if (access(cmd[0], X_OK != 0))

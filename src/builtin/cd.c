@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 18:30:04 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 19:22:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ static void	replace_pwd(char *path, char **env)
 		return ;
 }
 
-int	ft_cd(t_data **data, char **env)
+int	ft_cd(char *path, char **env)
 {
-	if (!(*data)->parse[1].str)
+	if (!path)
 	{
 		chdir(ft_getenv(env, "HOME"));
 		replace_pwd(ft_getenv(env, "HOME"), env);
 	}
 	else
 	{
-		chdir((*data)->parse[1].str);
-		replace_pwd((*data)->parse[1].str, env);
+		chdir(path);
+		replace_pwd(path, env);
 	}
 	return (1);
 }
