@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:11:00 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/02 19:52:01 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:54:10 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,30 @@ char	*ft_parsing(char *str)
 	return (new_str);
 }
 
+int	only_quote(char *str)
+{
+	int	i;
+	int	d_quote;
+	int	s_quote;
+
+	i = 0;
+	s_quote = 0;
+	d_quote = 0;
+	while (str[i])
+	{
+		if (str[i] == '"')
+			bool_quote(&s_quote, &d_quote);
+		else if (str[i] == 39)
+			bool_quote(&d_quote, &s_quote);
+		else
+			return (0);
+		i++;
+	}
+	if (s_quote == 1 || d_quote == 1)
+		return (0);
+	return (1);
+}
+
 int	parse_quotes(t_data **data)
 {
 	int	i;
@@ -72,8 +96,9 @@ int	parse_quotes(t_data **data)
 	{
 		if ((*data)->parse[i].str != NULL && is_quotes((*data)->parse[i].str))
 		{
-			(*data)->parse[i].str = ft_parsing((*data)->parse[i].str);
-			if ((*data)->parse[i].str == NULL)
+			if (!only_quote((*data)->parse[i].str))
+				(*data)->parse[i].str = ft_parsing((*data)->parse[i].str);
+			if (!(*data)->parse[i].str)
 			{
 				printf("unclosed_quotes\n");
 				return (0);

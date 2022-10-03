@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:43 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/02 19:51:04 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:42:05 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 
 	index_var = -1;
 	j = *i;
+	if (ft_isdigit(str[*i]))
+		*i += 1;
 	while (str[j])
 	{
 		if (str[j] && (is_space(str[j]) || !ft_isalpha(str[j])))

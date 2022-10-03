@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 21:49:15 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:50:44 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,10 @@
 
 int	export_error_num(t_parse *parse, int i)
 {
-	int	j;
-
-	j = 0;
 	if (ft_isdigit(parse[i].str[0]))
 	{
-		printf("minishell: export: `");
-		while (parse[i].str[j] && ft_isdigit(parse[i].str[j]))
-		{
-			printf("%c", parse[i].str[j]);
-			j++;
-		}
-		printf("':not a valid identifier\n");
+		printf("minishell: export: `%s", parse[i].str);
+		printf("': not a valid identifier\n");
 		return (1);
 	}
 	return (0);
