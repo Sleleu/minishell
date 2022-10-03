@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 21:21:05 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:22:20 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int		heredoc(t_data *data, int cmd)
 	
 }
 
-void	exec_process(t_data *data)
+int	exec_process(t_data *data)
 {
 	if (data->actual <= data->args)
 	{
 		if (pipe(data->fd) == -1)
-			return ;
+			return (0);
 		data->pid = fork();
 		if (data->pid < 0)
-			return ;
+			return (0);
 		if (data->pid == 0)
 			child_process(data, data->actual);
 		if (data->pid > 0 && data->actual <= data->args)
@@ -54,6 +54,7 @@ void	exec_process(t_data *data)
 		}
 		wait(0);
 	}
+	return (1);
 }
 
 int is_builtin(t_data *data){
@@ -94,7 +95,7 @@ int	execution(t_data *data)
 	}
 	else
 	{
-		exec_process(data);
+		code = exec_process(data);
 		close_pipes(data);
 		return (code);
 	}
