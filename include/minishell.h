@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 20:49:57 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:14:49 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ int				is_quotes(char *str);
 
 int				process(t_data **data);
 void			execute(t_data *data, int cmdnb);
-int				exec_process(t_data *data);
+void			exec_process(t_data *data);
 void			child_process(t_data *data, int cmd);
 int				handle_fd(t_data *data, int cmd);
 int				handle_infile(t_data *data, int cmd);
