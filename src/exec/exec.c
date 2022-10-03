@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/02 19:40:08 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 17:54:02 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ static t_exec	*setexec(t_data *data)
 		return (NULL);
 	i = 0;
 	cmd = 1;
-	exec[cmd].heredoc = 0;
 	while (cmd <= data->args)
 	{
+		exec[cmd - 1].heredoc = 0;
 		exec[cmd - 1].infile = NULL;
 		exec[cmd - 1].outfile = NULL;
 		exec[cmd - 1].cmd = cmd;

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/02 19:49:12 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/03 17:52:58 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,20 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 }
 
 /*
+void	refresh_parsing(t_data **d)
+{
+	int	i;
+	
+	i = 0;
+	t_parse *new_parse;
+	while ((*d)->parse[i].type != FINISH)
+	{
+		if ()
+		i++;
+	}
+}*/
+
+/*
 		CONVERT_ENV
 	Si la str du parser est pas vide, et qu'il y a une variable d'env, parse_dollar
 */
@@ -146,4 +160,5 @@ void	convert_env(t_data **data)
 					(*data)->parse[i].str, i);
 		i++;
 	}
+	//refresh_parsing(data);
 }
