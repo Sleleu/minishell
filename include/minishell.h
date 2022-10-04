@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/04 13:40:43 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:49:43 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ int				handle_fd(t_data *data, int cmd);
 int				handle_infile(t_data *data, int cmd, int i);
 int				handle_outfile(t_data *data, int cmd, int i);
 void			handle_heredoc(t_data *data, int cmd, int status);
-t_token_type 	get_outfile_type(t_data *data, int cmd);
+t_token_type 	get_outfile_type(t_data *data, int cmd, int index);
 int				execution(t_data *data);
 
 /* PROCESS UTILS */

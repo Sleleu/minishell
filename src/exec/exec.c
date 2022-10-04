@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 14:17:41 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:00:52 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ char **getfiles(int file, int cmd, t_data *data)
 	int		i;
 	int		size;
 
-	printf("Hello\n");
 	parse = data->parse;
 	i = 0;
 	while (parse[i].cmd != cmd)
 		i++;
-	printf("Kaput ?\n");
 	size = 0;
 	while (parse[i].type != FINISH && parse[i].cmd == cmd)
 	{
@@ -55,15 +53,12 @@ char **getfiles(int file, int cmd, t_data *data)
 			size++;
 		i++;
 	}
-	printf("Kaput2 ?\n");
-	printf("Size = %d\n", size);
 	if (!size)
 		return (NULL);
 	dtab = (char **)memcenter(MALLOC, sizeof(char *) * size, NULL, EXEC);
 	if (!dtab)
 		return (NULL);
 	dtab[size] = NULL;
-	printf("Return dtab\n");
 	return (dtab);
 }
 
@@ -96,7 +91,6 @@ static t_exec	*setexec(t_data *data)
 			if (parse[i].type == INFILE)
 			{
 				exec[cmd - 1].infile[infile] = parse[i].str;
-				printf("Exec file = %s\n", exec[cmd - 1].infile[infile]);
 				infile++;
 			}
 			else if (parse[i].type == LIMITER)
@@ -104,14 +98,12 @@ static t_exec	*setexec(t_data *data)
 			else if (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T)
 			{
 				exec[cmd - 1].outfile[outfile] = parse[i].str;
-				printf("Exec file = %s\n", exec[cmd - 1].outfile[outfile]);
 				outfile++;
 			}
 			i++;
 		}
 		cmd += 1;
 	}
-	printf("Infile = %d\nOutfile = %d\n", infile, outfile);
 	return (exec);
 }
 

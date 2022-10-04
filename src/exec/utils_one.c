@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_one.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 02:34:44 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/04 15:05:49 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ char	**getcmd(t_data *data, int cmdnb)
 		if (parse[i].type == WORD && parse[i].cmd == cmdnb)
 			words++;
 	}
+	if (!words)
+		return (NULL);
 	cmd = (char **)memcenter(MALLOC, (sizeof(char *) * (words + 1)), NULL, EXEC);
 	if (!cmd)
 		return (NULL);

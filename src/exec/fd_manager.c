@@ -6,23 +6,26 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 14:24:09 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:10:03 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token_type get_outfile_type(t_data *data, int cmd)
+t_token_type get_outfile_type(t_data *data, int cmd, int index)
 {
 	t_parse *parse;
 	int		i;
 
 	parse = data->parse;
-	i = -1;
-	while (parse[++i].type != FINISH)
+	i = 0;
+	while (parse[i].type != FINISH && parse[i].cmd == cmd)
 	{
-		if (parse[i].cmd == cmd && (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T))
+		if (!index && (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T))
 			return (parse[i].type);
+		else if (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T)
+			index--;
+		i++;
 	}
 	return (FINISH);
 }
@@ -71,7 +74,6 @@ int		handle_infile(t_data *data, int cmd, int i)
 	
 	if (ft_ambigous(data, cmd, 'i'))
 		exit(0);
-	printf("i = %d || Truman : %s\n",i ,data->exec[cmd - 1].infile[i]);
 	filein = open(data->exec[cmd - 1].infile[i], O_RDONLY, 0644);
 	if (filein < 0)
 	{
@@ -90,10 +92,10 @@ int		handle_outfile(t_data *data, int cmd, int i)
 	
 	if (ft_ambigous(data, cmd, 'o'))
 		exit(0);
-	// if (get_outfile_type(data, cmd) == OUTFILE_T)
-	// 	fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	// else if (get_outfile_type(data, cmd) == OUTFILE_A)
-	fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (get_outfile_type(data, cmd, i) == OUTFILE_T)
+		fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	else if (get_outfile_type(data, cmd, i) == OUTFILE_A)
+		fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fileout < 0)
 	{
 		perror(data->exec[cmd - 1].outfile[i]);
@@ -144,17 +146,15 @@ int		handle_fd(t_data *data, int cmd)
 
 	heredoc = 0;
 	rv = 1;
+
 	// HANDLE INFILE && HEREDOC
 	if (data->exec[cmd - 1].infile)
 	{
-		printf("TRUE\n");
 		i = 0;
 		while (data->exec[cmd - 1].infile[i])
 		{
-			printf("Infile = %s\n", data->exec[cmd - 1].infile[i]);
 			if (islastfile(data->exec[cmd - 1].infile, i))
 			{
-				printf("TRUE with i = %d\n", i);
 				if (data->exec[cmd - 1].heredoc > 0)
 					handle_heredoc(data, cmd, 0);
 				if (!handle_infile(data, cmd, i))
@@ -165,7 +165,8 @@ int		handle_fd(t_data *data, int cmd)
 			}
 			else
 			{
-				printf("First Infile = %s\n", data->exec[cmd - 1].infile[i]);
+				if (ft_ambigous(data, cmd, 'i'))
+					exit(0);
 				test = open(data->exec[cmd - 1].infile[i], O_RDONLY, 0644);
 				if (test < 0)
 				{
@@ -191,18 +192,15 @@ int		handle_fd(t_data *data, int cmd)
 			dup2(data->oldfd, STDIN_FILENO);
 	}
 
-	printf("HELLO\n");
 
 	// HANDLE OUTFILE
 	if (data->exec[cmd - 1].outfile)
 	{
-		printf("First Infile = %s\n", data->exec[cmd - 1].infile[i]);
 		i = 0;
 		while (data->exec[cmd - 1].outfile[i])
 		{
 			if (islastfile(data->exec[cmd - 1].outfile, i))
 			{
-				printf("True\n");
 				if (!handle_outfile(data, cmd, i))
 				{	
 					if (rv)
@@ -211,12 +209,16 @@ int		handle_fd(t_data *data, int cmd)
 			}
 			else
 			{
-				test = open(data->exec[cmd - 1].outfile[i], O_RDONLY, 0644);
+				if (ft_ambigous(data, cmd, 'o'))
+					exit(0);
+				if (get_outfile_type(data, cmd, i) == OUTFILE_T)
+					test = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+				else if (get_outfile_type(data, cmd, i) == OUTFILE_A)
+					test = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
 				if (test < 0)
 				{
 					perror(data->exec[cmd - 1].outfile[i]);
-					if (rv)
-						rv = 0;
+					return (0);
 				}
 				close(test);
 			}
@@ -230,6 +232,5 @@ int		handle_fd(t_data *data, int cmd)
 		else
 			close(data->fd[1]);
 	}
-	printf("rv = %d\n", rv);
 	return (rv);
 }

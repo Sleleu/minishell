@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 13:08:25 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:06:55 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int is_builtin(t_data *data){
 	char	**cmd;
 	
 	cmd = getcmd(data, 1);
+	if (!cmd)
+		return (0);
 	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
 		return (1);
 	else if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
@@ -88,7 +90,6 @@ int	execution(t_data *data)
 {
 	int	code;
 	
-	print_both(data);
 	if (data->actual == data->args && is_builtin(data))
 	{
 		code = exec_builtout(data);
