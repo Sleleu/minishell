@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/30 17:53:27 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:55:18 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 /* PIPEX */
 
 typedef struct s_exec{
-	char	*infile;
-	char	*outfile;
+	char	**infile;
+	char	**outfile;
 	int		heredoc;
 	int		cmd;
 	pid_t	pid;

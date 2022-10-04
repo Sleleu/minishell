@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 20:30:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:17:41 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,50 @@ void	print_both(t_data *data)
 	i = -1;
 	dprintf(2, "\nEXECUTING\n");
 	while (++i < data->args)
-		dprintf(2, "%d Cmd : %d | Heredoc : %d | Infile : %s | Outfile : %s\n", i, exec[i].cmd, exec[i].heredoc, exec[i].infile, exec[i].outfile);
+	{
+		dprintf(2, "%d Cmd : %d | Heredoc : %d\n", i, exec[i].cmd, exec[i].heredoc);
+	}
+}
+
+char **getfiles(int file, int cmd, t_data *data)
+{
+	char	**dtab;
+	t_parse *parse;
+	int		i;
+	int		size;
+
+	printf("Hello\n");
+	parse = data->parse;
+	i = 0;
+	while (parse[i].cmd != cmd)
+		i++;
+	printf("Kaput ?\n");
+	size = 0;
+	while (parse[i].type != FINISH && parse[i].cmd == cmd)
+	{
+		if (!file && parse[i].type == INFILE)
+			size++;
+		else if (file && (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T))
+			size++;
+		i++;
+	}
+	printf("Kaput2 ?\n");
+	printf("Size = %d\n", size);
+	if (!size)
+		return (NULL);
+	dtab = (char **)memcenter(MALLOC, sizeof(char *) * size, NULL, EXEC);
+	if (!dtab)
+		return (NULL);
+	dtab[size] = NULL;
+	printf("Return dtab\n");
+	return (dtab);
 }
 
 static t_exec	*setexec(t_data *data)
 {
 	int		i;
+	int		infile;
+	int		outfile;
 	int		cmd;
 	t_exec	*exec;
 	t_parse *parse;
@@ -48,21 +86,32 @@ static t_exec	*setexec(t_data *data)
 	while (cmd <= data->args)
 	{
 		exec[cmd - 1].heredoc = 0;
-		exec[cmd - 1].infile = NULL;
-		exec[cmd - 1].outfile = NULL;
+		exec[cmd - 1].infile = getfiles(0, cmd, data);
+		exec[cmd - 1].outfile = getfiles(1, cmd, data);
 		exec[cmd - 1].cmd = cmd;
+		infile = 0;
+		outfile = 0;
 		while (parse[i].type != FINISH && parse[i].cmd == cmd)
 		{
 			if (parse[i].type == INFILE)
-				exec[cmd - 1].infile = parse[i].str;
-			if (parse[i].type == LIMITER)
+			{
+				exec[cmd - 1].infile[infile] = parse[i].str;
+				printf("Exec file = %s\n", exec[cmd - 1].infile[infile]);
+				infile++;
+			}
+			else if (parse[i].type == LIMITER)
 				exec[cmd - 1].heredoc++;
-			if (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T)
-				exec[cmd - 1].outfile = parse[i].str;
+			else if (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T)
+			{
+				exec[cmd - 1].outfile[outfile] = parse[i].str;
+				printf("Exec file = %s\n", exec[cmd - 1].outfile[outfile]);
+				outfile++;
+			}
 			i++;
 		}
 		cmd += 1;
 	}
+	printf("Infile = %d\nOutfile = %d\n", infile, outfile);
 	return (exec);
 }
 

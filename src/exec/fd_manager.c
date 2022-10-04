@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_manager.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 00:31:20 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/04 14:24:09 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int ft_ambigous(t_data *data, int cmd, char c)
 				break ;
 			ptr = ptr->next;
 		}
-		if (data->exec[cmd - 1].infile[0] == '\0')
+		if (data->exec[cmd - 1].infile[0][0] == '\0')
 		{
 			printf("minishell: %s: ambiguous redirect\n", ptr->next->content);
 			return (1);
@@ -56,7 +56,7 @@ int ft_ambigous(t_data *data, int cmd, char c)
 			ptr = ptr->next;
 		}
 		//printf("%d\n", ptr->type);
-		if (data->exec[cmd - 1].outfile[0] == '\0')
+		if (data->exec[cmd - 1].outfile[0][0] == '\0')
 		{
 			printf("minishell: %s: ambiguous redirect\n", ptr->next->content);
 			return (1);
@@ -65,16 +65,17 @@ int ft_ambigous(t_data *data, int cmd, char c)
 	return (0);
 }
 
-int		handle_infile(t_data *data, int cmd)
+int		handle_infile(t_data *data, int cmd, int i)
 {
 	int filein; 
 	
 	if (ft_ambigous(data, cmd, 'i'))
 		exit(0);
-	filein = open(data->exec[cmd - 1].infile, O_RDONLY, 0644);
+	printf("i = %d || Truman : %s\n",i ,data->exec[cmd - 1].infile[i]);
+	filein = open(data->exec[cmd - 1].infile[i], O_RDONLY, 0644);
 	if (filein < 0)
 	{
-		perror(data->exec[cmd - 1].infile);
+		perror(data->exec[cmd - 1].infile[i]);
 		close_pipes(data);
 		exit(EXIT_FAILURE);
 	}
@@ -83,19 +84,19 @@ int		handle_infile(t_data *data, int cmd)
 	return (1);
 }
 
-int		handle_outfile(t_data *data, int cmd)
+int		handle_outfile(t_data *data, int cmd, int i)
 {
 	int fileout;
 	
 	if (ft_ambigous(data, cmd, 'o'))
 		exit(0);
-	if (get_outfile_type(data, cmd) == OUTFILE_T)
-		fileout = open(data->exec[cmd - 1].outfile, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (get_outfile_type(data, cmd) == OUTFILE_A)
-		fileout = open(data->exec[cmd - 1].outfile, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	// if (get_outfile_type(data, cmd) == OUTFILE_T)
+	// 	fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	// else if (get_outfile_type(data, cmd) == OUTFILE_A)
+	fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fileout < 0)
 	{
-		perror(data->exec[cmd - 1].outfile);
+		perror(data->exec[cmd - 1].outfile[i]);
 		close_pipes(data);
 		exit(EXIT_FAILURE);
 	}
@@ -137,16 +138,44 @@ void			handle_heredoc(t_data *data, int cmd, int status)
 int		handle_fd(t_data *data, int cmd)
 {
 	int heredoc;
+	int i;
+	int test;
+	int rv;
 
 	heredoc = 0;
-	
+	rv = 1;
 	// HANDLE INFILE && HEREDOC
-	if (data->exec[cmd - 1].infile && islastinfile(data, data->exec[cmd - 1].infile, cmd))
+	if (data->exec[cmd - 1].infile)
 	{
-		if (data->exec[cmd - 1].heredoc > 0)
-			handle_heredoc(data, cmd, 0);
-		if (!handle_infile(data, cmd))
-			return (0);
+		printf("TRUE\n");
+		i = 0;
+		while (data->exec[cmd - 1].infile[i])
+		{
+			printf("Infile = %s\n", data->exec[cmd - 1].infile[i]);
+			if (islastfile(data->exec[cmd - 1].infile, i))
+			{
+				printf("TRUE with i = %d\n", i);
+				if (data->exec[cmd - 1].heredoc > 0)
+					handle_heredoc(data, cmd, 0);
+				if (!handle_infile(data, cmd, i))
+				{
+					if (rv)
+						rv = 0;
+				}
+			}
+			else
+			{
+				printf("First Infile = %s\n", data->exec[cmd - 1].infile[i]);
+				test = open(data->exec[cmd - 1].infile[i], O_RDONLY, 0644);
+				if (test < 0)
+				{
+					perror(data->exec[cmd - 1].infile[i]);
+					return (0);
+				}
+				close(test);
+			}
+			i++;
+		}
 	}
 	else if (data->exec[cmd - 1].heredoc > 0)
 	{
@@ -162,17 +191,45 @@ int		handle_fd(t_data *data, int cmd)
 			dup2(data->oldfd, STDIN_FILENO);
 	}
 
-	
+	printf("HELLO\n");
+
 	// HANDLE OUTFILE
 	if (data->exec[cmd - 1].outfile)
-	{		
-		if (!handle_outfile(data, cmd))
-			return (0);
+	{
+		printf("First Infile = %s\n", data->exec[cmd - 1].infile[i]);
+		i = 0;
+		while (data->exec[cmd - 1].outfile[i])
+		{
+			if (islastfile(data->exec[cmd - 1].outfile, i))
+			{
+				printf("True\n");
+				if (!handle_outfile(data, cmd, i))
+				{	
+					if (rv)
+						rv = 0;
+				}
+			}
+			else
+			{
+				test = open(data->exec[cmd - 1].outfile[i], O_RDONLY, 0644);
+				if (test < 0)
+				{
+					perror(data->exec[cmd - 1].outfile[i]);
+					if (rv)
+						rv = 0;
+				}
+				close(test);
+			}
+			i++;
+		}
 	}
 	else
+	{
 		if (cmd < data->args)
 			dup2(data->fd[1], STDOUT_FILENO);
 		else
 			close(data->fd[1]);
-	return (1);
+	}
+	printf("rv = %d\n", rv);
+	return (rv);
 }
