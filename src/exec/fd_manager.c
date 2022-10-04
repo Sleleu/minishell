@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 17:05:42 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:17:13 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,9 @@ int		handle_outfile(t_data *data, int cmd, int i)
 	if (ft_ambigous(data, cmd, 'o', i))
 		exit(0);
 	if (get_outfile_type(data, cmd, i) == OUTFILE_T)
-	{
-		dprintf(2, "True");
 		fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	}
 	else if (get_outfile_type(data, cmd, i) == OUTFILE_A)
-	{
-		dprintf(2, "True");
 		fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
-	}
 	if (fileout < 0)
 	{
 		perror(data->exec[cmd - 1].outfile[i]);

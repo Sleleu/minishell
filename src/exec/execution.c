@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 16:55:47 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:18:09 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	child_process(t_data *data, int cmd)
 
 int		heredoc(t_data *data, int cmd)
 {
-	t_parse *parse;
-
-	parse = data->parse;
-	(void)parse;
-	(void)cmd;
-	return (0);
+	if (data->exec[cmd - 1].heredoc > 0)
+		return (1);
+	else
+		return (0);
 	
 }
 
