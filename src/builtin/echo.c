@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 23:10:34 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/04 03:04:30 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	ft_echo(char **arg)
 		i++;
 	while(arg[i])
 	{
-		//if (!only_quote(arg[i]))
-			printf("%s", arg[i]);
+		printf("%s", arg[i]);
 		if (arg[i + 1])
 			printf(" ");
 		i++;

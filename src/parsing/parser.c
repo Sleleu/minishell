@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 01:33:00 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/04 03:02:29 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,9 @@ int	ft_parser(t_data **data)
 	if (error != 0)
 		return (-1);
 	assign_file(data);
-	int i = 0;
-	while (token_type(data, i) != FINISH)
-	{
-		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str,
-		(*data)->parse[i].type, (*data)->parse[i].cmd);
-		i++;
-	}
-		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str,
-		(*data)->parse[i].type, (*data)->parse[i].cmd);
 	if (!parse_quotes(data))
 		return (-1);
 	convert_env(data);
-	i = 0;
-	printf("\nAPRES PARSING\n");
-	while (token_type(data, i) != FINISH)
-	{
-		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str,
-		(*data)->parse[i].type, (*data)->parse[i].cmd);
-		i++;
-	}
-		printf("CONTENT %s | TYPE %d | CMD %d\n", (*data)->parse[i].str,
-		(*data)->parse[i].type, (*data)->parse[i].cmd);
 	return (0);
 }
 // FREE LE LEXER
