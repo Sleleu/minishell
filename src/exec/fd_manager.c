@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 15:10:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:05:42 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_token_type get_outfile_type(t_data *data, int cmd, int index)
 
 	parse = data->parse;
 	i = 0;
+	while (parse[i].type != FINISH && parse[i].cmd != cmd)
+		i++;
 	while (parse[i].type != FINISH && parse[i].cmd == cmd)
 	{
 		if (!index && (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T))
@@ -30,7 +32,7 @@ t_token_type get_outfile_type(t_data *data, int cmd, int index)
 	return (FINISH);
 }
 
-int ft_ambigous(t_data *data, int cmd, char c)
+int		ft_ambigous(t_data *data, int cmd, char c, int index)
 {
 	t_lexer *ptr;
 	
@@ -43,7 +45,7 @@ int ft_ambigous(t_data *data, int cmd, char c)
 				break ;
 			ptr = ptr->next;
 		}
-		if (data->exec[cmd - 1].infile[0][0] == '\0')
+		if (data->exec[cmd - 1].infile[index][0] == '\0')
 		{
 			printf("minishell: %s: ambiguous redirect\n", ptr->next->content);
 			return (1);
@@ -55,11 +57,9 @@ int ft_ambigous(t_data *data, int cmd, char c)
 		{
 			if ((ptr->type == SUP_CHEVRON || ptr->type == D_SUP_CHEVRON) && ptr->next->content[0] == '$')
 				break ;
-			// printf("%d\n", ptr->type);
 			ptr = ptr->next;
 		}
-		//printf("%d\n", ptr->type);
-		if (data->exec[cmd - 1].outfile[0][0] == '\0')
+		if (data->exec[cmd - 1].outfile[index][0] == '\0')
 		{
 			printf("minishell: %s: ambiguous redirect\n", ptr->next->content);
 			return (1);
@@ -72,7 +72,7 @@ int		handle_infile(t_data *data, int cmd, int i)
 {
 	int filein; 
 	
-	if (ft_ambigous(data, cmd, 'i'))
+	if (ft_ambigous(data, cmd, 'i', i))
 		exit(0);
 	filein = open(data->exec[cmd - 1].infile[i], O_RDONLY, 0644);
 	if (filein < 0)
@@ -90,12 +90,18 @@ int		handle_outfile(t_data *data, int cmd, int i)
 {
 	int fileout;
 	
-	if (ft_ambigous(data, cmd, 'o'))
+	if (ft_ambigous(data, cmd, 'o', i))
 		exit(0);
 	if (get_outfile_type(data, cmd, i) == OUTFILE_T)
+	{
+		dprintf(2, "True");
 		fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	}
 	else if (get_outfile_type(data, cmd, i) == OUTFILE_A)
+	{
+		dprintf(2, "True");
 		fileout = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
+	}
 	if (fileout < 0)
 	{
 		perror(data->exec[cmd - 1].outfile[i]);
@@ -142,10 +148,8 @@ int		handle_fd(t_data *data, int cmd)
 	int heredoc;
 	int i;
 	int test;
-	int rv;
 
 	heredoc = 0;
-	rv = 1;
 
 	// HANDLE INFILE && HEREDOC
 	if (data->exec[cmd - 1].infile)
@@ -158,14 +162,11 @@ int		handle_fd(t_data *data, int cmd)
 				if (data->exec[cmd - 1].heredoc > 0)
 					handle_heredoc(data, cmd, 0);
 				if (!handle_infile(data, cmd, i))
-				{
-					if (rv)
-						rv = 0;
-				}
+					return (0);
 			}
 			else
 			{
-				if (ft_ambigous(data, cmd, 'i'))
+				if (ft_ambigous(data, cmd, 'i', i))
 					exit(0);
 				test = open(data->exec[cmd - 1].infile[i], O_RDONLY, 0644);
 				if (test < 0)
@@ -202,14 +203,11 @@ int		handle_fd(t_data *data, int cmd)
 			if (islastfile(data->exec[cmd - 1].outfile, i))
 			{
 				if (!handle_outfile(data, cmd, i))
-				{	
-					if (rv)
-						rv = 0;
-				}
+					return (0);
 			}
 			else
 			{
-				if (ft_ambigous(data, cmd, 'o'))
+				if (ft_ambigous(data, cmd, 'o', i))
 					exit(0);
 				if (get_outfile_type(data, cmd, i) == OUTFILE_T)
 					test = open(data->exec[cmd - 1].outfile[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -232,5 +230,5 @@ int		handle_fd(t_data *data, int cmd)
 		else
 			close(data->fd[1]);
 	}
-	return (rv);
+	return (1);
 }
