@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 15:00:52 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:36:39 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char **getfiles(int file, int cmd, t_data *data)
 	}
 	if (!size)
 		return (NULL);
-	dtab = (char **)memcenter(MALLOC, sizeof(char *) * size, NULL, EXEC);
+	dtab = memcenter(MALLOC, sizeof(char *) * (size + 1), NULL, EXEC);
 	if (!dtab)
 		return (NULL);
 	dtab[size] = NULL;

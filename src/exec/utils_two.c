@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:07:13 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 13:38:13 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:26:41 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int		islastfile(char **file, int i)
 {
-	if (file[i + 1])
-		return (0);
-	else
+	if (!file[i + 1])
 		return (1);
+	else
+		return (0);
 }
 
 // int		islastinfile(t_data *data, char **infile, int cmd)
