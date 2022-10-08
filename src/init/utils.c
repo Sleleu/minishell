@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:29:44 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/08 18:17:30 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:26:52 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_data *set_data(char **env)
 	data->fd[1] = -1;
 	data->oldfd = -1;
 	data->heredoc = 0;
-	data->tmp = "./include/tmp.txt";
+	data->tmp = "/tmp/minishell_tmp.txt";
 	data->tmpfd = 0;
 	return (data);
 }
