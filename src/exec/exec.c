@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 15:36:39 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/08 15:48:36 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static t_exec	*setexec(t_data *data)
 	while (cmd <= data->args)
 	{
 		exec[cmd - 1].heredoc = 0;
+		exec[cmd - 1].hfd = -1;
 		exec[cmd - 1].infile = getfiles(0, cmd, data);
 		exec[cmd - 1].outfile = getfiles(1, cmd, data);
 		exec[cmd - 1].cmd = cmd;

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 17:18:09 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:13:55 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,25 @@ void	child_process(t_data *data, int cmd)
 {
 	if (handle_fd(data, cmd))
 		execute(data, cmd);
-}
-
-int		heredoc(t_data *data, int cmd)
-{
-	if (data->exec[cmd - 1].heredoc > 0)
-		return (1);
 	else
-		return (0);
-	
+		exit(EXIT_FAILURE);
 }
 
-int	exec_process(t_data *data)
+void	exec_process(t_data *data)
 {
+	
 	if (data->actual <= data->args)
 	{
 		if (pipe(data->fd) == -1)
-			return (0);
+			return ;
 		data->pid = fork();
 		if (data->pid < 0)
-			return (0);
+			return ;
 		if (data->pid == 0)
 			child_process(data, data->actual);
 		if (data->pid > 0 && data->actual <= data->args)
-		{
-			if (heredoc(data, data->actual))
+		{	
+			if (data->exec[data->actual - 1].heredoc)
 				wait(0);
 			if (data->fd[1] > 2)
 				close(data->fd[1]);
@@ -52,7 +46,6 @@ int	exec_process(t_data *data)
 		}
 		wait(0);
 	}
-	return (1);
 }
 
 int is_builtin(t_data *data){
@@ -95,9 +88,9 @@ int	execution(t_data *data)
 	}
 	else
 	{
-		code = exec_process(data);
+		exec_process(data);
 		close_pipes(data);
-		return (code);
+		unlink(data->tmp);
 	}
 	return (1);
 }

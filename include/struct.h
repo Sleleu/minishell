@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/04 12:55:18 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:17:41 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@
 # include <limits.h>
 # include <sys/wait.h>
 
+
 /* PIPEX */
 
 typedef struct s_exec{
 	char	**infile;
 	char	**outfile;
+	int		hfd;
 	int		heredoc;
 	int		cmd;
 	pid_t	pid;
@@ -107,6 +109,8 @@ typedef struct s_parse
 	t_exec		*exec;
 	t_parse		*parse;
 	t_memcenter	*memcenter;
+	char		*tmp;
+	int			tmpfd;
 	pid_t		pid;
 	int			heredoc;
 	int			fd[2];

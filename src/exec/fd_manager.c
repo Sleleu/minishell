@@ -6,13 +6,13 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 17:17:13 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:18:27 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_token_type get_outfile_type(t_data *data, int cmd, int index)
+t_token_type 	get_outfile_type(t_data *data, int cmd, int index)
 {
 	t_parse *parse;
 	int		i;
@@ -32,7 +32,7 @@ t_token_type get_outfile_type(t_data *data, int cmd, int index)
 	return (FINISH);
 }
 
-int		ft_ambigous(t_data *data, int cmd, char c, int index)
+int				ft_ambigous(t_data *data, int cmd, char c, int index)
 {
 	t_lexer *ptr;
 	
@@ -68,7 +68,7 @@ int		ft_ambigous(t_data *data, int cmd, char c, int index)
 	return (0);
 }
 
-int		handle_infile(t_data *data, int cmd, int i)
+int				handle_infile(t_data *data, int cmd, int i)
 {
 	int filein; 
 	
@@ -86,7 +86,7 @@ int		handle_infile(t_data *data, int cmd, int i)
 	return (1);
 }
 
-int		handle_outfile(t_data *data, int cmd, int i)
+int				handle_outfile(t_data *data, int cmd, int i)
 {
 	int fileout;
 	
@@ -107,12 +107,25 @@ int		handle_outfile(t_data *data, int cmd, int i)
 	return (1); 
 }
 
+int				is_same_string(char *line, char *limiter)
+{
+	if (line[0] == '\n')
+		return (0);
+	if (ft_strncmp(line, limiter, ft_strlen(limiter) - 1) == 0 && ft_strlen(line) - 1 == ft_strlen(limiter))
+		return (1);
+	else
+		return (0);
+		
+}
+
 void			handle_heredoc(t_data *data, int cmd, int status)
 {
 	t_parse *parse;
 	int		i;
 	char	*line;
 
+	if (status > 0)
+		data->tmpfd = open(data->tmp, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	parse = data->parse;
 	i = 0;
 	while (parse[i].type != FINISH && parse[i].cmd != cmd)
@@ -123,10 +136,10 @@ void			handle_heredoc(t_data *data, int cmd, int status)
 		{
 			ft_putstr_fd("> ", 2);
 			line = get_next_line(0);
-			while (line && (ft_strncmp(line, parse[i].str, ft_strlen(line) - 1) != 0 || line[0] == '\n'))
+			while (line && !is_same_string(line, parse[i].str))
 			{
-				if (data->exec[cmd - 1].heredoc == 1 && status == 1)
-					write(data->fd[1], line, ft_strlen(line));
+				if (data->exec[cmd - 1].heredoc == 1 && status > 0)
+					write(data->tmpfd, line, ft_strlen(line));
 				free(line);
 				ft_putstr_fd("> ", 2);
 				line = get_next_line(0);
@@ -135,9 +148,16 @@ void			handle_heredoc(t_data *data, int cmd, int status)
 		}
 		i++;
 	}
+	close(data->tmpfd);
+	if (status > 0)
+	{
+		data->tmpfd = open(data->tmp, O_RDONLY, 0644);
+		dup2(data->tmpfd, STDIN_FILENO);
+		close(data->fd[0]);
+	}
 }
 
-int		handle_fd(t_data *data, int cmd)
+int				handle_fd(t_data *data, int cmd)
 {
 	int heredoc;
 	int i;
@@ -148,6 +168,7 @@ int		handle_fd(t_data *data, int cmd)
 	// HANDLE INFILE && HEREDOC
 	if (data->exec[cmd - 1].infile)
 	{
+		// dprintf(2, "one\n");
 		i = 0;
 		while (data->exec[cmd - 1].infile[i])
 		{
@@ -173,24 +194,24 @@ int		handle_fd(t_data *data, int cmd)
 			i++;
 		}
 	}
-	else if (data->exec[cmd - 1].heredoc > 0)
+	if (!islastfile(data->exec[cmd - 1].infile, i) && data->exec[cmd - 1].heredoc > 0)
 	{
+		// dprintf(2, "two\n");
 		heredoc = 1;
 		handle_heredoc(data, cmd, 1);
-		close(data->fd[1]);
-		dup2(data->fd[0], STDIN_FILENO);
 	}
 	else if (!heredoc)
 	{
+		// dprintf(2, "three\n");
 		close(data->fd[0]);
 		if (cmd > 1)
 			dup2(data->oldfd, STDIN_FILENO);
 	}
-
-
+	
 	// HANDLE OUTFILE
 	if (data->exec[cmd - 1].outfile)
 	{
+		// dprintf(2, "four\n");
 		i = 0;
 		while (data->exec[cmd - 1].outfile[i])
 		{
@@ -219,6 +240,7 @@ int		handle_fd(t_data *data, int cmd)
 	}
 	else
 	{
+		// dprintf(2, "Five\n");
 		if (cmd < data->args)
 			dup2(data->fd[1], STDOUT_FILENO);
 		else

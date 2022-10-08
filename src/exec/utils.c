@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/26 21:29:17 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:19:18 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	close_pipes(t_data *data)
 		close(data->fd[1]);
 	if (data->oldfd > 0)
 		close(data->oldfd);
+	if (data->tmpfd > 0)
+		close(data->tmpfd);
 }
 
 void print_double(char **db)
