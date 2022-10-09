@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/08 18:13:55 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:43:42 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	exec_builtout(t_data *data)
 	
 	cmd = getcmd(data, 1);
 	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
-		return (ft_cd(cmd[1], data->env));
+		return (ft_cd(cmd, data->env));
 	else if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
 		return (ft_export(&data, cmd));
 	else if (!ft_strncmp(cmd[0], "exit", ft_strlen(cmd[0])))

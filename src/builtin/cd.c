@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 23:14:50 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 20:47:59 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,18 @@ static void	replace_pwd(char *path, char **env)
 		return ;
 }
 
-int	ft_cd(char *path, char **env)
+int	ft_cd(char **arg, char **env)
 {
+	char *path;
+
+	path = arg[1];
 	if (!path)
 	{
 		chdir(ft_getenv(env, "HOME"));
 		replace_pwd(ft_getenv(env, "HOME"), env);
 	}
+	if (arg[2])
+		printf("minishell: cd: too many arguments\n");
 	else
 	{
 		if (chdir(path) == -1)

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 20:23:02 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:45:14 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void			restore_data(void);
 int				ft_pwd(void);
 int 			ft_env(char **env);
 int				ft_echo(char **arg);
-int				ft_cd(char *path, char **env);
+int				ft_cd(char **arg, char **env);
 int				ft_unset(char **env, char **cmd);
 
 /* EXPORT */

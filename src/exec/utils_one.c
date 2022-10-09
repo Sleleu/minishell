@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/08 16:48:35 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:43:47 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	trybuiltin(t_data *data, char **cmd)
 
 	// CD
 	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
-		return_value = ft_cd(cmd[1], data->env);
+		return_value = ft_cd(cmd, data->env);
 
 	// Echo
 	else if (!ft_strncmp(cmd[0], "echo", ft_strlen(cmd[0])))
