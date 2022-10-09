@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 21:24:45 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 23:12:31 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 /*                           INIT                             */
 /* ********************************************************** */
 
-t_data 			*get_data(void);
-t_data 			*set_data(char **env);
+t_data			*get_data(void);
+t_data			*set_data(char **env);
 void			restore_data(void);
 
 /* ********************************************************** */
@@ -28,7 +28,7 @@ void			restore_data(void);
 /* ********************************************************** */
 
 int				ft_pwd(void);
-int 			ft_env(char **env);
+int				ft_env(char **env);
 int				ft_echo(char **arg);
 int				ft_cd(char **arg, char **env);
 int				ft_unset(char **env, char **cmd);
@@ -50,7 +50,7 @@ int				is_new_var(char **env, char *str);
 /* EXPORT UTILS */
 
 char			**ft_envjoin(char **env, char *str);
-char 			*ft_strdel(char *str, char c, int n);
+char			*ft_strdel(char *str, char c, int n);
 char			**ft_append_var(char **env, char *str, int index_equal);
 
 /* EXIT */
@@ -85,11 +85,11 @@ int				add_word(t_lexer **lexer, char *line, int pos, int cmd);
 int				is_escape(char *line, int pos);
 int				is_sep(char *line, int pos);
 int				is_space(int c);
-int 			is_double_chevron(char *line, int pos);
+int				is_double_chevron(char *line, int pos);
 
 /* HANDLE_QUOTES */
 
-int 			handle_quotes(char *line, int pos, int quote, char c);
+int				handle_quotes(char *line, int pos, int quote, char c);
 int				select_quote(char *line, int pos, int quote);
 int				quoted_word(t_lexer **lexer, char *line, int pos, int cmd);
 int				is_in_dquotes(char *line, int pos);
@@ -159,44 +159,57 @@ int				is_quotes(char *str);
 /*                           EXECUTION                        */
 /* ********************************************************** */
 
-/* PROCESS */
+/* MAIN */
 
 int				process(t_data **data);
-void			execute(t_data *data, int cmdnb);
-void			exec_process(t_data *data);
 void			child_process(t_data *data, int cmd);
-int				handle_fd(t_data *data, int cmd);
-int				handle_infile(t_data *data, int cmd, int i);
-int				handle_outfile(t_data *data, int cmd, int i);
-void			handle_heredoc(t_data *data, int cmd, int status);
-t_token_type 	get_outfile_type(t_data *data, int cmd, int index);
+void			exec_process(t_data *data);
 int				execution(t_data *data);
+void			execute(t_data *data, int cmdnb);
+
+/* FD MANAGER */
+
+int				handle_fd(t_data *data, int cmd);
+int				fd_infile(t_data *data, int cmd);
+int				fd_outfile(t_data *data, int cmd);
+void			fd_heredoc(t_data *data, int cmd, int status);
 
 /* PROCESS UTILS */
 
+/* UTILS */
+char			**getfiles(int file, int cmd, t_data *data);
+t_exec			exec_finish(t_exec exec, t_data *data, int cmd);
+int				is_builtin(t_data *data);
+int				exec_builtout(t_data *data);
+int				is_same_string(char *line, char *limiter);
+void			heredoc_boucle(t_data *data, int i, int cmd, int status);
+int				handle_infile(t_data *data, int cmd, int i);
+t_token_type	get_outfile_type(t_data *data, int cmd, int j);
+int				handle_outfile(t_data *data, int cmd, int i);
 char			**find_path(char **e);
 char			*find_cmdpath(char *cmd, char **envp);
+char			**test(char **lol);
+char			**getcmd(t_data *data, int cmdnb);
+int				gotoparsecmd(t_data *data, int cmd);
 char			*setpath(char *cmd, char **envp);
 int				is_path(char *av);
-char 			**test(char **lol);
-char			**getcmd(t_data *data, int cmdnb);
-int				islastinfile(t_data *data, char **infile, int i, int cmd);
-int				islastoutfile(char **infile, int i);
-
-/* UTILS */
-
 void			print_both(t_data *data);
-void			free_double(char **lol);
-void 			print_double(char **db);
-void			close_pipes(t_data *data);
+int				getwords(t_data *data, int cmdnb);
 void			err_return(char **cmd);
-int				builtin(t_data **data);
+void			close_pipes(t_data *data);
+void			print_double(char **db);
+void			free_double(char **lol);
 int				getargsnb(t_parse *parse);
+int				islastinfile(t_data *data, char **file, int i, int cmd);
+int				islastoutfile(char **file, int i);
+int				ambigous_infile(t_data *data, int cmd, int index);
+int				ft_ambigous(t_data *data, int cmd, char c, int index);
+int				trybuiltin(t_data *data, char **cmd);
 
 /* ********************************************************** */
 /*                           SIGNAL                           */
 /* ********************************************************** */
 
-void	sig_init(void);
+void			sig_init(void);
 
 #endif

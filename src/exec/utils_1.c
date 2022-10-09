@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_one.c                                        :+:      :+:    :+:   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 20:43:47 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 22:59:47 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,39 +54,11 @@ char	*find_cmdpath(char *cmd, char **envp)
 	return (0);
 }
 
-char	*setpath(char *cmd, char **envp)
-{
-	if (!cmd)
-		return (NULL);
-	else
-	{
-		if (!find_cmdpath(cmd, envp))
-			return (cmd);
-		else
-			return (find_cmdpath(cmd, envp));
-	}
-	return (NULL);
-}
-
-int		is_path(char *av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i] != '\0')
-	{
-		if (av[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char **test(char **lol)
+char	**test(char **lol)
 {
 	char	**test;
-	int 	i;
-	
+	int		i;
+
 	i = 0;
 	while (lol[i] != NULL)
 		i++;
@@ -115,20 +87,14 @@ char	**getcmd(t_data *data, int cmdnb)
 	int		i;
 	int		words;
 	int		w_copy;
-	t_parse *parse;
+	t_parse	*parse;
 	char	**cmd;
 
-	i = -1;
-	words = 0;
+	words = getwords(data, cmdnb);
 	parse = data->parse;
-	while (parse[++i].type != FINISH)
-	{
-		if (parse[i].type == WORD && parse[i].cmd == cmdnb)
-			words++;
-	}
 	if (!words)
 		return (NULL);
-	cmd = (char **)memcenter(MALLOC, (sizeof(char *) * (words + 1)), NULL, EXEC);
+	cmd = memcenter(MALLOC, (sizeof(char *) * (words + 1)), NULL, EXEC);
 	if (!cmd)
 		return (NULL);
 	i = -1;
@@ -145,43 +111,6 @@ char	**getcmd(t_data *data, int cmdnb)
 	return (cmd);
 }
 
-int	trybuiltin(t_data *data, char **cmd)
-{
-	int return_value;
-
-	return_value = 0;
-
-	// CD
-	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
-		return_value = ft_cd(cmd, data->env);
-
-	// Echo
-	else if (!ft_strncmp(cmd[0], "echo", ft_strlen(cmd[0])))
-		return_value = ft_echo(cmd);
-
-	// Env
-	else if (!ft_strncmp(cmd[0], "env", ft_strlen(cmd[0])))
-		return_value = ft_env(data->env);
-
-	// Export
-	else if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
-		return_value = ft_export(&data, cmd);
-
-	// Exit
-	else if (!ft_strncmp(cmd[0], "exit", ft_strlen(cmd[0])))
-		return_value = ft_exit(cmd);
-	
-	// PWD
-	else if (!ft_strncmp(cmd[0], "pwd", ft_strlen(cmd[0])))
-		return_value = ft_pwd();
-
-	// UNSET
-	else if (!ft_strncmp(cmd[0], "unset", ft_strlen(cmd[0])))
-		return_value = ft_unset(data->env, cmd);
-	
-	return(return_value);
-}
-
 void	execute(t_data *data, int cmdnb)
 {
 	char	**cmd;
@@ -196,8 +125,6 @@ void	execute(t_data *data, int cmdnb)
 		cmd[0] = setpath(cmd[0], data->env);
 	if (!cmd[0] || access(cmd[0], X_OK != 0))
 		return (err_return(cmd));
-	// dprintf(2, "Execution\n");
-	// exit(EXIT_SUCCESS);
 	if (execve(cmd[0], cmd, data->env) == -1)
 	{
 		if (access(cmd[0], X_OK != 0))

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
+#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/02 19:20:58 by sleleu           ###   ########.fr        #
+#    Updated: 2022/10/09 23:11:34 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,10 +50,14 @@ SOURCES 		= 	main.c \
 					lexer/handle_quotes.c \
 					exec/exec.c \
 					exec/execution.c \
-					exec/utils.c \
-					exec/utils_one.c \
-					exec/utils_two.c \
+					exec/utils_1.c \
+					exec/utils_2.c \
+					exec/utils_3.c \
+					exec/utils_4.c \
 					exec/fd_manager.c \
+					exec/fd_infile.c \
+					exec/fd_outfile.c \
+					exec/fd_heredoc.c \
 					signal/signal.c \
 
 ### OBJECTS ###

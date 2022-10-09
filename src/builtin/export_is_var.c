@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_is_var.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:49:41 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 21:24:02 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 23:13:16 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	is_new_var(char **env, char *str)
 
 	i = 0;
 	j = 0;
+	(void)j;
 	while (env[i])
 	{
 		index_equal_env = 0;

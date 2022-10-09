@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_three.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/08 18:19:18 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 22:34:43 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	close_pipes(t_data *data)
 		close(data->tmpfd);
 }
 
-void print_double(char **db)
+void	print_double(char **db)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (db[++i])
@@ -67,9 +67,9 @@ void	free_double(char **lol)
 	free(lol);
 }
 
-int		getargsnb(t_parse *parse)
+int	getargsnb(t_parse *parse)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!parse)

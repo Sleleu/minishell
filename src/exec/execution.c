@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 20:43:42 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 22:21:20 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	child_process(t_data *data, int cmd)
 
 void	exec_process(t_data *data)
 {
-	
 	if (data->actual <= data->args)
 	{
 		if (pipe(data->fd) == -1)
@@ -48,9 +47,10 @@ void	exec_process(t_data *data)
 	}
 }
 
-int is_builtin(t_data *data){
+int	is_builtin(t_data *data)
+{
 	char	**cmd;
-	
+
 	cmd = getcmd(data, 1);
 	if (!cmd)
 		return (0);
@@ -66,7 +66,7 @@ int is_builtin(t_data *data){
 int	exec_builtout(t_data *data)
 {
 	char	**cmd;
-	
+
 	cmd = getcmd(data, 1);
 	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
 		return (ft_cd(cmd, data->env));
@@ -80,7 +80,7 @@ int	exec_builtout(t_data *data)
 int	execution(t_data *data)
 {
 	int	code;
-	
+
 	if (data->actual == data->args && is_builtin(data))
 	{
 		code = exec_builtout(data);
