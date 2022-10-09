@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/04 00:27:59 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 21:00:01 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	add_word(t_lexer **lexer, char *line, int pos, int cmd)
 	if (!token)
 		return (-1);
 	token->type = WORD;
-	while (line[pos] && !is_sep(line, pos))
+	while (line[pos] && !(is_sep(line, pos)
+			&& !is_in_squotes(line, pos) && !is_in_dquotes(line, pos)))
 	{
 		if (is_space(line[pos]) && !is_in_squotes(line, pos)
 			&& !is_in_dquotes(line, pos))
