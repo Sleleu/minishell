@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 03:02:29 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 16:47:24 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_parser(t_data **data)
 	if (error != 0)
 		return (-1);
 	assign_file(data);
+	convert_env(data);
 	if (!parse_quotes(data))
 		return (-1);
-	convert_env(data);
 	return (0);
 }
 // FREE LE LEXER
