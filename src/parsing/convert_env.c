@@ -6,7 +6,7 @@
 /*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 16:51:09 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 19:39:54 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,20 +127,6 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 	}
 	return (new_str);
 }
-
-/*
-void	refresh_parsing(t_data **d)
-{
-	int	i;
-	
-	i = 0;
-	t_parse *new_parse;
-	while ((*d)->parse[i].type != FINISH)
-	{
-		if ()
-		i++;
-	}
-}*/
 
 /*
 		CONVERT_ENV

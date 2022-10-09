@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:43 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 16:42:05 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 19:52:16 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,32 @@ int	check_dollar(char *str)
 	- On strjoin la valeur de la variable d'environnement a la new_str;
 */
 
+char	*ft_strjoin_env(char *new_str, char *env_ptr)
+{
+	int	i;
+
+	i = 0;
+	while (env_ptr[i])
+	{
+		if (env_ptr[i] == 39)
+		{
+			new_str = ft_charjoin(new_str, '"');
+			new_str = ft_charjoin(new_str, env_ptr[i]);
+			new_str = ft_charjoin(new_str, '"');
+		}
+		else if (env_ptr[i] == '"')
+		{
+			new_str = ft_charjoin(new_str, 39);
+			new_str = ft_charjoin(new_str, env_ptr[i]);
+			new_str = ft_charjoin(new_str, 39);
+		}
+		else
+			new_str = ft_charjoin(new_str, env_ptr[i]);
+		i++;
+	}
+	return (new_str);
+}
+
 char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 {
 	char	*env_ptr;
@@ -128,7 +154,7 @@ char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 	env_ptr = env[index_var];
 	env_ptr += ft_strlen(var) + 1;
 	if (index_var != -1)
-		new_str = ft_strjoin(new_str, env_ptr);
+		new_str = ft_strjoin_env(new_str, env_ptr);
 	else
 		new_str = ft_strjoin(new_str, "");
 	return (new_str);
