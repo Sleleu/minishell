@@ -6,20 +6,46 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:07:13 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/04 20:30:19 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:15:45 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int		islastfile(char **file, int i)
+int		islastinfile(t_data *data, char **file, int i, int cmd)
+{
+	t_parse *parse;
+	int		j;
+
+	parse = data->parse;
+	j = 0;
+	while (parse[j].type != FINISH && parse[j].cmd != cmd)
+		j++;
+	while (parse[j].type != FINISH && parse[j].cmd == cmd)
+	{
+		if (parse[j].type == INFILE && !ft_strncmp(parse[j].str, file[i], ft_strlen(file[i])))
+		{
+			j++;
+			while (parse[j].type != FINISH && parse[j].cmd == cmd)
+			{
+				if (parse[j].type == INFILE || parse[j].type == LIMITER)
+					return (0);
+				j++;	
+			}
+			return (1);
+		}
+		j++;
+	}
+	return (0);
+}
+
+int		islastoutfile(char **file, int i)
 {
 	if (!file)
 		return (0);
-	if (!file[i + 1])
-		return (1);
-	else
+	if (file[i + 1])
 		return (0);
+	return (1);
 }
 
 // int		islastinfile(t_data *data, char **infile, int cmd)

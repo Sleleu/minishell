@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:02:30 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/08 18:18:27 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:27:52 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,10 @@ int				handle_fd(t_data *data, int cmd)
 	// HANDLE INFILE && HEREDOC
 	if (data->exec[cmd - 1].infile)
 	{
-		// dprintf(2, "one\n");
 		i = 0;
 		while (data->exec[cmd - 1].infile[i])
 		{
-			if (islastfile(data->exec[cmd - 1].infile, i))
+			if (islastinfile(data, data->exec[cmd - 1].infile, i, cmd))
 			{
 				if (data->exec[cmd - 1].heredoc > 0)
 					handle_heredoc(data, cmd, 0);
@@ -194,9 +193,8 @@ int				handle_fd(t_data *data, int cmd)
 			i++;
 		}
 	}
-	if (!islastfile(data->exec[cmd - 1].infile, i) && data->exec[cmd - 1].heredoc > 0)
+	if (!islastinfile(data, data->exec[cmd - 1].infile, i - 1, cmd) && data->exec[cmd - 1].heredoc > 0)
 	{
-		// dprintf(2, "two\n");
 		heredoc = 1;
 		handle_heredoc(data, cmd, 1);
 	}
@@ -215,7 +213,7 @@ int				handle_fd(t_data *data, int cmd)
 		i = 0;
 		while (data->exec[cmd - 1].outfile[i])
 		{
-			if (islastfile(data->exec[cmd - 1].outfile, i))
+			if (islastoutfile(data->exec[cmd - 1].outfile, i))
 			{
 				if (!handle_outfile(data, cmd, i))
 					return (0);

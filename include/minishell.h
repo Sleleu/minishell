@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/08 15:52:24 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:23:02 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,8 @@ char			*setpath(char *cmd, char **envp);
 int				is_path(char *av);
 char 			**test(char **lol);
 char			**getcmd(t_data *data, int cmdnb);
-int				islastfile(char **infile, int i);
+int				islastinfile(t_data *data, char **infile, int i, int cmd);
+int				islastoutfile(char **infile, int i);
 
 /* UTILS */
 
