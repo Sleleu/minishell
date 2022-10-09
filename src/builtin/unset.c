@@ -32,10 +32,46 @@ int ft_unset(char **env, char **cmd)
 }
 
 /*
-int	main(int ac, char **av, char **env)
+char **ft_unset_env(char **env, int index_var)
 {
-	(void)ac;
-	(void)av;
-	ft_unset(env, "unset PWD");
+	int	i;
+	int	j;
+	int	size;
+	char **new_env;
+	
+	i = 0;
+	j = 0;
+	size = 0;
+	while (env[size])
+		size++;
+	new_env = memcenter(MALLOC, sizeof(char *) * (size + 1), NULL, BUILTIN);
+	while (env[i])
+	{
+		new_env[j] = memcenter(MALLOC, sizeof(char)
+			* (ft_strlen(env[i] + 1)), NULL, BUILTIN);
+		ft_strcpy(new_env[j], env[i]);
+		i++;
+		j++;
+		if (i == index_var)
+			i++;
+	}
+	new_env[size] = '\0';
+	return (new_env);
+}
+
+int ft_unset(t_data **data, char **cmd)
+{
+	int	i;
+	int	index_var;
+
+	i = 1;
+	index_var = 0;
+	while (cmd[i])
+	{
+		index_var = is_new_var((*data)->env, cmd[i]);
+		if (index_var != -1)
+			(*data)->env = ft_unset_env((*data)->env, index_var);
+		i++;
+	}
 	return (0);
 }*/
