@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:00:03 by sleleu            #+#    #+#             */
-/*   Updated: 2022/09/24 21:50:45 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/09 21:23:57 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ char	**ft_append_var(char **env, char *str, int index_equal)
 
 	parsed_str = ft_strdel(str, '+', index_equal);
 	append_str = ft_substr(str, index_equal + 1, ft_strlen(str));
-	index_var = is_new_var(env, parsed_str, index_equal);
-	if (index_var == 0)
+	index_var = is_new_var(env, parsed_str);
+	if (index_var == -1)
 		env = ft_envjoin(env, parsed_str);
 	else
 		env[index_var] = ft_strjoin(env[index_var], append_str);

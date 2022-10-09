@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/03 20:08:08 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 21:26:05 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_refresh_var(t_data **data, char *str, int index_equal)
 	char	*new_var;
 	char	*new_value;
 
-	index_var = is_new_var((*data)->env, str, index_equal);
+	index_var = is_new_var((*data)->env, str);
 	new_var = ft_substr((*data)->env[index_var], 0, index_equal + 1);
 	new_value = ft_substr(str, index_equal + 1, ft_strlen(str));
 	ft_strjoin(new_var, new_value);
@@ -64,7 +64,7 @@ void	ft_export_action(t_data **data, char *str, int index_equal)
 {
 	if (isalnum_var(str, index_equal) == 1)
 	{
-		if (is_new_var((*data)->env, str, index_equal) == 0)
+		if (is_new_var((*data)->env, str) == -1)
 			(*data)->env = ft_envjoin((*data)->env, str);
 		else
 			ft_refresh_var(data, str, index_equal);

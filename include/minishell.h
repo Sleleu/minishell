@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 20:45:14 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/09 21:24:45 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				ft_export(t_data **data, char **cmd);
 
 int				is_env_variable(char *str, int *code);
 int				isalnum_var(char *str, int index_equal);
-int				is_new_var(char **env, char *str, int index_equal);
+int				is_new_var(char **env, char *str);
 
 /* EXPORT UTILS */
 
