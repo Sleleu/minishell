@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 22:43:54 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 22:55:32 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:56:37 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,24 @@ t_token_type	get_outfile_type(t_data *data, int cmd, int j)
 
 int	handle_outfile(t_data *data, int cmd, int i)
 {
-	int		fileout;
+	int		fd;
 	char	*file;
 
 	file = data->exec[cmd - 1].outfile[i];
-	fileout = -1;
+	fd = -1;
 	if (ft_ambigous(data, cmd, 'o', i))
 		exit(0);
 	if (get_outfile_type(data, cmd, i) == OUTFILE_T)
-		fileout = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (get_outfile_type(data, cmd, i) == OUTFILE_A)
-		fileout = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
-	if (fileout < 0)
+		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+	if (fd < 0)
 	{
 		perror(file);
 		close_pipes(data);
 		exit(EXIT_FAILURE);
 	}
-	dup2(fileout, STDOUT_FILENO);
+	dup2(fd, STDOUT_FILENO);
 	close(data->fd[1]);
 	return (1);
 }
@@ -57,7 +57,7 @@ int	handle_outfile(t_data *data, int cmd, int i)
 static int	utils_out(t_data *data, int cmd, int i)
 {
 	char	*file;
-	int		test;
+	int		fd;
 
 	file = data->exec[cmd - 1].outfile[i];
 	if (islastoutfile(data->exec[cmd - 1].outfile, i))
@@ -70,15 +70,15 @@ static int	utils_out(t_data *data, int cmd, int i)
 		if (ft_ambigous(data, cmd, 'o', i))
 			exit(0);
 		if (get_outfile_type(data, cmd, i) == OUTFILE_T)
-			test = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (get_outfile_type(data, cmd, i) == OUTFILE_A)
-			test = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		if (test < 0)
+			fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (fd < 0)
 		{
 			perror(data->exec[cmd - 1].outfile[i]);
 			return (0);
 		}
-		close(test);
+		close(fd);
 	}
 	return (1);
 }

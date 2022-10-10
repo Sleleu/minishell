@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_three.c                                      :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 19:11:15 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 22:34:43 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:39:11 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	err_return(char **cmd)
 	char	*err;
 	int		i;
 
-	if (!cmd)
+	if (cmd[0][0] == '\0')
 		ft_putstr_fd("command '' not found\n", 2);
 	else
 	{
@@ -30,7 +30,7 @@ void	err_return(char **cmd)
 		free(cmd);
 	}
 	close_pipes(get_data());
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
 void	close_pipes(t_data *data)

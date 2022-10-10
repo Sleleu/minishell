@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 20:47:59 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:50:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,19 @@ int	ft_cd(char **arg, char **env)
 		replace_pwd(ft_getenv(env, "HOME"), env);
 	}
 	if (arg[2])
+	{
 		printf("minishell: cd: too many arguments\n");
+		return (1);
+	}
 	else
 	{
 		if (chdir(path) == -1)
+		{
 			perror(path);
+			return (1);
+		}
 		else
 			replace_pwd(path, env);
 	}
-	return (1);
+	return (0);
 }

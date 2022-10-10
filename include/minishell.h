@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 23:12:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:21:12 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				ft_pwd(void);
 int				ft_env(char **env);
 int				ft_echo(char **arg);
 int				ft_cd(char **arg, char **env);
-int				ft_unset(char **env, char **cmd);
+int				ft_unset(t_data **data, char **cmd);
 
 /* EXPORT */
 
@@ -164,7 +164,7 @@ int				is_quotes(char *str);
 int				process(t_data **data);
 void			child_process(t_data *data, int cmd);
 void			exec_process(t_data *data);
-int				execution(t_data *data);
+void			execution(t_data *data);
 void			execute(t_data *data, int cmdnb);
 
 /* FD MANAGER */
@@ -172,7 +172,7 @@ void			execute(t_data *data, int cmdnb);
 int				handle_fd(t_data *data, int cmd);
 int				fd_infile(t_data *data, int cmd);
 int				fd_outfile(t_data *data, int cmd);
-void			fd_heredoc(t_data *data, int cmd, int status);
+int				fd_heredoc(t_data *data, int cmd, int status);
 
 /* PROCESS UTILS */
 
@@ -205,6 +205,8 @@ int				islastoutfile(char **file, int i);
 int				ambigous_infile(t_data *data, int cmd, int index);
 int				ft_ambigous(t_data *data, int cmd, char c, int index);
 int				trybuiltin(t_data *data, char **cmd);
+int				getcode(t_data *data);
+int				ft_ultracmp(char *first, char *second);
 
 /* ********************************************************** */
 /*                           SIGNAL                           */

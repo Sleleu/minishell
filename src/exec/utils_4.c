@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_two.c                                        :+:      :+:    :+:   */
+/*   utils_4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:07:13 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 22:37:53 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:09:40 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,20 +95,20 @@ int	trybuiltin(t_data *data, char **cmd)
 {
 	int	return_value;
 
-	return_value = 0;
-	if (!ft_strncmp(cmd[0], "cd", ft_strlen(cmd[0])))
+	return_value = -1;
+	if (!ft_ultracmp(cmd[0], "cd"))
 		return_value = ft_cd(cmd, data->env);
-	else if (!ft_strncmp(cmd[0], "echo", ft_strlen(cmd[0])))
+	else if (!ft_ultracmp(cmd[0], "echo"))
 		return_value = ft_echo(cmd);
-	else if (!ft_strncmp(cmd[0], "env", ft_strlen(cmd[0])))
+	else if (!ft_ultracmp(cmd[0], "env"))
 		return_value = ft_env(data->env);
-	else if (!ft_strncmp(cmd[0], "export", ft_strlen(cmd[0])))
+	else if (!ft_ultracmp(cmd[0], "export"))
 		return_value = ft_export(&data, cmd);
-	else if (!ft_strncmp(cmd[0], "exit", ft_strlen(cmd[0])))
+	else if (!ft_ultracmp(cmd[0], "exit"))
 		return_value = ft_exit(cmd);
-	else if (!ft_strncmp(cmd[0], "pwd", ft_strlen(cmd[0])))
+	else if (!ft_ultracmp(cmd[0], "pwd"))
 		return_value = ft_pwd();
-	else if (!ft_strncmp(cmd[0], "unset", ft_strlen(cmd[0])))
-		return_value = ft_unset(data->env, cmd);
+	else if (!ft_ultracmp(cmd[0], "unset"))
+		return_value = ft_unset(&data, cmd);
 	return (return_value);
 }

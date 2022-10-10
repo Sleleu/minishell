@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 22:49:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:22:13 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,30 @@ static t_exec	*setexec(t_data *data)
 	return (exec);
 }
 
+pid_t	*getpidtab(t_data *data)
+{
+	pid_t	*pidtab;
+	int		i;
+	
+	pidtab = memcenter(MALLOC, sizeof(pid_t) * data->args, NULL, DATA);
+	if (!pidtab)
+		return (0);
+	i = -1;
+	while (++i < data->args)
+		pidtab[i] = 1;
+	pidtab[i] = 0;
+	
+	return (pidtab);
+}
+
 int	process(t_data **data)
 {	
 	(*data)->args = getargsnb((*data)->parse);
+	(*data)->pid = getpidtab((*data));
 	if ((*data)->parse != NULL)
 		(*data)->exec = setexec(*data);
 	if (!(*data)->exec)
 		return (0);
-	return (execution(*data));
+	execution(*data);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/08 18:17:41 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:19:55 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <term.h>
 # include <limits.h>
 # include <sys/wait.h>
-
 
 /* PIPEX */
 
@@ -46,13 +45,15 @@ typedef enum e_mem
 	MALLOC = 4,
 }	t_mem;
 
-typedef	enum e_label
+typedef enum e_label
 {
 	NOTHING = 0,
 	BUILTIN = 1,
 	LEXER = 2,
 	EXEC = 3,
 	PARSING = 4,
+	GLOBAL = 5,
+	DATA = 6,
 }	t_label;
 
 typedef struct s_memcenter
@@ -82,10 +83,10 @@ typedef enum e_token_type
 
 typedef struct s_lexer
 {
-	char 			*content;
+	char			*content;
 	int				cmd;
 	t_token_type	type;
-	struct s_lexer 	*next;
+	struct s_lexer	*next;
 }	t_lexer;
 
 /* PARSING */
@@ -99,8 +100,8 @@ typedef struct s_parse
 
 // GLOBAL STRUCT
 
- typedef struct s_data
- {
+typedef struct s_data
+{
 	int			actual;
 	int			args;
 	char		*line;
@@ -111,9 +112,11 @@ typedef struct s_parse
 	t_memcenter	*memcenter;
 	char		*tmp;
 	int			tmpfd;
-	pid_t		pid;
+	pid_t		*pid;
 	int			heredoc;
 	int			fd[2];
 	int			oldfd;
+	int			code;
 }	t_data;
+
 #endif

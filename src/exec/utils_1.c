@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 22:59:47 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:10:28 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,31 +109,4 @@ char	**getcmd(t_data *data, int cmdnb)
 	}
 	cmd[w_copy] = 0;
 	return (cmd);
-}
-
-void	execute(t_data *data, int cmdnb)
-{
-	char	**cmd;
-	char	**bash;
-
-	cmd = getcmd(data, cmdnb);
-	if (!cmd)
-		exit(EXIT_FAILURE);
-	if (trybuiltin(data, cmd) != 0)
-		exit(EXIT_FAILURE);
-	if (ft_strlen(cmd[0]) > 0 && !is_path(cmd[0]))
-		cmd[0] = setpath(cmd[0], data->env);
-	if (!cmd[0] || access(cmd[0], X_OK != 0))
-		return (err_return(cmd));
-	if (execve(cmd[0], cmd, data->env) == -1)
-	{
-		if (access(cmd[0], X_OK != 0))
-			perror(cmd[0]);
-		else
-		{
-			bash = test(cmd);
-			if (execve(bash[0], bash, data->env) == -1)
-				exit(EXIT_FAILURE);
-		}
-	}
 }

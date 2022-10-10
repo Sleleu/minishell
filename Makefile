@@ -6,13 +6,13 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/09 23:11:34 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/10/10 19:00:04 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### COMPILATION ###
 CC				= 	gcc
-FLAGS			= 	-Wall -Wextra -Werror
+FLAGS			= 	-g -Wall -Wextra -Werror
 
 ### EXECUTABLE ###
 NAME			= 	minishell
@@ -48,13 +48,14 @@ SOURCES 		= 	main.c \
 					lexer/is_token.c \
 					lexer/lexer_utils.c \
 					lexer/handle_quotes.c \
-					exec/exec.c \
+					exec/init.c \
+					exec/builtin.c \
 					exec/execution.c \
 					exec/utils_1.c \
 					exec/utils_2.c \
 					exec/utils_3.c \
 					exec/utils_4.c \
-					exec/fd_manager.c \
+					exec/utils_5.c \
 					exec/fd_infile.c \
 					exec/fd_outfile.c \
 					exec/fd_heredoc.c \
