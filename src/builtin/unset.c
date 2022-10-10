@@ -3,59 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:51:49 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:08:55 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:26:14 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int ft_unset(t_data **data, char **cmd)
-{
-	// char	**path;
-	// int		i;
-
-	// i = 0;
-	// path = ft_split(line, ' ');
-	// while (env[i])
-	// {
-	// 	if (!strncmp(path[1], env[i], ft_strlen(path[1]) - 1))
-	// 		break ;
-	// 	i++;
-	// }
-	// printf("%s", env[i]);
-	(void)*data;
-	(void)cmd;
-	return (0);
-}
-
-/*
 char **ft_unset_env(char **env, int index_var)
 {
 	int	i;
 	int	j;
-	int	size;
 	char **new_env;
 	
 	i = 0;
 	j = 0;
-	size = 0;
-	while (env[size])
-		size++;
-	new_env = memcenter(MALLOC, sizeof(char *) * (size + 1), NULL, BUILTIN);
+	while (env[i])
+		i++;
+	new_env = memcenter(MALLOC, sizeof(char *) * (i), NULL, BUILTIN);
+	i = 0;
 	while (env[i])
 	{
-		new_env[j] = memcenter(MALLOC, sizeof(char)
-			* (ft_strlen(env[i] + 1)), NULL, BUILTIN);
+		new_env[j] = memcenter(MALLOC, sizeof(char) * (ft_strlen(env[i]) + 1), NULL, BUILTIN);
 		ft_strcpy(new_env[j], env[i]);
 		i++;
 		j++;
 		if (i == index_var)
 			i++;
 	}
-	new_env[size] = '\0';
+	new_env[i - 1] = '\0';
 	return (new_env);
 }
 
@@ -64,7 +42,7 @@ int ft_unset(t_data **data, char **cmd)
 	int	i;
 	int	index_var;
 
-	i = 1;
+	i = 0;
 	index_var = 0;
 	while (cmd[i])
 	{
@@ -74,4 +52,4 @@ int ft_unset(t_data **data, char **cmd)
 		i++;
 	}
 	return (0);
-}*/
+}
