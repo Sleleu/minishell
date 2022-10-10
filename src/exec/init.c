@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:22:13 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:30:15 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ int	process(t_data **data)
 		(*data)->exec = setexec(*data);
 	if (!(*data)->exec)
 		return (0);
-	execution(*data);
-	return (0);
+	return (execution(*data));
 }
