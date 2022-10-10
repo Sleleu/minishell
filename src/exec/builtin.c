@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:06:00 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:06:37 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:59:24 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtout(t_data *data)
 	else if (!ft_ultracmp(cmd[0], "export"))
 		return (ft_export(&data, cmd));
 	else if (!ft_ultracmp(cmd[0], "exit"))
-		return (ft_exit(cmd));
+		return (ft_exit(&data, cmd));
 	else if (!ft_ultracmp(cmd[0], "unset"))
 		return (ft_unset(&data, cmd));
 	return (42);

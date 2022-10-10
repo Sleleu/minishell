@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 21:30:29 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 21:36:48 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ char			**ft_append_var(char **env, char *str, int index_equal);
 /* EXIT */
 
 long long int	ft_long_atoi(char *str);
-int				exit_numeric_error(char *str);
-int				exit_error(char **cmd);
-int				ft_exit(char **cmd);
+int				exit_numeric_error(t_data **data, char *str);
+int				exit_error(t_data **data, char **cmd);
+int				ft_exit(t_data **data, char **cmd);
 
 /* ********************************************************** */
 /*                          MEMCENTER                         */

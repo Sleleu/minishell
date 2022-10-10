@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 21:21:36 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:23:50 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		main(int ac, char **av, char **env)
 		restore_data();
 	}
 	memcenter(PURGE, 0, NULL, NOTHING);
-	return (0);
+	return (data->code);
 }
 
 /*

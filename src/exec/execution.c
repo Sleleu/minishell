@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:29:53 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:19:42 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	execution(t_data *data)
 	if (data->actual == data->args && is_builtin(data))
 	{
 		data->code = exec_builtout(data);
+		printf("%d\n", data->code);
 		return (data->code);
 	}
 	else
