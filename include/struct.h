@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 21:19:55 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:53:05 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct s_data
 	int			heredoc;
 	int			fd[2];
 	int			oldfd;
-	int			code;
+	int			exit[2];
 }	t_data;
 
 #endif

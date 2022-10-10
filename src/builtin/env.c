@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:23:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/03 19:42:12 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 23:08:04 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int ft_env(char **env)
 		printf("%s\n", env[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }

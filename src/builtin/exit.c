@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 00:52:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 22:23:36 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 23:05:44 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	exit_numeric_error(t_data **data, char *str)
 	{
 		if ((str[i] < '0' || str[i] > '9'))
 		{
-			(*data)->code = 1;
+			(*data)->exit[0] = 1;
+			(*data)->exit[1] = 1;
 			return (-1);
 		}
 		i++;
@@ -54,7 +55,8 @@ int	exit_numeric_error(t_data **data, char *str)
 	if (ft_strlen(str) > 11 || ft_long_atoi(str) > 2147483647
 			|| ft_long_atoi(str) < -2147483648)
 	{
-		(*data)->code = 1;
+		(*data)->exit[0] = 1;
+		(*data)->exit[1] = 1;
 		return (-1);
 	}
 	return (0);
@@ -74,38 +76,40 @@ int	exit_error(t_data **data, char **cmd)
 	if (cmd[1] && exit_numeric_error(data, cmd[1]))
 	{
 		printf("minishell: exit: %s: numeric argument required\n", cmd[1]);
-		(*data)->code = 2;
-		return (-2); // exit et change le code
+		(*data)->exit[0] = 1;
+		(*data)->exit[1] = 2;
+		return (-1);
 	}
 	if (i > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
-		(*data)->code = 1;
-		return (-1); // exit pas, mais change le code
+		(*data)->exit[1] = 1;
+		return (-2);
 	}
 	return (-1);
 }
 
-int	ft_exit(t_data **data, char **cmd)
+void	ft_exit(t_data **data, char **cmd)
 {
 	int	code;
 	code = -1;
+	ft_putstr_fd("exit\n", 1);
 	code = exit_error(data, cmd);
-	if (code != -1)
-		return (-1);
-	if (cmd[1])
+	if (code == -1)
+		return ;
+	if (cmd[1] && code != -2)
 	{
 		code = (ft_atoi(cmd[1]) % 256);
 		if (code < 0)
 			code = 256 + code;
-		(*data)->code = code;
+		(*data)->exit[1] = code;
 	}
 	else
-		(*data)->code = 0;
-	code = (*data)->code;
-	memcenter(PURGE, 0, NULL, NOTHING);
-	exit(code);
-	return (0);
+		(*data)->exit[1] = 0;
+	if (code == -2)
+		(*data)->exit[1] = 1;
+	(*data)->exit[0] = 1;
+	return ;
 }
 
 // ajout d'un exit meme si numeric error a faire

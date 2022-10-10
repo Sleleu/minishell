@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 21:36:48 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:52:07 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char			**ft_append_var(char **env, char *str, int index_equal);
 long long int	ft_long_atoi(char *str);
 int				exit_numeric_error(t_data **data, char *str);
 int				exit_error(t_data **data, char **cmd);
-int				ft_exit(t_data **data, char **cmd);
+void			ft_exit(t_data **data, char **cmd);
 
 /* ********************************************************** */
 /*                          MEMCENTER                         */
@@ -161,10 +161,11 @@ int				is_quotes(char *str);
 
 /* MAIN */
 
-int				process(t_data **data);
+void			process(t_data **data);
 void			child_process(t_data *data, int cmd);
 void			exec_process(t_data *data);
-int				execution(t_data *data);
+void			execution(t_data *data);
+void			exec_builtout(t_data *data);
 void			execute(t_data *data, int cmdnb);
 
 /* FD MANAGER */
@@ -180,7 +181,6 @@ int				fd_heredoc(t_data *data, int cmd, int status);
 char			**getfiles(int file, int cmd, t_data *data);
 t_exec			exec_finish(t_exec exec, t_data *data, int cmd);
 int				is_builtin(t_data *data);
-int				exec_builtout(t_data *data);
 int				is_same_string(char *line, char *limiter);
 void			heredoc_boucle(t_data *data, int i, int cmd, int status);
 int				handle_infile(t_data *data, int cmd, int i);

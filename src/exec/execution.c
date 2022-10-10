@@ -6,28 +6,24 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:19:42 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:43:09 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	execution(t_data *data)
+void	execution(t_data *data)
 {
 	if (data->actual == data->args && is_builtin(data))
-	{
-		data->code = exec_builtout(data);
-		printf("%d\n", data->code);
-		return (data->code);
-	}
+		exec_builtout(data);
 	else
 	{
 		exec_process(data);
-		data->code = getcode(data);
+		data->exit[0] = 0;
+		data->exit[1] = getcode(data);
 		close_pipes(data);
 		unlink(data->tmp);
 	}
-	return (data->code);
 }
 
 void	exec_process(t_data *data)

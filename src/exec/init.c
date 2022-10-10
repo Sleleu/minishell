@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:30:15 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:43:52 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,13 @@ pid_t	*getpidtab(t_data *data)
 	return (pidtab);
 }
 
-int	process(t_data **data)
+void	process(t_data **data)
 {	
 	(*data)->args = getargsnb((*data)->parse);
 	(*data)->pid = getpidtab((*data));
 	if ((*data)->parse != NULL)
 		(*data)->exec = setexec(*data);
 	if (!(*data)->exec)
-		return (0);
+		return ;
 	return (execution(*data));
 }

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 22:23:50 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 23:11:20 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,20 @@ int		main(int ac, char **av, char **env)
 		data->lexer = ft_lexer(data->line);
 		if (is_line(data->line) && ft_parser(&data) != -1)
 		{
-			if (is_line(data->line) && process(&data))
-				break ;
+			if (is_line(data->line))
+			{
+				process(&data);
+				if (data->exit[0])
+					break ;
+			}
 		}
 		if (is_line(data->line))
 			free_while();
+		// printf("Code : %d\n", data->exit[1]);
 		restore_data();
 	}
 	memcenter(PURGE, 0, NULL, NOTHING);
-	return (data->code);
+	return (data->exit[1]);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 16:07:13 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:50:33 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:57:33 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	trybuiltin(t_data *data, char **cmd)
 	else if (!ft_ultracmp(cmd[0], "export"))
 		return_value = ft_export(&data, cmd);
 	else if (!ft_ultracmp(cmd[0], "exit"))
-		return_value = ft_exit(&data, cmd);
+	{
+		return_value = 0;
+		ft_exit(&data, cmd);
+	}
 	else if (!ft_ultracmp(cmd[0], "pwd"))
 		return_value = ft_pwd();
 	else if (!ft_ultracmp(cmd[0], "unset"))

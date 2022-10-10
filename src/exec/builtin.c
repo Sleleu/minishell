@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:06:00 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:59:24 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:52:16 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ int	is_builtin(t_data *data)
 	return (0);
 }
 
-int	exec_builtout(t_data *data)
+void	exec_builtout(t_data *data)
 {
 	char	**cmd;
 
 	cmd = getcmd(data, 1);
+	data->exit[0] = 0;
 	if (!ft_ultracmp(cmd[0], "cd"))
-		return (ft_cd(cmd, data->env));
+		data->exit[1] = ft_cd(cmd, data->env);
 	else if (!ft_ultracmp(cmd[0], "export"))
-		return (ft_export(&data, cmd));
+		data->exit[1] = ft_export(&data, cmd);
 	else if (!ft_ultracmp(cmd[0], "exit"))
-		return (ft_exit(&data, cmd));
+		ft_exit(&data, cmd);
 	else if (!ft_ultracmp(cmd[0], "unset"))
-		return (ft_unset(&data, cmd));
-	return (42);
+		data->exit[1] = ft_unset(&data, cmd);
 }
