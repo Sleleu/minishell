@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 23:08:21 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 01:11:46 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,6 @@ int	export_error_num(char **cmd)
 	}
 	return (0);
 }
-
-// int	ft_export_check_arg(t_data **data, t_parse *parse)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (ft_strncmp(parse[i].str, "export", ft_strlen("export")))
-// 		i++;
-// 	if (i != 0)
-// 		return (0);
-// 	if (i == 1)
-// 	{
-// 		ft_env((*data)->env);
-// 		return (0);
-// 	}
-// 	return (1);
-// }
 
 void	ft_refresh_var(t_data **data, char *str, int index_equal)
 {
@@ -97,5 +80,6 @@ int	ft_export(t_data **data, char **cmd)
 			code = 1;
 		i++;
 	}
-	return (10);
+	(*data)->exit[1] = code;
+	return ((*data)->exit[1]);
 }

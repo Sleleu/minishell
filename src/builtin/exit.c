@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 00:52:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 23:05:44 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 01:21:06 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,11 @@ int	exit_error(t_data **data, char **cmd)
 	{
 		printf("minishell: exit: %s: numeric argument required\n", cmd[1]);
 		(*data)->exit[0] = 1;
-		(*data)->exit[1] = 2;
-		return (-1);
+		return (-3);
 	}
 	if (i > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
-		(*data)->exit[1] = 1;
 		return (-2);
 	}
 	return (-1);
@@ -95,8 +93,14 @@ void	ft_exit(t_data **data, char **cmd)
 	code = -1;
 	ft_putstr_fd("exit\n", 1);
 	code = exit_error(data, cmd);
-	if (code == -1)
+	if (code != -1)
+	{
+		if (code == -2)
+			(*data)->exit[1] = 1;
+		else if (code == -3)
+			(*data)->exit[1] = 2;
 		return ;
+	}
 	if (cmd[1] && code != -2)
 	{
 		code = (ft_atoi(cmd[1]) % 256);
@@ -106,10 +110,6 @@ void	ft_exit(t_data **data, char **cmd)
 	}
 	else
 		(*data)->exit[1] = 0;
-	if (code == -2)
-		(*data)->exit[1] = 1;
 	(*data)->exit[0] = 1;
 	return ;
 }
-
-// ajout d'un exit meme si numeric error a faire
