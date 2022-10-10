@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 19:39:54 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 00:27:01 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,16 @@ int	dollar_in_squote(t_data **data, char *str, int i, int index_parse)
 	return (0);
 }
 
+char	*ft_codejoin(t_data **data, char *new_str, int *i)
+{
+	char *str_code;
+	
+	*i += 2;
+	str_code = ft_itoa((*data)->exit[1]);
+	new_str = ft_strjoin(new_str, str_code);
+	return (new_str);
+}
+
 /*
 		PARSE_DOLLAR
 	Une nouvelle str va remplacer le texte dans le parser avec les variables d'env
@@ -114,6 +124,9 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 	while (str && str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
+			&& !dollar_in_squote(data, str, i, index_parse) && str[i + 1] == '?')
+			new_str = ft_codejoin(data, new_str, &i);
+		else if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
 			&& !dollar_in_squote(data, str, i, index_parse))
 		{
 			i++;
