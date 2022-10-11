@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:58:35 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:31:26 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 20:11:43 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_files	exec_file_process(char *parse)
 	t_files	files;
 
 	if (!parse)
-		files.file = '\0';
+		files.file = NULL;
 	else
 		files.file = parse;
 	files.token = INFILE;

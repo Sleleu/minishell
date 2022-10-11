@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 19:29:37 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 20:14:01 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_exec	exec_finish(t_exec exec, t_data *data, int cmd)
 	i = gotoparsecmd(data, cmd);
 	infile = 0;
 	outfile = 0;
-	while (data->parse[i].cmd == cmd)
+	while (data->parse[i].type != FINISH && data->parse[i].cmd == cmd)
 	{
 		if (data->parse[i].type == INF_CHEVRON)
 		{
@@ -96,7 +96,7 @@ pid_t	*getpidtab(t_data *data)
 	pid_t	*pidtab;
 	int		i;
 
-	pidtab = memcenter(MALLOC, sizeof(pid_t) * data->args, NULL, DATA);
+	pidtab = memcenter(MALLOC, sizeof(pid_t *) * data->args + 1, NULL, DATA);
 	if (!pidtab)
 		return (0);
 	i = -1;
