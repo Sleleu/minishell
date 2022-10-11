@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 15:11:00 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/04 03:02:09 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:21:49 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	only_quote(char *str)
 int	parse_quotes(t_data **data)
 {
 	int	i;
-	
+
 	i = 0;
 	while ((*data)->parse[i].type != FINISH)
 	{

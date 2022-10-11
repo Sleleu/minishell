@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:35:34 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 20:40:15 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:27:42 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_parameter(char *arg)
 		while (arg[i])
 		{
 			if (arg[i] != 'n')
-				break;
+				break ;
 			i++;
 		}
 	}
@@ -48,7 +48,7 @@ int	ft_echo(char **arg)
 		i = 1;
 	while (is_parameter(arg[i]))
 		i++;
-	while(arg[i])
+	while (arg[i])
 	{
 		printf("%s", arg[i]);
 		if (arg[i + 1])
@@ -56,28 +56,6 @@ int	ft_echo(char **arg)
 		i++;
 	}
 	if (nl)
-		printf("\n");	
+		printf("\n");
 	return (0);
 }
-
-
-// int	ft_echo(char *line)
-// {
-// 	int i;
-
-// 	i = 1;
-// 	if (argc > 1)
-// 	{
-// 		while (argv[i])
-// 		{
-// 			printf("%s", argv[i]);
-// 			if (argv[i + 1])
-// 				printf(" ");
-// 			i++;	
-// 		}
-// 		printf("\n");
-// 		return (1);
-// 	}
-// 	else
-// 		return (0);
-// }

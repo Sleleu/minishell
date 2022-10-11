@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 00:52:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:21:06 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:25:45 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	exit_numeric_error(t_data **data, char *str)
 		i++;
 	}
 	if (ft_strlen(str) > 11 || ft_long_atoi(str) > 2147483647
-			|| ft_long_atoi(str) < -2147483648)
+		|| ft_long_atoi(str) < -2147483648)
 	{
 		(*data)->exit[0] = 1;
 		(*data)->exit[1] = 1;
@@ -90,6 +90,7 @@ int	exit_error(t_data **data, char **cmd)
 void	ft_exit(t_data **data, char **cmd)
 {
 	int	code;
+
 	code = -1;
 	ft_putstr_fd("exit\n", 1);
 	code = exit_error(data, cmd);

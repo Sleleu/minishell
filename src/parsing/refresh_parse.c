@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 01:30:54 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:42:53 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:21:33 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	ft_parse_count(char *str)
 
 char	*ft_parse_word(char *str, int i)
 {
-	int	j;
-	int	len;
-	int	size;
-	char *word;
-	
+	int		j;
+	int		len;
+	int		size;
+	char	*word;
+
 	j = 0;
 	len = 0;
 	size = i;
@@ -63,7 +63,7 @@ char	**ft_parse_split(char *str)
 	int		j;
 	int		count;
 	char	**d_tab;
-	
+
 	i = 0;
 	j = 0;
 	count = ft_parse_count(str);
@@ -78,7 +78,7 @@ char	**ft_parse_split(char *str)
 			d_tab[j] = ft_parse_word(str, i);
 			j++;
 		}
-		while(str[i] && !is_parse_sep(str, i))
+		while (str[i] && !is_parse_sep(str, i))
 			i++;
 	}
 	return (d_tab);
@@ -86,16 +86,16 @@ char	**ft_parse_split(char *str)
 
 t_parse	*ft_check_space(t_parse *new_parse, t_parse parse)
 {
-	char **d_tab;
-	t_parse new_token;
-	int	i;
+	int		i;
+	char	**d_tab;
+	t_parse	new_token;
 
 	i = 0;
 	d_tab = ft_parse_split(parse.str);
 	while (d_tab[i])
 	{
 		new_token.type = parse.type;
-		new_token.cmd = parse.cmd; 
+		new_token.cmd = parse.cmd;
 		new_token.str = memcenter(MALLOC, sizeof(char)
 				* (ft_strlen(d_tab[i]) + 1), NULL, PARSING);
 		ft_strcpy(new_token.str, d_tab[i]);
@@ -108,9 +108,9 @@ t_parse	*ft_check_space(t_parse *new_parse, t_parse parse)
 
 t_parse	*ft_refresh_parse(t_data **data)
 {
-	int	i;
-	t_parse *new_parse;
-	
+	int		i;
+	t_parse	*new_parse;
+
 	i = 0;
 	new_parse = NULL;
 	while ((*data)->parse[i].type != FINISH)

@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:56:43 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:19:43 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 	while (str && str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
-			&& !dollar_in_squote(data, str, i, index_parse) && str[i + 1] == '?')
+			&& !dollar_in_squote(data, str, i, index_parse)
+			&& str[i + 1] == '?')
 			new_str = ft_codejoin(data, new_str, &i);
 		else if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
 			&& !dollar_in_squote(data, str, i, index_parse))

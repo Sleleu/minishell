@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:29:44 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:53:13 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:29:15 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_data *get_data(void)
+t_data	*get_data(void)
 {
-	static t_data data;
+	static t_data	data;
 
-	return(&data);
+	return (&data);
 }
 
-t_data *set_data(char **env)
+t_data	*set_data(char **env)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = get_data();
 	if (!data)
@@ -48,7 +48,7 @@ t_data *set_data(char **env)
 
 void	restore_data(void)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = get_data();
 	if (!data)

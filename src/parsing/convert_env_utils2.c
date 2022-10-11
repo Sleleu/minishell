@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 01:46:46 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:56:37 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:24:05 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ char	*ft_strjoin_env(char *new_str, char *env_ptr)
 
 char	*ft_codejoin(t_data **data, char *new_str, int *i)
 {
-	char *str_code;
-	
+	char	*str_code;
+
 	*i += 2;
 	str_code = ft_itoa((*data)->exit[1]);
 	new_str = ft_strjoin(new_str, str_code);
@@ -96,7 +96,8 @@ t_parse	ft_structcpy(t_parse dest, t_parse src)
 {
 	if (src.str != NULL)
 	{
-		dest.str = memcenter(MALLOC, sizeof(char) * (ft_strlen(src.str) + 1), NULL, PARSING);
+		dest.str = memcenter(MALLOC, sizeof(char)
+				* (ft_strlen(src.str) + 1), NULL, PARSING);
 		ft_strcpy(dest.str, src.str);
 	}
 	else
@@ -118,7 +119,7 @@ t_parse	*ft_parsejoin(t_parse *new_parse, t_parse parse)
 	int		i;
 	int		size;
 	t_parse	*new_struct;
-	
+
 	i = 0;
 	size = 0;
 	while (new_parse && new_parse[size].type != FINISH)
