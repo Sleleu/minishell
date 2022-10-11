@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 22:48:34 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/12 01:00:00 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+t_global	g_sigstatus;
 
 int	is_line(char *line)
 {
@@ -33,6 +35,31 @@ static void free_while(void)
 	memcenter(FREE_WHERE, 0, NULL, PARSING);
 	memcenter(FREE_WHERE, 0, NULL, EXEC);
 	//memcenter(FREE_WHERE, 0, NULL, BUILTIN);
+}
+
+static void sig_handler(int _)
+{
+	char *c;
+	
+    (void)_;
+	(void)c;
+	if (!g_sigstatus.process)
+	{
+		printf("\n");
+		g_sigstatus.value = 0;
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+		g_sigstatus.value = 1;
+	}
+	else
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_redisplay();
+		rl_on_new_line();
+		g_sigstatus.process = 0;
+	}
 }
 
 /*
@@ -61,8 +88,11 @@ int		main(int ac, char **av, char **env)
 	
 	if (ac != 1)
 		return (0);
+	signal(SIGINT, sig_handler);
 	data = set_data(env);
-	while (1)
+	g_sigstatus.process = 0;
+	g_sigstatus.value = 1;
+	while (g_sigstatus.value)
 	{
 		//ft_putstr_fd(ft_getenv(data->env), 1);
 		//sig_init();
@@ -88,6 +118,7 @@ int		main(int ac, char **av, char **env)
 			free_while();
 		restore_data();
 	}
+	printf("heyy\n");
 	memcenter(PURGE, 0, NULL, NOTHING);
 	return (data->exit[1]);
 }

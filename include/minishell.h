@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 02:41:18 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 00:26:28 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void			child_process(t_data *data, int cmd);
 void			exec_process(t_data *data);
 void			execution(t_data *data);
 void			exec_builtout(t_data *data);
-void			execute(t_data *data, int cmdnb);
+void			execute(t_data *data, int cmdnb, int builtin, char **bash);
 
 /* FD MANAGER */
 

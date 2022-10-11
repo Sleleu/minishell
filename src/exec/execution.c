@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 21:43:27 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/12 00:58:56 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	execution(t_data *data)
 		exec_builtout(data);
 	else
 	{
+		g_sigstatus.process = 1;
 		exec_process(data);
 		data->exit[0] = 0;
 		data->exit[1] = getcode(data);
@@ -55,10 +56,18 @@ void	exec_process(t_data *data)
 
 void	child_process(t_data *data, int cmd)
 {
-	if (handle_fd(data, cmd))
-		execute(data, cmd);
-	else
-		exit(EXIT_FAILURE);
+	int		builtin;
+	char	**bash;
+
+	builtin = 0;
+	bash = NULL;
+	while (g_sigstatus.process)
+	{
+		if (handle_fd(data, cmd))
+			execute(data, cmd, builtin, bash);
+		else
+			exit(EXIT_FAILURE);
+	}
 }
 
 int	handle_fd(t_data *data, int cmd)
@@ -70,15 +79,13 @@ int	handle_fd(t_data *data, int cmd)
 	return (1);
 }
 
-void	execute(t_data *data, int cmdnb)
+void	execute(t_data *data, int cmdnb, int builtin, char **bash)
 {
 	char	**cmd;
-	char	**bash;
-	int		builtin;
 
 	cmd = getcmd(data, cmdnb);
 	if (!cmd)
-		exit (0);
+		exit(0);
 	if (cmd[0][0] == '\0')
 		return (err_return(cmd));
 	builtin = trybuiltin(data, cmd);
