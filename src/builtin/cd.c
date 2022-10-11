@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:25:56 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 19:25:35 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*ft_getenv(char **env, char *str)
 	int	i;
 
 	i = 0;
-	while (env[i] && strncmp(str, env[i], ft_strlen(str)) != 0)
+	while (env[i] && ft_strncmp(str, env[i], ft_strlen(str)) != 0)
 		i++;
+	if (!env[i] || ft_strncmp(str, env[i], ft_strlen(str)) != 0)
+		return (NULL);
 	return (env[i] + (ft_strlen(str) + 1));
 }
 

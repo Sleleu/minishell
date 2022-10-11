@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:20:17 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:27:03 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_process(t_data *data)
 			return ;
 		if (data->pid[data->actual - 1] == 0)
 			child_process(data, data->actual);
-		if (data->pid[data->actual - 1] > 0 && data->actual <= data->args)
+		if (data->pid[data->actual - 1] > 0)
 		{	
 			if (data->exec[data->actual - 1].heredoc)
 				wait(0);
@@ -47,7 +47,8 @@ void	exec_process(t_data *data)
 				close(data->oldfd);
 			data->oldfd = data->fd[0];
 			data->actual += 1;
-			exec_process(data);
+			if (data->actual <= data->args)
+				exec_process(data);
 		}
 	}
 }

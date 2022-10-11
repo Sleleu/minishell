@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:30:43 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:29:37 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_exec	exec_finish(t_exec exec, t_data *data, int cmd)
 	i = gotoparsecmd(data, cmd);
 	infile = 0;
 	outfile = 0;
-	while (data->parse[i++].cmd == cmd)
+	while (data->parse[i].cmd == cmd)
 	{
 		if (data->parse[i].type == INF_CHEVRON)
 		{
@@ -64,6 +64,7 @@ t_exec	exec_finish(t_exec exec, t_data *data, int cmd)
 			exec.outfile[outfile] = exec_file_process(data->parse[i + 1].str);
 			outfile++;
 		}
+		i++;
 	}
 	return (exec);
 }

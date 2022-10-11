@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:07:39 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:10:10 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:51:01 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	handle_infile(t_data *data, int cmd, int i)
 	int	fd;
 
 	if (ft_ambigous(data, cmd, 'i', i))
-		exit(0);
+		exit(1);
 	fd = open(data->exec[cmd - 1].infile[i].file, O_RDONLY, 0644);
 	if (fd < 0)
 	{
@@ -47,7 +47,7 @@ static int	utils_in(t_data *data, int cmd, int i)
 	else
 	{
 		if (ft_ambigous(data, cmd, 'i', i))
-			exit(0);
+			exit(1);
 		fd = open(data->exec[cmd - 1].infile[i].file, O_RDONLY, 0644);
 		if (fd < 0)
 		{
@@ -79,7 +79,7 @@ int	fd_infile(t_data *data, int cmd)
 		if (!fd_heredoc(data, cmd, 1))
 			return (0);
 	}
-	else if (!heredoc)
+	else if (!heredoc && !data->exec[cmd - 1].infile)
 	{
 		close(data->fd[0]);
 		if (cmd > 1)
