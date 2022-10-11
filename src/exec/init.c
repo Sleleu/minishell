@@ -6,15 +6,15 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:10:24 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:43:52 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:30:43 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	**getfiles(int file, int cmd, t_data *data)
+t_files	*getfiles(int file, int cmd, t_data *data)
 {
-	char	**dtab;
+	t_files	*dtab;
 	t_parse	*parse;
 	int		i;
 	int		size;
@@ -24,19 +24,19 @@ char	**getfiles(int file, int cmd, t_data *data)
 	size = 0;
 	while (parse[i].type != FINISH && parse[i].cmd == cmd)
 	{
-		if (!file && parse[i].type == INFILE)
+		if (!file && parse[i].type == INF_CHEVRON)
 			size++;
 		else if (file
-			&& (parse[i].type == OUTFILE_A || parse[i].type == OUTFILE_T))
+			&& (parse[i].type == SUP_CHEVRON || parse[i].type == D_SUP_CHEVRON))
 			size++;
 		i++;
 	}
 	if (!size)
 		return (NULL);
-	dtab = memcenter(MALLOC, sizeof(char *) * (size + 1), NULL, EXEC);
+	dtab = memcenter(MALLOC, sizeof(t_files) * (size + 1), NULL, EXEC);
 	if (!dtab)
 		return (NULL);
-	dtab[size] = NULL;
+	dtab[size].token = FINISH;
 	return (dtab);
 }
 
@@ -51,17 +51,17 @@ t_exec	exec_finish(t_exec exec, t_data *data, int cmd)
 	outfile = 0;
 	while (data->parse[i++].cmd == cmd)
 	{
-		if (data->parse[i].type == INFILE)
+		if (data->parse[i].type == INF_CHEVRON)
 		{
-			exec.infile[infile] = data->parse[i].str;
+			exec.infile[infile] = exec_file_process(data->parse[i + 1].str);
 			infile++;
 		}
 		else if (data->parse[i].type == LIMITER)
 			exec.heredoc++;
-		else if (data->parse[i].type == OUTFILE_A
-			|| data->parse[i].type == OUTFILE_T)
+		else if (data->parse[i].type == SUP_CHEVRON
+			|| data->parse[i].type == D_SUP_CHEVRON)
 		{
-			exec.outfile[outfile] = data->parse[i].str;
+			exec.outfile[outfile] = exec_file_process(data->parse[i + 1].str);
 			outfile++;
 		}
 	}
@@ -94,7 +94,7 @@ pid_t	*getpidtab(t_data *data)
 {
 	pid_t	*pidtab;
 	int		i;
-	
+
 	pidtab = memcenter(MALLOC, sizeof(pid_t) * data->args, NULL, DATA);
 	if (!pidtab)
 		return (0);
@@ -102,7 +102,6 @@ pid_t	*getpidtab(t_data *data)
 	while (++i < data->args)
 		pidtab[i] = 1;
 	pidtab[i] = 0;
-	
 	return (pidtab);
 }
 

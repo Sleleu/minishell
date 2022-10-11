@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
+#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/11 01:58:11 by sleleu           ###   ########.fr        #
+#    Updated: 2022/10/11 02:37:27 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SOURCES 		= 	main.c \
 					exec/fd_infile.c \
 					exec/fd_outfile.c \
 					exec/fd_heredoc.c \
+					exec/fd_ambigous.c \
 					signal/signal.c \
 
 ### OBJECTS ###

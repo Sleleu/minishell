@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 22:53:05 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:38:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,6 @@
 # include <term.h>
 # include <limits.h>
 # include <sys/wait.h>
-
-/* PIPEX */
-
-typedef struct s_exec{
-	char	**infile;
-	char	**outfile;
-	int		hfd;
-	int		heredoc;
-	int		cmd;
-	pid_t	pid;
-}	t_exec;
 
 /* MEMCENTER STRUCT */
 
@@ -97,6 +86,22 @@ typedef struct s_parse
 	int					cmd;
 	t_token_type		type;
 }	t_parse;
+
+/* PIPEX */
+
+typedef struct s_files{
+	char			*file;
+	t_token_type	token;
+}	t_files;
+
+typedef struct s_exec{
+	t_files	*infile;
+	t_files	*outfile;
+	int		hfd;
+	int		heredoc;
+	int		cmd;
+	pid_t	pid;
+}	t_exec;
 
 // GLOBAL STRUCT
 

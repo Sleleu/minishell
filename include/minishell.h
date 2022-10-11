@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:57:30 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:41:18 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ void			restore_data(void);
 int				ft_pwd(void);
 int				ft_env(char **env);
 int				ft_echo(char **arg);
-int				ft_cd(char **arg, char **env);
 int				ft_unset(t_data **data, char **cmd);
+
+/* CD */
+
+char			*ft_getenv(char **env, char *str);
+int				ft_cd(char **arg, char **env);
 
 /* EXPORT */
 
@@ -135,8 +139,8 @@ void			init_parsing(t_data **data);
 
 int				find_dollar_index(char *str, int end);
 int				active_var(char *str, int j);
-int				dollar_in_squote(t_data **data, char *str, int i, int index_parse);
-char			*parse_dollar(t_data **data, char **env, char *str, int index_parse);
+int				dollar_in_squote(t_data **data, char *str, int i, int ip);
+char			*parse_dollar(t_data **data, char **env, char *str, int ip);
 void			convert_env(t_data **data);
 
 /* CONVERT_ENV_UTILS */
@@ -194,7 +198,7 @@ int				fd_heredoc(t_data *data, int cmd, int status);
 /* PROCESS UTILS */
 
 /* UTILS */
-char			**getfiles(int file, int cmd, t_data *data);
+t_files			*getfiles(int file, int cmd, t_data *data);
 t_exec			exec_finish(t_exec exec, t_data *data, int cmd);
 int				is_builtin(t_data *data);
 int				is_same_string(char *line, char *limiter);
@@ -216,13 +220,13 @@ void			close_pipes(t_data *data);
 void			print_double(char **db);
 void			free_double(char **lol);
 int				getargsnb(t_parse *parse);
-int				islastinfile(t_data *data, char **file, int i, int cmd);
-int				islastoutfile(char **file, int i);
-int				ambigous_infile(t_data *data, int cmd, int index);
+int				islastinfile(t_data *data, t_files *file, int i, int cmd);
+int				islastfile(t_files *file, int i);
 int				ft_ambigous(t_data *data, int cmd, char c, int index);
 int				trybuiltin(t_data *data, char **cmd);
 int				getcode(t_data *data);
 int				ft_ultracmp(char *first, char *second);
+t_files			exec_file_process(char *parse);
 
 /* ********************************************************** */
 /*                           SIGNAL                           */

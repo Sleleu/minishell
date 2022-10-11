@@ -6,18 +6,18 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:58:35 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 21:03:56 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:31:26 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int getcode(t_data *data)
+int	getcode(t_data *data)
 {
 	int		i;
 	pid_t	pid;
 	int		status;
-	
+
 	i = -1;
 	while (++i < data->args)
 	{
@@ -33,9 +33,22 @@ int getcode(t_data *data)
 	return (status);
 }
 
-int ft_ultracmp(char *first, char *second)
+int	ft_ultracmp(char *first, char *second)
 {
-	if (!ft_strncmp(first, second, ft_strlen(first)) && ft_strlen(first) == ft_strlen(second))
+	if (!ft_strncmp(first, second, ft_strlen(first))
+		&& ft_strlen(first) == ft_strlen(second))
 		return (0);
 	return (1);
+}
+
+t_files	exec_file_process(char *parse)
+{
+	t_files	files;
+
+	if (!parse)
+		files.file = '\0';
+	else
+		files.file = parse;
+	files.token = INFILE;
+	return (files);
 }

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 22:26:28 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 23:00:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:23:01 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_both(t_data *data)
 	parse = data->parse;
 	exec = data->exec;
 	i = -1;
-	dprintf(2, "PARSING\n");
+	dprintf(2, "\nPARSING\n");
 	while (parse[++i].type != FINISH)
 	{
 		dprintf(2, "%d\tType : %d | Cmd : %d | Content : %s\n",
@@ -72,6 +72,7 @@ void	print_both(t_data *data)
 		dprintf(2, "%d Cmd : %d | Heredoc : %d\n",
 			i, exec[i].cmd, exec[i].heredoc);
 	}
+	dprintf(2, "\n");
 }
 
 int	getwords(t_data *data, int cmdnb)

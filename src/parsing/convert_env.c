@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 02:19:43 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:40:37 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	active_var(char *str, int j)
 	- On check sur ce $ si c'est une variable active = pas dans une simple quote
 */
 
-int	dollar_in_squote(t_data **data, char *str, int i, int index_parse)
+int	dollar_in_squote(t_data **data, char *str, int i, int ip)
 {
 	int		dollar_str;
 	int		dollar_lexer;
@@ -81,7 +81,7 @@ int	dollar_in_squote(t_data **data, char *str, int i, int index_parse)
 	dollar_lexer = 0;
 	j = 0;
 	ptr = (*data)->lexer;
-	while (j++ < index_parse)
+	while (j++ < ip)
 		ptr = ptr->next;
 	dollar_str = find_dollar_index(str, i + 1);
 	j = 0;
@@ -104,7 +104,7 @@ int	dollar_in_squote(t_data **data, char *str, int i, int index_parse)
 	- Si c'est du texte normal, on le charjoin	
 */
 
-char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
+char	*parse_dollar(t_data **data, char **env, char *str, int ip)
 {
 	int		i;
 	char	*new_str;
@@ -114,11 +114,11 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 	while (str && str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
-			&& !dollar_in_squote(data, str, i, index_parse)
+			&& !dollar_in_squote(data, str, i, ip)
 			&& str[i + 1] == '?')
 			new_str = ft_codejoin(data, new_str, &i);
 		else if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
-			&& !dollar_in_squote(data, str, i, index_parse))
+			&& !dollar_in_squote(data, str, i, ip))
 		{
 			i++;
 			new_str = ft_varjoin(new_str, str, env, &i);

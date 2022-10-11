@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:43:09 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:20:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,8 @@ void	execute(t_data *data, int cmdnb)
 	int		builtin;
 
 	cmd = getcmd(data, cmdnb);
-	if (cmd[0][0] == '\0')
+	if (!cmd || cmd[0][0] == '\0')
 		return (err_return(cmd));
-	if (!cmd)
-		exit(EXIT_FAILURE);
 	builtin = trybuiltin(data, cmd);
 	if (builtin >= 0)
 		exit(builtin);
