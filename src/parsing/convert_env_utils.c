@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:43 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:48:58 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 21:39:17 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,12 @@ char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 			break ;
 		j++;
 	}
-	var = memcenter(MALLOC, sizeof(char) * (j - *i) + 1, 0, PARSING);
+	var = memcenter(MALLOC, sizeof(char) * (j - *i + 1), 0, PARSING);
 	ft_varcpy(var, str, i, j);
 	index_var = check_env(env, var);
+	if (index_var == -1)
+		return (ft_strjoin(new_str, ""));
 	env_ptr = env[index_var];
 	env_ptr += ft_strlen(var) + 1;
-	if (index_var != -1)
-		new_str = ft_strjoin_env(new_str, env_ptr);
-	else
-		new_str = ft_strjoin(new_str, "");
-	return (new_str);
+	return (ft_strjoin_env(new_str, env_ptr));
 }

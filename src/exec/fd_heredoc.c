@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:17:46 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:44:17 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 23:19:06 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	fd_heredoc(t_data *data, int cmd, int status)
 		return (0);
 	}
 	i = gotoparsecmd(data, cmd);
-	while (data->parse[i++].cmd == cmd)
+	while (data->parse[i].type != FINISH && data->parse[i++].cmd == cmd)
 		heredoc_boucle(data, i, cmd, status);
 	close(data->tmpfd);
 	if (status > 0)

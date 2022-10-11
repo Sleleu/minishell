@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:51:49 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:25:27 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 21:20:31 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**ft_unset_env(char **env, int index_var)
 	i = 0;
 	while (env[i])
 	{
+		if (i == index_var && i == 0)
+			i++;
 		new_env[j] = memcenter(MALLOC, sizeof(char)
 				* (ft_strlen(env[i]) + 1), NULL, BUILTIN);
 		ft_strcpy(new_env[j], env[i]);

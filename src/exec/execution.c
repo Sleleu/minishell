@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 19:27:03 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 21:43:27 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void	execute(t_data *data, int cmdnb)
 	int		builtin;
 
 	cmd = getcmd(data, cmdnb);
-	if (!cmd || cmd[0][0] == '\0')
+	if (!cmd)
+		exit (0);
+	if (cmd[0][0] == '\0')
 		return (err_return(cmd));
 	builtin = trybuiltin(data, cmd);
 	if (builtin >= 0)

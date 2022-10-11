@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memcenter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:11:54 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:46:05 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:09:31 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	*mempurge(t_memcenter *head)
 
 	if (!head)
 		return (NULL);
+	tmp = head;
 	while (head->next != NULL)
 	{
 		tmp = head;
@@ -106,13 +107,13 @@ void	*first_malloc(size_t size, void *adress, t_label label)
 
 	data = get_data();
 	head = data->memcenter;
-	head = (t_memcenter *)malloc(sizeof(t_memcenter));
+	head = malloc(sizeof(t_memcenter));
 	if (!head)
 		return (NULL);
 	if (adress)
 		head->adress = adress;
 	else
-		head->adress = (void *)malloc(size * 1);
+		head->adress = malloc(size);
 	if (!head->adress)
 		head->adress = NULL;
 	head->next = NULL;

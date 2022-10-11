@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 01:30:54 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 02:21:33 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 20:46:33 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**ft_parse_split(char *str)
 	i = 0;
 	j = 0;
 	count = ft_parse_count(str);
-	d_tab = memcenter(MALLOC, sizeof(char *) * count + 1, NULL, PARSING);
+	d_tab = memcenter(MALLOC, sizeof(char *) * (count + 1), NULL, PARSING);
 	d_tab[count] = NULL;
 	while (str && str[i])
 	{
@@ -92,7 +92,7 @@ t_parse	*ft_check_space(t_parse *new_parse, t_parse parse)
 
 	i = 0;
 	d_tab = ft_parse_split(parse.str);
-	while (d_tab[i])
+	while (d_tab && d_tab[i])
 	{
 		new_token.type = parse.type;
 		new_token.cmd = parse.cmd;

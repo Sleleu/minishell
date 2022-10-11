@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memcenter_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 02:45:17 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 02:45:58 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:09:36 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	*after_malloc(size_t size, void *adress, t_label label)
 	head = data->memcenter;
 	while (head->next != NULL)
 		head = head->next;
-	tmp = (t_memcenter *)malloc(sizeof(t_memcenter));
+	tmp = malloc(sizeof(t_memcenter));
 	if (!tmp)
 		return (NULL);
 	if (adress)
 		tmp->adress = adress;
 	else
-		tmp->adress = (void *)malloc(size * 1);
+		tmp->adress = malloc(size);
 	if (!tmp->adress)
 		tmp->adress = NULL;
 	tmp->label = label;

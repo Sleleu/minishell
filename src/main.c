@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 23:11:20 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:48:34 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*ft_getenv(char **env)
 	return (str);
 }*/
 
-
 int		main(int ac, char **av, char **env)
 {
 	(void)av;
@@ -87,7 +86,6 @@ int		main(int ac, char **av, char **env)
 		}
 		if (is_line(data->line))
 			free_while();
-		// printf("Code : %d\n", data->exit[1]);
 		restore_data();
 	}
 	memcenter(PURGE, 0, NULL, NOTHING);
