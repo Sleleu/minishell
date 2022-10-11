@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/10 22:52:07 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 01:57:30 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,14 @@ void			ft_varcpy(char *var, char *str, int *i, int j);
 int				check_dollar(char *str);
 char			*ft_varjoin(char *new_str, char *str, char **env, int *i);
 
+/* CONVERT_ENV_UTILS2 */
+
+int				is_parse_sep(char *str, int i);
+char			*ft_strjoin_env(char *new_str, char *env_ptr);
+char			*ft_codejoin(t_data **data, char *new_str, int *i);
+t_parse			ft_structcpy(t_parse dest, t_parse src);
+t_parse			*ft_parsejoin(t_parse *new_parse, t_parse parse);
+
 /* PARSE_QUOTES */
 
 int				parse_quotes(t_data **data);
@@ -154,6 +162,14 @@ char			*ft_parsing(char *str);
 char			*parse_quote(int c, char *new_str, int *quote1, int *quote2);
 int				only_quote(char *str);
 int				is_quotes(char *str);
+
+/* REFRESH_PARSE */
+
+int				ft_parse_count(char *str);
+char			*ft_parse_word(char *str, int i);
+char			**ft_parse_split(char *str);
+t_parse			*ft_check_space(t_parse *new_parse, t_parse parse);
+t_parse			*ft_refresh_parse(t_data **data);
 
 /* ********************************************************** */
 /*                           EXECUTION                        */

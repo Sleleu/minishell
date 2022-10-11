@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 00:27:01 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 01:56:43 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,6 @@ int	dollar_in_squote(t_data **data, char *str, int i, int index_parse)
 	return (0);
 }
 
-char	*ft_codejoin(t_data **data, char *new_str, int *i)
-{
-	char *str_code;
-	
-	*i += 2;
-	str_code = ft_itoa((*data)->exit[1]);
-	new_str = ft_strjoin(new_str, str_code);
-	return (new_str);
-}
-
 /*
 		PARSE_DOLLAR
 	Une nouvelle str va remplacer le texte dans le parser avec les variables d'env
@@ -145,178 +135,6 @@ char	*parse_dollar(t_data **data, char **env, char *str, int index_parse)
 		CONVERT_ENV
 	Si la str du parser est pas vide, et qu'il y a une variable d'env, parse_dollar
 */
-
-t_parse	ft_assign_struct(t_parse dest, t_parse src)
-{
-	if (src.str != NULL)
-	{
-		dest.str = memcenter(MALLOC, sizeof(char) * (ft_strlen(src.str) + 1), NULL, PARSING);
-		ft_strcpy(dest.str, src.str);
-	}
-	else
-		dest.str = NULL;
-	dest.type = src.type;
-	dest.cmd = src.cmd;
-	return (dest);
-}
-
-t_parse	*ft_parsejoin(t_parse *new_parse, t_parse parse)
-{
-	int		i;
-	int		size;
-	t_parse	*new_struct;
-	
-	i = 0;
-	size = 0;
-	while (new_parse && new_parse[size].type != FINISH)
-		size++;
-	new_struct = memcenter(MALLOC, sizeof(t_parse) * (size + 2), NULL, PARSING);
-	while (new_parse && new_parse[i].type != FINISH)
-	{
-		new_struct[i] = ft_assign_struct(new_struct[i], new_parse[i]);
-		i++;
-	}
-	new_struct[i] = ft_assign_struct(new_struct[i], parse);
-	i++;
-	new_struct[i].str = NULL;
-	new_struct[i].type = FINISH;
-	new_struct[i].cmd = parse.cmd;
-	return (new_struct);
-}
-
-int	is_parse_sep(char *str, int i)
-{
-	int	d_quote;
-	int	s_quote;
-	int	j;
-
-	j = 0;
-	d_quote = 0;
-	s_quote = 0;
-	while (j < i)
-	{
-		if (str[j] == 39)
-			bool_quote(&d_quote, &s_quote);
-		else if (str[j] == '"')
-			bool_quote(&s_quote, &d_quote);
-		j++;
-	}
-	if (is_space(str[i]) && d_quote == 0 && s_quote == 0)
-		return (1);
-	return (0);
-}
-
-int	ft_parse_count(char *str)
-{
-	int	count;
-	int	i;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		while (str[i] && is_parse_sep(str, i))
-			i++;
-		if (str[i] && !is_parse_sep(str, i))
-			count++;
-		while (str[i] && !is_parse_sep(str, i))
-			i++;
-	}
-	return (count);
-}
-
-char	*ft_parse_word(char *str, int i)
-{
-	int	j;
-	int	len;
-	int	size;
-	char *word;
-	
-	j = 0;
-	len = 0;
-	size = i;
-	while (str[size] && !is_parse_sep(str, size))
-	{
-		len++;
-		size++;
-	}
-	word = memcenter(MALLOC, sizeof(char) * (len + 1), NULL, PARSING);
-	while (i < size)
-	{
-		word[j] = str[i];
-		i++;
-		j++;
-	}
-	word[j] = '\0';
-	return (word);
-}
-
-char	**ft_parse_split(char *str)
-{
-	int		i;
-	int		j;
-	int		count;
-	char	**d_tab;
-	
-	i = 0;
-	j = 0;
-	count = ft_parse_count(str);
-	d_tab = memcenter(MALLOC, sizeof(char *) * count + 1, NULL, PARSING);
-	d_tab[count] = NULL;
-	while (str && str[i])
-	{
-		while (str[i] && is_parse_sep(str, i))
-			i++;
-		if (str[i] && !is_parse_sep(str, i))
-		{
-			d_tab[j] = ft_parse_word(str, i);
-			j++;
-		}
-		while(str[i] && !is_parse_sep(str, i))
-			i++;
-	}
-	return (d_tab);
-}
-
-t_parse	*ft_check_space(t_parse *new_parse, t_parse parse)
-{
-	char **d_tab;
-	t_parse new_token;
-	int	i;
-
-	i = 0;
-	d_tab = ft_parse_split(parse.str);
-	while (d_tab[i])
-	{
-		new_token.type = parse.type;
-		new_token.cmd = parse.cmd; 
-		new_token.str = memcenter(MALLOC, sizeof(char)
-				* (ft_strlen(d_tab[i]) + 1), NULL, PARSING);
-		ft_strcpy(new_token.str, d_tab[i]);
-		new_parse = ft_parsejoin(new_parse, new_token);
-		memcenter(FREE, 0, new_token.str, PARSING);
-		i++;
-	}
-	return (new_parse);
-}
-
-t_parse	*ft_refresh_parse(t_data **data)
-{
-	int	i;
-	t_parse *new_parse;
-	
-	i = 0;
-	new_parse = NULL;
-	while ((*data)->parse[i].type != FINISH)
-	{
-		if ((*data)->parse[i].str == NULL)
-			new_parse = ft_parsejoin(new_parse, (*data)->parse[i]);
-		else
-			new_parse = ft_check_space(new_parse, (*data)->parse[i]);
-		i++;
-	}
-	return (new_parse);
-}
 
 void	convert_env(t_data **data)
 {

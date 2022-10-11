@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 19:19:43 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 19:52:16 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 01:48:58 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,32 +104,6 @@ int	check_dollar(char *str)
 	- env_ptr se place sur la variable d'environnement, et ++ jusqu'a sa valeur
 	- On strjoin la valeur de la variable d'environnement a la new_str;
 */
-
-char	*ft_strjoin_env(char *new_str, char *env_ptr)
-{
-	int	i;
-
-	i = 0;
-	while (env_ptr[i])
-	{
-		if (env_ptr[i] == 39)
-		{
-			new_str = ft_charjoin(new_str, '"');
-			new_str = ft_charjoin(new_str, env_ptr[i]);
-			new_str = ft_charjoin(new_str, '"');
-		}
-		else if (env_ptr[i] == '"')
-		{
-			new_str = ft_charjoin(new_str, 39);
-			new_str = ft_charjoin(new_str, env_ptr[i]);
-			new_str = ft_charjoin(new_str, 39);
-		}
-		else
-			new_str = ft_charjoin(new_str, env_ptr[i]);
-		i++;
-	}
-	return (new_str);
-}
 
 char	*ft_varjoin(char *new_str, char *str, char **env, int *i)
 {

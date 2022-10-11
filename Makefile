@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/10 19:00:04 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/10/11 01:58:11 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ SOURCES 		= 	main.c \
 					parsing/token_type_error.c \
 					parsing/convert_env.c \
 					parsing/convert_env_utils.c \
+					parsing/convert_env_utils2.c \
+					parsing/refresh_parse.c \
 					parsing/parse_quotes.c \
 					memcenter/memcenter.c \
 					lexer/lexer.c \

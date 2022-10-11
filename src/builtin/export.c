@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:26:12 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 01:11:46 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:14:13 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	export_error_num(char **cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i])
@@ -58,7 +58,7 @@ void	ft_export_action(t_data **data, char *str, int index_equal)
 
 int	ft_export(t_data **data, char **cmd)
 {
-	int i;
+	int	i;
 	int	code;
 	int	index_equal;
 

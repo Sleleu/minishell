@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 22:09:14 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 21:00:01 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 01:30:11 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,6 @@ t_lexer	*ft_lexer(char *line)
 				return (NULL);
 		}
 	}
-	// t_lexer *ptr = lexer;
-	// 	while (ptr)
-	// 	{
-	// 		printf("content : %s | type : %d\n", ptr->content, ptr->type);
-	// 		ptr = ptr->next;
-	// 	}
 	return (lexer);
 }
 
