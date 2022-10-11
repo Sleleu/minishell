@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:00:03 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/09 21:23:57 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 15:15:07 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+		FT_ENVJOIN
+	Retourne un environnement avec une valeur ajoutee a la fin
+*/
 
 char	**ft_envjoin(char **env, char *str)
 {
@@ -37,6 +42,11 @@ char	**ft_envjoin(char **env, char *str)
 	return (new_env);
 }
 
+/*
+		FT_STRDEL
+	retourne la chaine str passee en paramatre sans le + precedant le =
+*/
+
 char	*ft_strdel(char *str, char c, int n)
 {
 	char	*new_str;
@@ -57,6 +67,12 @@ char	*ft_strdel(char *str, char c, int n)
 	new_str[j] = '\0';
 	return (new_str);
 }
+
+/*
+		FT_APPEND_VAR
+	Ajoute a une variable existante la valeur souhaitee, ou join si la variable
+	n'existe pas
+*/
 
 char	**ft_append_var(char **env, char *str, int index_equal)
 {

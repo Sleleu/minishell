@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 19:49:41 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 02:14:29 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 15:15:04 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	is_new_var(char **env, char *str)
 	int	index_equal_str;
 
 	i = 0;
+	index_equal_str = 0;
 	while (str[index_equal_str] && str[index_equal_str] != '=')
 		index_equal_str++;
 	while (env[i])
@@ -73,8 +74,8 @@ int	is_new_var(char **env, char *str)
 		index_equal_env = 0;
 		while (env[i][index_equal_env] && env[i][index_equal_env] != '=')
 			index_equal_env++;
-		if (!ft_strncmp(str, env[i], index_equal_env)
-			&& index_equal_env == index_equal_str)
+		if (!ft_strncmp(str, env[i], index_equal_str)
+			 && index_equal_env == index_equal_str)
 			return (i);
 		i++;
 	}
