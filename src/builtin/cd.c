@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 19:25:35 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:45:20 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	ft_cd(char **arg, char **env)
 	char	*path;
 
 	path = arg[1];
+	if (!ft_ultracmp(path, "-"))
+		return (ft_pwd());
 	if (!path)
 	{
 		chdir(ft_getenv(env, "HOME"));

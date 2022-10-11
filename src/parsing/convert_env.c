@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 22:32:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/11 02:40:37 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:43:10 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ char	*parse_dollar(t_data **data, char **env, char *str, int ip)
 			&& str[i + 1] == '?')
 			new_str = ft_codejoin(data, new_str, &i);
 		else if (str[i] == '$' && str[i + 1] && !is_space(str[i + 1])
-			&& !dollar_in_squote(data, str, i, ip))
+			&& !dollar_in_squote(data, str, i, ip)
+			&& str[i + 1] != '"' && str[i + 1] != 39)
 		{
 			i++;
 			new_str = ft_varjoin(new_str, str, env, &i);
