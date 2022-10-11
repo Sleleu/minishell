@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:17:46 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:21 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/11 02:44:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*parse_hd_dollar(t_data *data, char *line)
 	return (new_line);
 }
 
-char *handle_line(t_data *data, char *line)
+char	*handle_line(t_data *data, char *line)
 {
 	char	*new_line;
 

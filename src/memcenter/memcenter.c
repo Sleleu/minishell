@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memcenter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 15:11:54 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/09/24 20:57:56 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/11 02:46:05 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*memcenter(t_mem mem, size_t size, void *adress, t_label label)
 	else if (mem == FREE_WHERE)
 		return (memfreewhere(head, label));
 	else if (mem == MALLOC && head == NULL)
-		return	(first_malloc(size, adress, label));
+		return (first_malloc(size, adress, label));
 	else if (mem == MALLOC)
 		return (after_malloc(size, adress, label));
 	return (NULL);
@@ -50,21 +50,17 @@ void	*memcenter(t_mem mem, size_t size, void *adress, t_label label)
 
 void	*mempurge(t_memcenter *head)
 {
-	t_memcenter *tmp;
-	
+	t_memcenter	*tmp;
+
 	if (!head)
 		return (NULL);
-	// dprintf(2, "--- PURGE ---\n");
 	while (head->next != NULL)
 	{
-		// dprintf(2, "%d\n", head->label);
 		tmp = head;
 		free(tmp->adress);
 		head = head->next;
 		free(tmp);
 	}
-	// dprintf(2, "%d\n", head->label);
-	// dprintf(2, "--------------\n\n");
 	free(head->adress);
 	free(head);
 	return (NULL);
@@ -79,7 +75,6 @@ void	*memfree(t_memcenter *head, void *adress)
 	}
 	while (head->adress != adress)
 		head = head->next;
-	// dprintf(2, "Free\nhead->adress %p\n", head->adress);
 	free(adress);
 	head->adress = NULL;
 	return (NULL);
@@ -124,29 +119,4 @@ void	*first_malloc(size_t size, void *adress, t_label label)
 	head->label = label;
 	data->memcenter = head;
 	return (head->adress);
-}
-
-void	*after_malloc(size_t size, void *adress, t_label label)
-{
-	t_data		*data;
-	t_memcenter	*head;
-	t_memcenter	*tmp;
-
-	data = get_data();
-	head = data->memcenter;
-	while (head->next != NULL)
-		head = head->next;
-	tmp = (t_memcenter *)malloc(sizeof(t_memcenter));
-	if (!tmp)
-		return (NULL);
-	if (adress)
-		tmp->adress = adress;
-	else
-		tmp->adress = (void *)malloc(size * 1);
-	if (!tmp->adress)
-		tmp->adress = NULL;
-	tmp->label = label;
-	tmp->next = NULL;
-	head->next = tmp;
-	return (tmp->adress);
 }

@@ -6,7 +6,7 @@
 #    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/11 02:37:27 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/10/11 02:46:36 by rvrignon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SOURCES 		= 	main.c \
 					parsing/refresh_parse.c \
 					parsing/parse_quotes.c \
 					memcenter/memcenter.c \
+					memcenter/memcenter_utils.c \
 					lexer/lexer.c \
 					lexer/is_token.c \
 					lexer/lexer_utils.c \
