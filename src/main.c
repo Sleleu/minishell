@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 01:00:00 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 01:19:23 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int		main(int ac, char **av, char **env)
 		data->line = readline("minishell >>> ");
 		if (!data->line)
 		{
-			printf("\n");
+			printf("Exit\n");
 			break ;
-		} 
+		}
 		if (data->line && ft_strlen(data->line) > 0)
 			add_history(data->line);
 		data->lexer = ft_lexer(data->line);
@@ -118,7 +118,6 @@ int		main(int ac, char **av, char **env)
 			free_while();
 		restore_data();
 	}
-	printf("heyy\n");
 	memcenter(PURGE, 0, NULL, NOTHING);
 	return (data->exit[1]);
 }

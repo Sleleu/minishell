@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/09 19:56:19 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/12 01:10:09 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	ft_parser(t_data **data)
 	init_parsing(data);
 	error = error_type_token(data);
 	if (error != 0)
+	{
+		(*data)->exit[1] = 2;	
 		return (-1);
+	}
 	assign_file(data);
 	convert_env(data);
 	if (!parse_quotes(data))
