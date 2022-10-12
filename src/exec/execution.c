@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/12 00:58:56 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:02:50 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	exec_process(t_data *data)
 		if (data->pid[data->actual - 1] > 0)
 		{	
 			if (data->exec[data->actual - 1].heredoc)
-				wait(0);
+				waitpid(data->pid[data->actual - 1], 0, WUNTRACED);
 			if (data->fd[1] > 2)
 				close(data->fd[1]);
 			if (data->oldfd > 2)
@@ -61,6 +61,7 @@ void	child_process(t_data *data, int cmd)
 
 	builtin = 0;
 	bash = NULL;
+	signal(SIGINT, sig_handler);
 	while (g_sigstatus.process)
 	{
 		if (handle_fd(data, cmd))

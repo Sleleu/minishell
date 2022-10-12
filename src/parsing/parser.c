@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 15:31:37 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/12 01:10:09 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/12 15:20:42 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_parser(t_data **data)
 	error = error_type_token(data);
 	if (error != 0)
 	{
-		(*data)->exit[1] = 2;	
+		(*data)->exit[1] = 2;
 		return (-1);
 	}
 	assign_file(data);

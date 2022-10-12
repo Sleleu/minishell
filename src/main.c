@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 01:19:23 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/12 15:16:23 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,38 +28,11 @@ int	is_line(char *line)
 	return (0);
 }
 
-
-static void free_while(void)
+static void	free_while(void)
 {
 	memcenter(FREE_WHERE, 0, NULL, LEXER);
 	memcenter(FREE_WHERE, 0, NULL, PARSING);
 	memcenter(FREE_WHERE, 0, NULL, EXEC);
-	//memcenter(FREE_WHERE, 0, NULL, BUILTIN);
-}
-
-static void sig_handler(int _)
-{
-	char *c;
-	
-    (void)_;
-	(void)c;
-	if (!g_sigstatus.process)
-	{
-		printf("\n");
-		g_sigstatus.value = 0;
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-		g_sigstatus.value = 1;
-	}
-	else
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_redisplay();
-		rl_on_new_line();
-		g_sigstatus.process = 0;
-	}
 }
 
 /*
@@ -81,11 +54,11 @@ char	*ft_getenv(char **env)
 	return (str);
 }*/
 
-int		main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	(void)av;
 	t_data	*data;
-	
+
+	(void)av;
 	if (ac != 1)
 		return (0);
 	signal(SIGINT, sig_handler);
@@ -94,8 +67,6 @@ int		main(int ac, char **av, char **env)
 	g_sigstatus.value = 1;
 	while (g_sigstatus.value)
 	{
-		//ft_putstr_fd(ft_getenv(data->env), 1);
-		//sig_init();
 		data->line = readline("minishell >>> ");
 		if (!data->line)
 		{

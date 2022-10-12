@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:17:46 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 23:19:06 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/12 15:11:34 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,14 @@ void	heredoc_boucle(t_data *data, int i, int cmd, int status)
 	t_parse	*parse;
 	char	*line;
 
+	g_sigstatus.heredoc = 1;
 	parse = data->parse;
 	if (parse[i].type == LIMITER)
 	{
 		ft_putstr_fd("> ", 2);
 		line = get_next_line(0);
-		while (line && !is_same_string(handle_line(data, line), parse[i].str))
+		while (g_sigstatus.heredoc && line
+			&& !is_same_string(handle_line(data, line), parse[i].str))
 		{
 			if (data->exec[cmd - 1].heredoc == 1 && status > 0)
 				ft_putstr_fd(handle_line(data, line), data->tmpfd);
@@ -80,6 +82,7 @@ void	heredoc_boucle(t_data *data, int i, int cmd, int status)
 		}
 		data->exec[cmd - 1].heredoc--;
 	}
+	g_sigstatus.heredoc = 0;
 }
 
 int	fd_heredoc(t_data *data, int cmd, int status)

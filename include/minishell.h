@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 00:26:28 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:03:22 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ t_files			exec_file_process(char *parse);
 /*                           SIGNAL                           */
 /* ********************************************************** */
 
+void			sig_handler(int _);
 void			sig_init(void);
 
 #endif

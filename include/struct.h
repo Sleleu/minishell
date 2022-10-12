@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 00:15:45 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 00:30:36 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 15:12:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 
 typedef struct s_global
 {
-	int process;
-	int value;
+	int	heredoc;
+	int	process;
+	int	value;
 }	t_global;
 
 extern t_global	g_sigstatus;
