@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 15:16:23 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:04:22 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,6 @@ static void	free_while(void)
 	memcenter(FREE_WHERE, 0, NULL, EXEC);
 }
 
-/*
-char	*ft_getenv(char **env)
-{
-	int	i;
-	char *str;
-	char *pwd;
-	
-	i = 0;
-	while (ft_strncmp(env[i], "PWD=", ft_strlen("PWD=")))
-		i++;
-	pwd = memcenter(MALLOC, sizeof(char) * ft_strlen(env[i]) + 1, 0, BUILTIN);
-	ft_strcpy(pwd, env[i]);
-	i = ft_strlen(getenv("HOME"));
-	str = memcenter(MALLOC, sizeof(char) * ft_strlen(pwd) - (i + 1), 0, BUILTIN);
-	str = ft_substr(pwd, i + 4, ft_strlen(pwd));
-	str[ft_strlen(str)] = '\0';
-	return (str);
-}*/
-
 int	main(int ac, char **av, char **env)
 {
 	t_data	*data;
@@ -61,16 +42,18 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	if (ac != 1)
 		return (0);
-	signal(SIGINT, sig_handler);
 	data = set_data(env);
 	g_sigstatus.process = 0;
 	g_sigstatus.value = 1;
+	g_sigstatus.code = &data->exit[1];
 	while (g_sigstatus.value)
 	{
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, SIG_IGN);
 		data->line = readline("minishell >>> ");
 		if (!data->line)
 		{
-			printf("Exit\n");
+			printf("exit\n");
 			break ;
 		}
 		if (data->line && ft_strlen(data->line) > 0)

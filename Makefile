@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+         #
+#    By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/31 15:21:49 by sleleu            #+#    #+#              #
-#    Updated: 2022/10/11 02:46:36 by rvrignon         ###   ########.fr        #
+#    Updated: 2022/10/12 16:03:09 by sleleu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ### COMPILATION ###
-CC				= 	gcc
+CC				= 	cc
 FLAGS			= 	-g -Wall -Wextra -Werror
 
 ### EXECUTABLE ###

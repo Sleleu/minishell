@@ -3,37 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 19:05:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 15:11:25 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:02:24 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	sig_handler(int _)
+void			sig_handler2(int signum)
 {
-	(void)_;
+	(void)signum;
+	printf("\n");
+}
+
+void	sig_handler(int signum)
+{
+	(void)signum;
 	if (g_sigstatus.heredoc)
 		exit(130);
 	if (!g_sigstatus.process)
 	{
 		printf("\n");
 		g_sigstatus.value = 0;
-		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_replace_line("", 0);
 		rl_redisplay();
 		g_sigstatus.value = 1;
 	}
 	else
 	{
 		printf("\n");
+		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		rl_on_new_line();
 		g_sigstatus.process = 0;
 	}
+}
+
+void	sigquit_handler(int signum)
+{
+	(void)signum;
+	printf("Quit (code dumped)\n");
+	*g_sigstatus.code = 131;
 }
 
 // void	ft_handler(int signum)
@@ -50,7 +63,3 @@ void	sig_handler(int _)
 // 	signal(SIGINT, ft_handler);
 // 	signal(SIGQUIT, ft_handler);
 // }
-
-//signal
-// ctrl C devient le
-// si que des quotes on tenter de lancer une commande

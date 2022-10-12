@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/12 15:02:50 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/12 18:12:13 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	execution(t_data *data)
 	else
 	{
 		g_sigstatus.process = 1;
+		signal(SIGQUIT, sigquit_handler);
 		exec_process(data);
 		data->exit[0] = 0;
 		data->exit[1] = getcode(data);
@@ -40,6 +41,7 @@ void	exec_process(t_data *data)
 			child_process(data, data->actual);
 		if (data->pid[data->actual - 1] > 0)
 		{	
+			signal(SIGINT, sig_handler2);
 			if (data->exec[data->actual - 1].heredoc)
 				waitpid(data->pid[data->actual - 1], 0, WUNTRACED);
 			if (data->fd[1] > 2)
