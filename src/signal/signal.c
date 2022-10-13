@@ -21,6 +21,7 @@ void			sig_handler2(int signum)
 void	sig_handler(int signum)
 {
 	(void)signum;
+	*g_sigstatus.code = 130;
 	if (g_sigstatus.heredoc)
 		exit(130);
 	if (!g_sigstatus.process)
