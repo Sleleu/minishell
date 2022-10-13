@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/13 17:16:37 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:05:28 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,6 @@ void	execution(t_data *data)
 		close_pipes(data);
 		unlink(data->tmp);
 	}
-}
-
-void	parent_process(t_data *data)
-{
-	int	status;
-
-	signal(SIGINT, sig_handler2);
-	if (data->exec[data->actual - 1].heredoc)
-		waitpid(data->pid[data->actual - 1], 0, WEXITSTATUS(status));
-	if (data->fd[1] > 2)
-		close(data->fd[1]);
-	if (data->oldfd > 2)
-		close(data->oldfd);
-	data->oldfd = data->fd[0];
-	data->actual += 1;
 }
 
 void	exec_process(t_data *data)
@@ -63,6 +48,21 @@ void	exec_process(t_data *data)
 				exec_process(data);
 		}
 	}
+}
+
+void	parent_process(t_data *data)
+{
+	int	status;
+
+	signal(SIGINT, sig_handler2);
+	if (data->exec[data->actual - 1].heredoc)
+		waitpid(data->pid[data->actual - 1], 0, WEXITSTATUS(status));
+	if (data->fd[1] > 2)
+		close(data->fd[1]);
+	if (data->oldfd > 2)
+		close(data->oldfd);
+	data->oldfd = data->fd[0];
+	data->actual += 1;
 }
 
 void	child_process(t_data *data, int cmd)

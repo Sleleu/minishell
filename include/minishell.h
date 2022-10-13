@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/13 16:48:16 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:42:47 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 int				is_line(char *line);
 void			free_while(void);
-void			init_global(t_data *data);
+char			**set_env(char **env);
 void			ft_minishell(t_data *data);
 
 /* ********************************************************** */
@@ -192,6 +192,7 @@ t_parse			*ft_refresh_parse(t_data **data);
 /* MAIN */
 
 void			process(t_data **data);
+void			parent_process(t_data *data);
 void			child_process(t_data *data, int cmd);
 void			exec_process(t_data *data);
 void			execution(t_data *data);
@@ -224,6 +225,8 @@ int				gotoparsecmd(t_data *data, int cmd);
 char			*setpath(char *cmd, char **envp);
 int				is_path(char *av);
 void			print_both(t_data *data);
+char			*handle_line(t_data *data, char *line);
+char			*parse_hd_dollar(t_data *data, char *line);
 int				getwords(t_data *data, int cmdnb);
 void			err_return(char **cmd);
 void			close_pipes(t_data *data);

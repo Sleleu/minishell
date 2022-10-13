@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/13 16:31:15 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:42:08 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	null_path(char **env)
 int	ft_cd(char **arg, char **env)
 {
 	char	*path;
+	char	pwd[PATH_MAX];
 
 	path = arg[1];
 	if (!path)
@@ -65,7 +66,7 @@ int	ft_cd(char **arg, char **env)
 			return (1);
 		}
 		else
-			replace_pwd(path, env);
+			replace_pwd(getcwd(pwd, sizeof(pwd)), env);
 	}
 	return (0);
 }

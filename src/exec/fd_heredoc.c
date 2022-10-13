@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:17:46 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/13 17:13:00 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:42:17 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	is_same_string(char *line, char *limiter)
 {
+	if (!line || !limiter)
+		return (0);
 	if (line[0] == '\n')
 		return (0);
 	if (!ft_strncmp(line, limiter, ft_strlen(limiter) - 1)
@@ -46,18 +48,24 @@ char	*parse_hd_dollar(t_data *data, char *line)
 	return (new_line);
 }
 
-char	*handle_line(t_data *data, char *line)
+void	heredoc_boucle_2(t_data *data, char *limiter, char *line, int status)
 {
-	char	*new_line;
-
-	new_line = NULL;
-	if (check_dollar(line))
+	while (g_sigstatus.heredoc && line
+		&& !is_same_string(handle_line(data, line), limiter))
 	{
-		new_line = parse_hd_dollar(data, line);
+		if (data->exec[data->actual - 1].heredoc == 1 && status > 0)
+			ft_putstr_fd(handle_line(data, line), data->tmpfd);
+		free(line);
+		ft_putstr_fd("> ", 2);
+		line = get_next_line(0);
+		if (!line)
+			printf("\nminishell: warning: heredoc delimited by EOF\n");
+		if (is_same_string(handle_line(data, line), limiter))
+		{
+			free(line);
+			line = NULL;
+		}
 	}
-	else
-		return (line);
-	return (new_line);
 }
 
 void	heredoc_boucle(t_data *data, int i, int cmd, int status)
@@ -70,20 +78,15 @@ void	heredoc_boucle(t_data *data, int i, int cmd, int status)
 	if (parse[i].type == LIMITER)
 	{
 		ft_putstr_fd("> ", 2);
-		line = get_next_line(0);
+			line = get_next_line(0);
 		if (!line)
 			printf("\nminishell: warning: heredoc delimited by EOF\n");
-		while (g_sigstatus.heredoc && line
-			&& !is_same_string(handle_line(data, line), parse[i].str))
+		if (is_same_string(handle_line(data, line), parse[i].str))
 		{
-			if (data->exec[cmd - 1].heredoc == 1 && status > 0)
-				ft_putstr_fd(handle_line(data, line), data->tmpfd);
 			free(line);
-			ft_putstr_fd("> ", 2);
-			line = get_next_line(0);
-			if (!line)
-				printf("\nminishell: warning: heredoc delimited by EOF\n");
+			line = NULL;
 		}
+		heredoc_boucle_2(data, parse[i].str, line, status);
 		data->exec[cmd - 1].heredoc--;
 	}
 	g_sigstatus.heredoc = 0;

@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:58:35 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/13 17:16:31 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:56:58 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,18 @@ int	handle_fd(t_data *data, int cmd)
 	if (!fd_outfile(data, cmd))
 		return (0);
 	return (1);
+}
+
+char	*handle_line(t_data *data, char *line)
+{
+	char	*new_line;
+
+	new_line = NULL;
+	if (!line)
+		return (new_line);
+	if (check_dollar(line))
+		new_line = parse_hd_dollar(data, line);
+	else
+		return (line);
+	return (new_line);
 }
