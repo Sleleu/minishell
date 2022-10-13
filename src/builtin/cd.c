@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/13 16:20:34 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:26:40 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ int	ft_cd(char **arg, char **env)
 	char	*path;
 
 	path = arg[1];
+	if (!path)
+	{
+		null_path(env);
+		return (0);
+	}
 	if (!ft_ultracmp(path, "-"))
 		return (ft_pwd());
-	if (!path)
-		null_path(env);
 	if (arg[2])
 	{
 		printf("minishell: cd: too many arguments\n");
