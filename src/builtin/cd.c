@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 19:45:20 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:20:34 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ static void	replace_pwd(char *path, char **env)
 		return ;
 }
 
+void	null_path(char **env)
+{
+	chdir(ft_getenv(env, "HOME"));
+	replace_pwd(ft_getenv(env, "HOME"), env);
+}
+
 int	ft_cd(char **arg, char **env)
 {
 	char	*path;
@@ -44,10 +50,7 @@ int	ft_cd(char **arg, char **env)
 	if (!ft_ultracmp(path, "-"))
 		return (ft_pwd());
 	if (!path)
-	{
-		chdir(ft_getenv(env, "HOME"));
-		replace_pwd(ft_getenv(env, "HOME"), env);
-	}
+		null_path(env);
 	if (arg[2])
 	{
 		printf("minishell: cd: too many arguments\n");
@@ -57,7 +60,7 @@ int	ft_cd(char **arg, char **env)
 	{
 		if (chdir(path) == -1)
 		{
-			perror(path);
+			perror(path); // pb avec cd uniquement
 			return (1);
 		}
 		else

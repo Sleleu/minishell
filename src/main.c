@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:37 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 18:04:22 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:14:33 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,25 @@ int	is_line(char *line)
 	return (0);
 }
 
-static void	free_while(void)
+void	free_while(void)
 {
 	memcenter(FREE_WHERE, 0, NULL, LEXER);
 	memcenter(FREE_WHERE, 0, NULL, PARSING);
 	memcenter(FREE_WHERE, 0, NULL, EXEC);
 }
 
-int	main(int ac, char **av, char **env)
+void	init_global(t_data *data)
 {
-	t_data	*data;
-
-	(void)av;
-	if (ac != 1)
-		return (0);
-	data = set_data(env);
 	g_sigstatus.process = 0;
 	g_sigstatus.value = 1;
 	g_sigstatus.code = &data->exit[1];
+}
+
+void	ft_minishell(t_data *data)
+{
 	while (g_sigstatus.value)
 	{
-		signal(SIGINT, sig_handler);
-		signal(SIGQUIT, SIG_IGN);
+		sig_init();
 		data->line = readline("minishell >>> ");
 		if (!data->line)
 		{
@@ -72,6 +69,18 @@ int	main(int ac, char **av, char **env)
 			free_while();
 		restore_data();
 	}
+}
+
+int	main(int ac, char **av, char **env)
+{
+	t_data	*data;
+
+	(void)av;
+	if (ac != 1)
+		return (0);
+	data = set_data(env);
+	init_global(data);
+	ft_minishell(data);
 	memcenter(PURGE, 0, NULL, NOTHING);
 	return (data->exit[1]);
 }

@@ -6,13 +6,13 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 19:05:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 18:02:24 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:13:06 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void			sig_handler2(int signum)
+void	sig_handler2(int signum)
 {
 	(void)signum;
 	printf("\n");
@@ -50,17 +50,8 @@ void	sigquit_handler(int signum)
 	*g_sigstatus.code = 131;
 }
 
-// void	ft_handler(int signum)
-// {
-// 	if (signum == SIGINT)
-// 		printf("yo2"); // exit sur les process, pas sur le minishell
-// 	else if (signum == SIGQUIT)
-// 		printf("Quit (core dumped)\n"); // uniquement sur les process, 
-// pas sur le minishell
-// }
-
-// void	sig_init(void)
-// {
-// 	signal(SIGINT, ft_handler);
-// 	signal(SIGQUIT, ft_handler);
-// }
+void	sig_init(void)
+{
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+}

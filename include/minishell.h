@@ -6,7 +6,7 @@
 /*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/12 17:25:57 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:18:50 by sleleu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 # define MINISHELL_H
 
 # include "struct.h"
+
+/* ********************************************************** */
+/*                           MAIN                             */
+/* ********************************************************** */
+
+int				is_line(char *line);
+void			free_while(void);
+void			init_global(t_data *data);
+void			ft_minishell(t_data *data);
 
 /* ********************************************************** */
 /*                           INIT                             */
@@ -35,6 +44,7 @@ int				ft_unset(t_data **data, char **cmd);
 /* CD */
 
 char			*ft_getenv(char **env, char *str);
+void			null_path(char **env);
 int				ft_cd(char **arg, char **env);
 
 /* EXPORT */
