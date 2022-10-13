@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:17:46 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/12 18:09:15 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 17:13:00 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	heredoc_boucle(t_data *data, int i, int cmd, int status)
 	{
 		ft_putstr_fd("> ", 2);
 		line = get_next_line(0);
+		if (!line)
+			printf("\nminishell: warning: heredoc delimited by EOF\n");
 		while (g_sigstatus.heredoc && line
 			&& !is_same_string(handle_line(data, line), parse[i].str))
 		{
@@ -79,6 +81,8 @@ void	heredoc_boucle(t_data *data, int i, int cmd, int status)
 			free(line);
 			ft_putstr_fd("> ", 2);
 			line = get_next_line(0);
+			if (!line)
+				printf("\nminishell: warning: heredoc delimited by EOF\n");
 		}
 		data->exec[cmd - 1].heredoc--;
 	}

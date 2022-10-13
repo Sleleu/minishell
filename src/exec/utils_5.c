@@ -6,7 +6,7 @@
 /*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:58:35 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/11 20:11:43 by rvrignon         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:16:31 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ t_files	exec_file_process(char *parse)
 		files.file = parse;
 	files.token = INFILE;
 	return (files);
+}
+
+int	handle_fd(t_data *data, int cmd)
+{
+	if (!fd_infile(data, cmd))
+		return (0);
+	if (!fd_outfile(data, cmd))
+		return (0);
+	return (1);
 }

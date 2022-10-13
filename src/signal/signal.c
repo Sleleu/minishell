@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 19:05:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/13 16:13:06 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:34:08 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ void	sig_handler(int signum)
 void	sigquit_handler(int signum)
 {
 	(void)signum;
-	printf("Quit (code dumped)\n");
-	*g_sigstatus.code = 131;
+	if (!g_sigstatus.heredoc)
+	{
+		printf("Quit (code dumped)\n");
+		*g_sigstatus.code = 131;
+	}
 }
 
 void	sig_init(void)

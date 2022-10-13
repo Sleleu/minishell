@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 15:25:29 by sleleu            #+#    #+#             */
-/*   Updated: 2022/10/13 16:18:50 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:48:16 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int				ft_unset(t_data **data, char **cmd);
 /* CD */
 
 char			*ft_getenv(char **env, char *str);
-void			null_path(char **env);
+int				null_path(char **env);
 int				ft_cd(char **arg, char **env);
 
 /* EXPORT */

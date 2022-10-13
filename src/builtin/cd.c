@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 14:12:50 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/13 16:26:40 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 16:31:15 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ static void	replace_pwd(char *path, char **env)
 		return ;
 }
 
-void	null_path(char **env)
+int	null_path(char **env)
 {
 	chdir(ft_getenv(env, "HOME"));
 	replace_pwd(ft_getenv(env, "HOME"), env);
+	return (0);
 }
 
 int	ft_cd(char **arg, char **env)
@@ -48,10 +49,7 @@ int	ft_cd(char **arg, char **env)
 
 	path = arg[1];
 	if (!path)
-	{
-		null_path(env);
-		return (0);
-	}
+		return (null_path(env));
 	if (!ft_ultracmp(path, "-"))
 		return (ft_pwd());
 	if (arg[2])
@@ -63,7 +61,7 @@ int	ft_cd(char **arg, char **env)
 	{
 		if (chdir(path) == -1)
 		{
-			perror(path); // pb avec cd uniquement
+			perror(path);
 			return (1);
 		}
 		else

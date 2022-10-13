@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sleleu <sleleu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rvrignon <rvrignon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 19:25:10 by rvrignon          #+#    #+#             */
-/*   Updated: 2022/10/12 18:12:13 by sleleu           ###   ########.fr       */
+/*   Updated: 2022/10/13 17:16:37 by rvrignon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	execution(t_data *data)
 		exec_builtout(data);
 	else
 	{
-		g_sigstatus.process = 1;
 		signal(SIGQUIT, sigquit_handler);
+		g_sigstatus.process = 1;
 		exec_process(data);
 		data->exit[0] = 0;
 		data->exit[1] = getcode(data);
@@ -28,12 +28,29 @@ void	execution(t_data *data)
 	}
 }
 
+void	parent_process(t_data *data)
+{
+	int	status;
+
+	signal(SIGINT, sig_handler2);
+	if (data->exec[data->actual - 1].heredoc)
+		waitpid(data->pid[data->actual - 1], 0, WEXITSTATUS(status));
+	if (data->fd[1] > 2)
+		close(data->fd[1]);
+	if (data->oldfd > 2)
+		close(data->oldfd);
+	data->oldfd = data->fd[0];
+	data->actual += 1;
+}
+
 void	exec_process(t_data *data)
 {
 	if (data->actual <= data->args)
 	{
 		if (pipe(data->fd) == -1)
 			return ;
+		if (data->exec[data->actual - 1].heredoc)
+			signal(SIGQUIT, SIG_IGN);
 		data->pid[data->actual - 1] = fork();
 		if (data->pid[data->actual - 1] < 0)
 			return ;
@@ -41,15 +58,7 @@ void	exec_process(t_data *data)
 			child_process(data, data->actual);
 		if (data->pid[data->actual - 1] > 0)
 		{	
-			signal(SIGINT, sig_handler2);
-			if (data->exec[data->actual - 1].heredoc)
-				waitpid(data->pid[data->actual - 1], 0, WUNTRACED);
-			if (data->fd[1] > 2)
-				close(data->fd[1]);
-			if (data->oldfd > 2)
-				close(data->oldfd);
-			data->oldfd = data->fd[0];
-			data->actual += 1;
+			parent_process(data);
 			if (data->actual <= data->args)
 				exec_process(data);
 		}
@@ -71,15 +80,6 @@ void	child_process(t_data *data, int cmd)
 		else
 			exit(EXIT_FAILURE);
 	}
-}
-
-int	handle_fd(t_data *data, int cmd)
-{
-	if (!fd_infile(data, cmd))
-		return (0);
-	if (!fd_outfile(data, cmd))
-		return (0);
-	return (1);
 }
 
 void	execute(t_data *data, int cmdnb, int builtin, char **bash)
